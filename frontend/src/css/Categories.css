@@ -1,0 +1,22 @@
+.category-cont{
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+}
+
+.backcolor{ 
+    background-color: antiquewhite;
+    margin:10px;
+}
+
+.category-cont a{
+    text-decoration: none;
+    color: black;
+}
+
+.category-cont img{
+    height: 273px;
+    width: 298px; 
+
+}
+

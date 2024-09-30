@@ -1,0 +1,71 @@
+.product-cont{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width:80%;
+    float:right;
+    
+}
+.filter-cont{
+    width:20%;
+    float:left;
+    display: block;
+    overflow: auto;
+}
+.product-item{
+    margin: 37px;
+}
+
+.product-item img{
+    width: 200px;
+    height:300px;
+}
+.strike-product{
+    text-decoration: line-through;
+    
+}
+.discount-text{
+    color:red
+}
+.price-cont{
+    display: inline;
+}
+.font-bold{
+    font-weight: bold;
+}
+.brand-text{
+    margin-top: 10px;
+}
+
+.vertical-line{
+    width: 1px; /* Line width */
+    background-color: black; /* Line color */
+    height: 100%; /* Override in-line if you want specific height. */
+    float: left; /* Causes the line to float to left of content. 
+      You can instead use position:absolute or display:inline-block
+      if this fits better with your design */
+  }
+
+.header-cont{
+    display: flex;
+    justify-content: space-between;
+    width: 87%;
+    margin-left: 4%;
+    margin-top: 3%;
+
+}
+
+.header-cont .dropdown{
+    width: 14%;
+
+}
+
+
+.product-cont a{
+    text-decoration: none;
+    color: black;
+  }
+
+  .product-item:hover{
+    transform: scale(1.05);
+  }

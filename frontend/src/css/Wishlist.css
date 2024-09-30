@@ -1,0 +1,51 @@
+.wishlist-item{
+    border: 1px solid grey;
+    border-radius: 10px;
+    width: 19%;
+    text-align: center;
+}
+.close-btn{
+    border-radius: 50px;
+    border:1px solid gray;
+    width: 8%;
+    text-align: center;
+    position: relative;
+    left: 279px;
+    top: 10px;
+}
+.add-to-cart-cont{
+    border-top: 1px solid grey;
+    cursor: pointer;
+}
+
+.add-to-cart-cont h4{
+    color:rgb(53, 162, 235);
+    padding: 5px;
+}
+
+.wishlist-login-cont{
+    text-align: center;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    /* width: 50%; */
+    /* height: 393px; */
+    display: flex;
+    /* line-height: 309px; */
+    flex-direction: column;
+    justify-content: center;
+    height: 500px;
+    align-items: center;
+}
+.btn-login
+{
+    height: 70px;
+    width: 114px;
+}
+.label-msg{
+    color: #c6c7c8;
+
+}
+
+.wishlist-login-cont h4{
+    margin-bottom: 30px;
+}

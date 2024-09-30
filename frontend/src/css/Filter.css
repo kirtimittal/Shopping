@@ -1,0 +1,32 @@
+.filter-item  
+{width: 50%;
+margin-left: 76px;
+}
+.filter-cont h5{
+    margin-left: 75px;
+    width: 30%;
+}
+
+#dropdown-basic{
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid grey;
+    background-color: white;
+    color:black;
+    border-color: lightgray;
+}
+
+.filter-list-cont{
+    position: absolute;
+    top: 49px;
+    /* right: 80%; */
+    border: 2px solid lightgray;
+    border-radius: 30px;
+    /* text-align: center; */
+    width: 137px;
+    left: 421px;
+    padding-left: 11px;
+    padding-top: 3px;
+    padding-bottom: -14px;
+    margin-left: 10px;
+}

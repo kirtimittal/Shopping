@@ -1,0 +1,19 @@
+.form-control:focus { 
+    /* border-color: black !important;    */
+}
+.search-width{
+    width:400px !important;
+}
+.search-input{
+    position: relative;
+}
+.search-img{
+    position: absolute;
+    top: 10px;
+    left: 9px;
+    z-index: 10;
+}
+.form-control {
+    padding: .375rem 2rem !important;
+    border-radius: 9px !important;
+}
