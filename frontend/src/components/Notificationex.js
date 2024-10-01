@@ -1,64 +1,58 @@
-import React from "react";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import React, { useCallback, useState } from "react";
+import { LoginSocialGoogle } from "reactjs-social-login";
 
-function Example() {
-  const createNotification = (type) => {
-    return () => {
-      switch (type) {
-        case "info":
-          NotificationManager.info("Info message");
-          break;
-        case "success":
-          NotificationManager.success("Success message", "Title here");
-          break;
-        case "warning":
-          NotificationManager.warning(
-            "Warning message",
-            "Close after 3000ms",
-            3000
-          );
-          break;
-        case "error":
-          NotificationManager.error("Error message", "Click me!", 5000, () => {
-            alert("callback");
-          });
-          break;
-        default:
-          break;
-      }
-    };
-  };
+// CUSTOMIZE ANY UI BUTTON
+import { GoogleLoginButton } from "react-social-login-buttons";
+
+// REDIRECT URL must be same with URL where the (reactjs-social-login) components is locate
+// MAKE SURE the (reactjs-social-login) components aren't unmounted or destroyed before the ask permission dialog closes
+const REDIRECT_URI = window.location.href;
+
+const Example = () => {
+  const [provider, setProvider] = useState("");
+  const [profile, setProfile] = useState(null);
+
+  const onLoginStart = useCallback(() => {
+    alert("login start");
+  }, []);
+
+  const onLogoutSuccess = useCallback(() => {
+    setProfile(null);
+    setProvider("");
+    alert("logout success");
+  }, []);
 
   return (
-    <div>
-      <button className="btn btn-info" onClick={createNotification("info")}>
-        Info
-      </button>
-      <hr />
-      <button
-        className="btn btn-success"
-        onClick={createNotification("success")}
-      >
-        Success
-      </button>
-      <hr />
-      <button
-        className="btn btn-warning"
-        onClick={createNotification("warning")}
-      >
-        Warning
-      </button>
-      <hr />
-      <button className="btn btn-danger" onClick={createNotification("error")}>
-        Error
-      </button>
+    <>
+      {provider && profile ? (
+        <div>{console.log(provider)}</div>
+      ) : (
+        // <User
+        //   provider={provider}
+        //   profile={profile}
+        //   onLogout={onLogoutSuccess}
+        // />
+        <div className={`App ${provider && profile ? "hide" : ""}`}>
+          <h1 className="title">ReactJS Social Login</h1>
 
-      <NotificationContainer />
-    </div>
+          <LoginSocialGoogle
+            isOnlyGetToken
+            client_id="229313699502-aagqig7sm0efn74vle83nub6r7oeo3it.apps.googleusercontent.com"
+            onLoginStart={onLoginStart}
+            onResolve={({ provider, data }) => {
+              setProvider(provider);
+              setProfile(data);
+            }}
+            onReject={(err) => {
+              console.log(err);
+            }}
+          >
+            <GoogleLoginButton />
+          </LoginSocialGoogle>
+        </div>
+      )}
+    </>
   );
-}
+};
 
 export default Example;

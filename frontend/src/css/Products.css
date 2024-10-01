@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    width:80%;
+    /* width:80%; */
     float:right;
     
 }
@@ -68,4 +68,14 @@
 
   .product-item:hover{
     transform: scale(1.05);
+  }
+
+  .allproducts-cont{
+    display: flex;
+    flex-direction: column;
+   
+  }
+
+  .page-cont{
+    text-align: center;
   }

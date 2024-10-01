@@ -58,19 +58,25 @@ export const getProductsByBrands = (selectedBrand, category, parentCat) => {
   };
 };
 
-export const getProductsByCategory = (category, parentCat) => {
+export const getProductsByCategory = (
+  category,
+  parentCat,
+  currentPage,
+  limit
+) => {
   let products = [];
   return (dispatch) => {
     fetch(
-      `http://localhost:4000/getProductsByCategory/${parentCat}/${category}`
+      `http://localhost:4000/getProductsByCategory/${parentCat}/${category}?page=${currentPage}&limit=${limit}`
     )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        products = data;
+        products = data.selectedProducts;
         dispatch({
           type: "GET_PRODUCTS",
           products,
+          totalPages: data.totalPages,
         });
       })
       .catch((err) => alert(err));

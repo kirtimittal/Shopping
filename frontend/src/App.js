@@ -12,13 +12,17 @@ import Signup from "./components/Signup.js";
 import Logout from "./components/Logout.js";
 import UpdateProfile from "./components/UpdateProfile.js";
 import Wishlist from "./components/Wishlist.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "./store/actions/CategoryActions.js";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Example from "./components/Notificationex.js";
 
 function App() {
+  // const parentCategory = useSelector(
+  //   (state) => state.categories.parentCategory
+  // );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCategories());
@@ -39,7 +43,10 @@ function App() {
               </>
             }
           ></Route>
-          <Route path="/:parentCat/:category" element={<Products />} />
+          <Route
+            path="/:parentCat/:category"
+            element={<Products itemsPerPage={10} />}
+          />
           <Route path="/:parentCat/:category/:id" element={<ProductDetail />} />
           <Route
             path="/login"

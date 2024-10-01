@@ -78,3 +78,6 @@
     width: 113px;
     height: 100px;
   }
+  .user-dropdwn{
+    padding: 0 !important;
+  }

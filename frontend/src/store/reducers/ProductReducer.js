@@ -2,6 +2,7 @@ const initialState = {
   products: [],
   brands: [],
   selectedProduct: null,
+  totalPages: 0,
 };
 
 const ProductReducer = (state = initialState, action) => {
@@ -10,6 +11,7 @@ const ProductReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.products,
+        totalPages: action.totalPages,
       };
     }
     case "GET_BRANDS": {

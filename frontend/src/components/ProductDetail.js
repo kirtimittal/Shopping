@@ -34,7 +34,7 @@ function ProductDetail({
 
   useEffect(() => {
     getProductById(id);
-  }, []);
+  }, [id]);
   const checkFirstRender = useRef(true);
 
   useEffect(() => {
@@ -93,6 +93,7 @@ function ProductDetail({
               <Size
                 data={selectedProduct.sizeAvailable}
                 key={selectedProduct._id}
+                itemid={selectedProduct._id}
                 //   sizeSelected={sizeSelected}
                 onClickHandle={(size) => setsizeSelected(size)}
               />

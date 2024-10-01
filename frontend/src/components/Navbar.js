@@ -14,13 +14,15 @@ function NavigationBar() {
   const parentCategory = useSelector(
     (state) => state.categories.parentCategory
   );
-  const location = useLocation();
-  let isAuth = false;
-  let username = "";
-  if (location.state) {
-    isAuth = location.state.isAuth;
-    username = location.state.username;
-  }
+
+  const user = useSelector((state) => state.user.user);
+  // const location = useLocation();
+  // let isAuth = false;
+  // let username = "";
+  // if (location.state) {
+  //   isAuth = location.state.isAuth;
+  //   username = location.state.username;
+  // }
 
   return (
     <div>
@@ -35,22 +37,6 @@ function NavigationBar() {
             parentCategory.map((cat) => {
               return <NavBarDropDownItem parentCategory={cat} key={cat._id} />;
             })}
-          {/* <div className="dropdown">
-            <div className="dropbtn">Men</div>
-            <div className="dropdown-content">
-              <Link to="/men/shoes">Shoes</Link>
-              <Link to="/men/handbags">Handbags</Link>
-              <Link to="/men/clothing">Clothing</Link>
-            </div>
-          </div>
-          <div className="dropdown">
-            <div className="dropbtn">Women</div>
-            <div className="dropdown-content">
-              <Link to="/women/shoes">Shoes</Link>
-              <Link to="/women/handbags">Handbags</Link>
-              <Link to="/women/clothing">Clothing</Link>
-            </div>
-          </div> */}
         </div>
         <div>
           <Search />
@@ -63,11 +49,13 @@ function NavigationBar() {
                   <CgProfile />
                 </div>
                 <div className="link-cont">
-                  {isAuth ? (
+                  {user ? (
                     <div className="dropdown">
-                      <div className="dropbtn">{username}</div>
+                      <div className="dropbtn user-dropdwn">{user.name}</div>
                       <div className="dropdown-content">
                         <Link to="/updateprofile">Edit Profile</Link>
+                        <Link to="/wishlist">Wishlist</Link>
+                        <Link to="/updateprofile">Orders</Link>
                         <Link to="/logout">Logout</Link>
                       </div>
                     </div>

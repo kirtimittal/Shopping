@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Form, Button, Container, Row, Col, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "./Navbar.js";
 import { connect, useDispatch } from "react-redux";
-import { checkLogin, resetMessage } from "../store/actions/UserActions.js";
+import {
+  checkLogin,
+  resetMessage,
+  updateLoginCredentials,
+} from "../store/actions/UserActions.js";
 import Signup from "./Signup.js";
 import { ThreeDots } from "react-loader-spinner";
+import Example from "./Notificationex.js";
+import { LoginSocialGoogle } from "reactjs-social-login";
 
+// CUSTOMIZE ANY UI BUTTON
+import { GoogleLoginButton } from "react-social-login-buttons";
 import { toast } from "react-toastify";
 
 const notify = (message, type) => {
@@ -27,6 +35,10 @@ function Login({ checkLogin, user }) {
   // const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [provider, setProvider] = useState("");
+  const [profile, setProfile] = useState(null);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission, e.g., API call to authenticate
@@ -50,6 +62,36 @@ function Login({ checkLogin, user }) {
     navigate("/", { state: props });
   };
 
+  const onLoginStart = useCallback(() => {
+    alert("login start");
+  }, []);
+
+  const onLogoutSuccess = useCallback(() => {
+    setProfile(null);
+    setProvider("");
+    alert("logout success");
+  }, []);
+
+  useEffect(() => {
+    if (profile) {
+      fetch(
+        `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${profile.access_token}`,
+        {
+          headers: {
+            Authorization: `Bearer ${profile.access_token}`,
+            Accept: "application/json",
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((res) => {
+          console.log(res);
+          setProfile(res.data);
+          dispatch(updateLoginCredentials(res, profile.access_token));
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [profile]);
   // const handleSignup = (e) => {
   //   navigate("/signup");
   // };
@@ -134,6 +176,31 @@ function Login({ checkLogin, user }) {
             </Form>
           </Col>
         </Row>
+        {provider && profile ? (
+          <div>{console.log(profile)}</div>
+        ) : (
+          // <User
+          //   provider={provider}
+          //   profile={profile}
+          //   onLogout={onLogoutSuccess}
+          // />
+          <div className={`App ${provider && profile ? "hide" : ""}`}>
+            <LoginSocialGoogle
+              isOnlyGetToken
+              client_id="229313699502-aagqig7sm0efn74vle83nub6r7oeo3it.apps.googleusercontent.com"
+              onLoginStart={onLoginStart}
+              onResolve={({ provider, data }) => {
+                setProvider(provider);
+                setProfile(data);
+              }}
+              onReject={(err) => {
+                console.log(err);
+              }}
+            >
+              <GoogleLoginButton />
+            </LoginSocialGoogle>
+          </div>
+        )}
       </Container>
       {/* {user.loading && return (
         <ThreeDots

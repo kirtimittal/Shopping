@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
 
-function Size({ data, onClickHandle }) {
+function Size({ data, onClickHandle, itemid }) {
   console.log(data);
   const [selected, setSelected] = useState(null);
   //   if (sizeSelected) {
@@ -22,6 +22,7 @@ function Size({ data, onClickHandle }) {
                   setSelected(item);
                   onClickHandle(selected);
                 }}
+                key={itemid}
               >
                 {item}
               </Dropdown.Item>

@@ -79,3 +79,21 @@ export const resetMessage = () => {
     });
   };
 };
+
+export const updateLoginCredentials = (user, token) => {
+  const data = {
+    message: "Loggedin successfully",
+    token: "Bearer " + token,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: "",
+    },
+  };
+  return (dispatch) => {
+    dispatch({
+      type: "LOGIN",
+      data,
+    });
+  };
+};
