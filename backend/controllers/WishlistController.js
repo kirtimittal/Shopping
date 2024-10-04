@@ -38,7 +38,7 @@ const deleteProductFromWishlist = async (req, res) => {
   const item = await Wishlist.find({ productid, userid });
   console.log(item);
   if (item.length === 0) {
-    res.json({ message: "Item is not present in wishlist" });
+    res.status(404).json({ message: "Item is not present in wishlist" });
   } else {
     const deletedItem = await Wishlist.findByIdAndDelete({ _id: item[0]._id });
     res.json({ message: "Deleted Successfully", deletedItem });

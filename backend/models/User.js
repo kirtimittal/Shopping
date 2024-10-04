@@ -14,16 +14,16 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
   },
   mobile: {
     type: String,
-    required: true,
+  },
+  googleId: {
+    type: String, // Google ID will be stored for Google-authenticated users
   },
   address: [
     {
       type: String,
-      required: true,
     },
   ],
   isLoggedIn: {

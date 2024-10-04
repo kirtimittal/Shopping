@@ -8,6 +8,19 @@ import Size from "./Size";
 import { addToCart } from "../store/actions/CartActions";
 import { addToWishlist } from "../store/actions/WishlistActions";
 
+import { toast } from "react-toastify";
+
+const notify = (message, type) => {
+  toast(message, {
+    type: type,
+    autoClose: 3000, // Close after 3 seconds
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  });
+};
+
 function ProductDetail({
   getProductById,
   selectedProduct,
@@ -15,6 +28,7 @@ function ProductDetail({
   user,
   addToWishlist,
   wishlist,
+  token,
 }) {
   const { parentCat, category, id } = useParams();
   const cart = useSelector((state) => state.cart.cart);
@@ -43,9 +57,12 @@ function ProductDetail({
       return;
     }
     if (error) {
-      alert(error.message);
+      notify(error.message, "error");
     }
-  }, [error]);
+    if (wishlist.message) {
+      notify(wishlist.message, "info");
+    }
+  }, [error, wishlist.message]);
 
   const productAddToCart = () => {
     if (user === null) {
@@ -53,7 +70,7 @@ function ProductDetail({
     } else {
       addToCart(selectedProduct, user.id);
       console.log(cart);
-      alert("added");
+      //notify("Item added to cart", "info");
     }
   };
 
@@ -61,7 +78,8 @@ function ProductDetail({
     if (user === null) {
       alert("Login to add items to wishlist");
     } else {
-      await addToWishlist(selectedProduct._id, user.id);
+      await addToWishlist(selectedProduct._id, user.id, token);
+      //notify("Item added to wishlist", "info");
     }
   };
 
@@ -127,14 +145,15 @@ const mapStateToProps = (state) => {
     cart: state.cart,
     user: state.user.user,
     wishlist: state.wishlist,
+    token: state.user.token,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     getProductById: (id) => dispatch(getProductById(id)),
     addToCart: (product, userid) => dispatch(addToCart(product, userid)),
-    addToWishlist: (productid, userid) =>
-      dispatch(addToWishlist(productid, userid)),
+    addToWishlist: (productid, userid, token) =>
+      dispatch(addToWishlist(productid, userid, token)),
   };
 };
 

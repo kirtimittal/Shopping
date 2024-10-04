@@ -38,9 +38,11 @@ function UserReducer(state = initialState, action) {
       console.log(action.data);
       return {
         ...state,
-        user: {},
+        user: null,
         token: "",
+        error: null,
         loading: false,
+        message: "",
       };
     }
     case "FAILURE": {

@@ -1,16 +1,17 @@
 .wishlist-item{
     border: 1px solid grey;
     border-radius: 10px;
-    width: 19%;
+    width: 15%;
     text-align: center;
+    position: relative;
 }
 .close-btn{
     border-radius: 50px;
     border:1px solid gray;
     width: 8%;
     text-align: center;
-    position: relative;
-    left: 279px;
+    position: absolute;
+    left: 270px;
     top: 10px;
 }
 .add-to-cart-cont{
@@ -48,4 +49,12 @@
 
 .wishlist-login-cont h4{
     margin-bottom: 30px;
+}
+
+.wishlist-header{
+    padding-left: 20px;
+}
+
+.wishlist-cont{
+    width:100%;
 }

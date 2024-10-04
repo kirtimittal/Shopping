@@ -11,11 +11,15 @@ import {
 import Signup from "./Signup.js";
 import { ThreeDots } from "react-loader-spinner";
 import Example from "./Notificationex.js";
-import { LoginSocialGoogle } from "reactjs-social-login";
+// import { LoginSocialGoogle } from "reactjs-social-login";
 
-// CUSTOMIZE ANY UI BUTTON
-import { GoogleLoginButton } from "react-social-login-buttons";
+// // CUSTOMIZE ANY UI BUTTON
+// import { GoogleLoginButton } from "react-social-login-buttons";
 import { toast } from "react-toastify";
+
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import { loginWithGoogle } from "../store/actions/UserActions.js";
 
 const notify = (message, type) => {
   toast(message, {
@@ -36,8 +40,8 @@ function Login({ checkLogin, user }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [provider, setProvider] = useState("");
-  const [profile, setProfile] = useState(null);
+  // const [provider, setProvider] = useState("");
+  // const [profile, setProfile] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -62,36 +66,48 @@ function Login({ checkLogin, user }) {
     navigate("/", { state: props });
   };
 
-  const onLoginStart = useCallback(() => {
-    alert("login start");
-  }, []);
+  // const onLoginStart = useCallback(() => {
+  //   alert("login start");
+  // }, []);
 
-  const onLogoutSuccess = useCallback(() => {
-    setProfile(null);
-    setProvider("");
-    alert("logout success");
-  }, []);
+  // const onLogoutSuccess = useCallback(() => {
+  //   setProfile(null);
+  //   setProvider("");
+  //   alert("logout success");
+  // }, []);
+  const handleSuccess = (response) => {
+    console.log(response);
+    const token = response.credential;
+    dispatch(loginWithGoogle(token));
+    //const user = jwtDecode(token);
+    //console.log("User Info: ", user); // User information from Google
+  };
 
-  useEffect(() => {
-    if (profile) {
-      fetch(
-        `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${profile.access_token}`,
-        {
-          headers: {
-            Authorization: `Bearer ${profile.access_token}`,
-            Accept: "application/json",
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((res) => {
-          console.log(res);
-          setProfile(res.data);
-          dispatch(updateLoginCredentials(res, profile.access_token));
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [profile]);
+  const handleError = () => {
+    notify("Login Failed", "error");
+  };
+
+  // useEffect(() => {
+  //   //https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=
+  //   if (profile) {
+  //     fetch(
+  //       `https://oauth2.googleapis.com/tokeninfo?id_token=${profile.access_token}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${profile.access_token}`,
+  //           Accept: "application/json",
+  //         },
+  //       }
+  //     )
+  //       .then((response) => response.json())
+  //       .then((res) => {
+  //         console.log(res);
+  //         setProfile(res.data);
+  //         dispatch(updateLoginCredentials(res, profile.access_token));
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }, [profile]);
   // const handleSignup = (e) => {
   //   navigate("/signup");
   // };
@@ -176,7 +192,14 @@ function Login({ checkLogin, user }) {
             </Form>
           </Col>
         </Row>
-        {provider && profile ? (
+
+        <GoogleOAuthProvider clientId="229313699502-aagqig7sm0efn74vle83nub6r7oeo3it.apps.googleusercontent.com">
+          {/* <div className="App">
+            <h2>Login with Google</h2> */}
+          <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+          {/* </div> */}
+        </GoogleOAuthProvider>
+        {/* {provider && profile ? (
           <div>{console.log(profile)}</div>
         ) : (
           // <User
@@ -200,7 +223,7 @@ function Login({ checkLogin, user }) {
               <GoogleLoginButton />
             </LoginSocialGoogle>
           </div>
-        )}
+        )} */}
       </Container>
       {/* {user.loading && return (
         <ThreeDots

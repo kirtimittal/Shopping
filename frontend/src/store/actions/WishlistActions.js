@@ -1,4 +1,4 @@
-export const addToWishlist = (productid, userid) => {
+export const addToWishlist = (productid, userid, token) => {
   console.log(productid + " " + userid);
   const wishlist = {
     productid,
@@ -9,6 +9,7 @@ export const addToWishlist = (productid, userid) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `${token}`,
       },
       body: JSON.stringify(wishlist),
     })
@@ -19,7 +20,7 @@ export const addToWishlist = (productid, userid) => {
       })
       .then(({ data, status }) => {
         console.log(status);
-        if (status === 409) {
+        if (status !== 200) {
           dispatch({
             type: "ERROR",
             data,
@@ -28,6 +29,7 @@ export const addToWishlist = (productid, userid) => {
           dispatch({
             type: "ADD_TO_WISHLIST",
             data,
+            message: "Item added to wishlist",
           });
         }
       })
@@ -35,9 +37,13 @@ export const addToWishlist = (productid, userid) => {
   };
 };
 
-export const getWishlist = (userid) => {
+export const getWishlist = (userid, token) => {
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/wishlist/${userid}`)
+    fetch(`http://localhost:4000/api/wishlist/${userid}`, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((productid) => {
         console.log(productid);
@@ -57,7 +63,7 @@ export const getWishlist = (userid) => {
   };
 };
 
-export const removeFromWishlist = (productid, userid) => {
+export const removeFromWishlist = (productid, userid, token) => {
   const obj = {
     productid,
     userid,
@@ -67,17 +73,29 @@ export const removeFromWishlist = (productid, userid) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `${token}`,
       },
       body: JSON.stringify(obj),
     })
-      .then((response) => response.json())
-      .then((data) => {
+      .then((response) => {
+        return response
+          .json()
+          .then((data) => ({ data, status: response.status }));
+      })
+      .then(({ data, status }) => {
         console.log(data);
-        dispatch({
-          type: "REMOVE_FROM_WISHLIST",
-          productid,
-          userid,
-        });
+        if (status !== 200) {
+          dispatch({
+            type: "ERROR",
+            data,
+          });
+        } else {
+          dispatch({
+            type: "REMOVE_FROM_WISHLIST",
+            productid,
+            userid,
+          });
+        }
       })
       .catch((err) => alert(err));
   };

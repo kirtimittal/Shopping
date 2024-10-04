@@ -4,16 +4,29 @@ import { IoMdClose } from "react-icons/io";
 import { addToCart } from "../store/actions/CartActions";
 import { connect } from "react-redux";
 import { removeFromWishlist } from "../store/actions/WishlistActions";
+import { toast } from "react-toastify";
 
-function Product({ data, addToCart, user, removeFromWishlist }) {
+const notify = (message, type) => {
+  toast(message, {
+    type: type,
+    autoClose: 3000, // Close after 3 seconds
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  });
+};
+
+function Product({ data, addToCart, user, removeFromWishlist, token }) {
   // const discountprice =
   //   data.actualprice - data.actualprice * (data.discount / 100);
   const addProductToCart = () => {
     addToCart(data, user.id);
-    removeFromWishlist(data._id, user.id);
+    removeFromWishlist(data._id, user.id, token);
+    notify("Item added to Cart", "info");
   };
   const removeProductFromWishlist = () => {
-    removeFromWishlist(data._id, user.id);
+    removeFromWishlist(data._id, user.id, token);
   };
   return (
     <div className="product-item wishlist-item">
@@ -46,14 +59,15 @@ function Product({ data, addToCart, user, removeFromWishlist }) {
 const mapStateToProps = (state) => {
   return {
     user: state.user.user,
+    token: state.user.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (product, userid) => dispatch(addToCart(product, userid)),
-    removeFromWishlist: (productid, userid) =>
-      dispatch(removeFromWishlist(productid, userid)),
+    removeFromWishlist: (productid, userid, token) =>
+      dispatch(removeFromWishlist(productid, userid, token)),
   };
 };
 

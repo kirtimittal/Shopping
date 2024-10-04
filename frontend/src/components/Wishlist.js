@@ -5,7 +5,7 @@ import WishlistItem from "./WishlistItem";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-function Wishlist({ user, getWishlist, wishlist }) {
+function Wishlist({ user, getWishlist, wishlist, token }) {
   const navigate = useNavigate();
   // if user is null then show msg please login
   // if logged in show wishlist by user Id
@@ -13,9 +13,9 @@ function Wishlist({ user, getWishlist, wishlist }) {
   // remove item from wishist
   useEffect(() => {
     if (user) {
-      getWishlist(user.id);
+      getWishlist(user.id, token);
     }
-  }, []);
+  }, [user]);
 
   const loginClickHandle = () => {
     navigate("/login");
@@ -26,14 +26,17 @@ function Wishlist({ user, getWishlist, wishlist }) {
         <div>
           {wishlist && (
             <>
-              <h3>My Wishlist</h3>
-              <div className="product-cont">
+              <h3 className="wishlist-header">My Wishlist</h3>
+              <div className="product-cont wishlist-cont">
                 {wishlist.map((item) => {
                   console.log(item);
                   return <WishlistItem key={item._id} data={item} />;
                 })}
               </div>
             </>
+          )}
+          {wishlist.length === 0 && (
+            <div>Nothing is added in your wishlist</div>
           )}
         </div>
       ) : (
@@ -54,12 +57,13 @@ const mapStateToProps = (state) => {
   return {
     user: state.user.user,
     wishlist: state.wishlist.items,
+    token: state.user.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getWishlist: (userid) => dispatch(getWishlist(userid)),
+    getWishlist: (userid, token) => dispatch(getWishlist(userid, token)),
   };
 };
 
