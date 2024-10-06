@@ -42,12 +42,14 @@ const getBrands = async (req, res) => {
 const getProductsByBrand = async (req, res) => {
   console.log(req.params);
   let { brands, parentCat, category } = req.params;
-  brands = brands.toLowerCase().split(",");
-  console.log(brands);
+  const brnd = brands.toLowerCase().split(",");
+  console.log(brnd);
   let selectedProducts = [];
 
   selectedProducts = await Product.find({
-    brand: { $in: brands },
+    $or: brnd.map((word) => ({
+      brand: { $regex: word, $options: "i" },
+    })),
     subCategory: category,
     category: parentCat,
   });
