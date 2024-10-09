@@ -7,19 +7,31 @@ import "../css/ProductDetail.css";
 import Size from "./Size";
 import { addToCart } from "../store/actions/CartActions";
 import { addToWishlist } from "../store/actions/WishlistActions";
+import styled from "styled-components";
+import notify from "./Notify";
 
-import { toast } from "react-toastify";
+const Container = styled.div`
+  position: relative;
+  overflow: hidden;
+  display: block;
+  padding: 50px;
+  border: 1px solid #00adb7;
+  border-radius: 15px;
+  :hover {
+    box-shadow: 0 14px 24px rgba(0, 0, 0, 0.55), 0 14px 18px rgba(0, 0, 0, 0.55);
+  }
+`;
 
-const notify = (message, type) => {
-  toast(message, {
-    type: type,
-    autoClose: 3000, // Close after 3 seconds
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-  });
-};
+const Image = styled.img.attrs((props) => ({
+  src: props.source,
+}))``;
+
+const Target = styled(Image)`
+  position: absolute;
+  left: ${(props) => props.offset.left}px;
+  top: ${(props) => props.offset.top}px;
+  opacity: ${(props) => props.opacity};
+`;
 
 function ProductDetail({
   getProductById,
@@ -32,7 +44,47 @@ function ProductDetail({
 }) {
   const { parentCat, category, id } = useParams();
   const cart = useSelector((state) => state.cart.cart);
+  const cartMessage = useSelector((state) => state.cart.message);
   const [sizeSelected, setsizeSelected] = useState("");
+
+  const sourceRef = useRef(null);
+  const targetRef = useRef(null);
+  const containerRef = useRef(null);
+
+  const [opacity, setOpacity] = useState(0);
+  const [offset, setOffset] = useState({ left: 0, top: 0 });
+
+  const handleMouseEnter = () => {
+    setOpacity(1);
+  };
+
+  const handleMouseLeave = () => {
+    setOpacity(0);
+  };
+
+  const handleMouseMove = (e) => {
+    const targetRect = targetRef.current.getBoundingClientRect();
+    const sourceRect = sourceRef.current.getBoundingClientRect();
+    const containerRect = containerRef.current.getBoundingClientRect();
+
+    const xRatio = (targetRect.width - containerRect.width) / sourceRect.width;
+    const yRatio =
+      (targetRect.height - containerRect.height) / sourceRect.height;
+
+    const left = Math.max(
+      Math.min(e.pageX - sourceRect.left, sourceRect.width),
+      0
+    );
+    const top = Math.max(
+      Math.min(e.pageY - sourceRect.top, sourceRect.height),
+      0
+    );
+
+    setOffset({
+      left: left * -xRatio,
+      top: top * -yRatio,
+    });
+  };
 
   const error = wishlist.error;
   // const sizes = [
@@ -62,13 +114,16 @@ function ProductDetail({
     if (wishlist.message) {
       notify(wishlist.message, "info");
     }
-  }, [error, wishlist.message]);
+    if (cartMessage) {
+      notify(cartMessage, "info");
+    }
+  }, [error, wishlist.message, cartMessage]);
 
   const productAddToCart = () => {
     if (user === null) {
       alert("Login to add items to cart");
     } else {
-      addToCart(selectedProduct, user.id);
+      addToCart(selectedProduct, user.id, token);
       console.log(cart);
       //notify("Item added to cart", "info");
     }
@@ -87,7 +142,30 @@ function ProductDetail({
     <>
       {selectedProduct && (
         <div className="prod-cont">
-          <img src={selectedProduct.img_url} alt={selectedProduct.name} />
+          <div>
+            <Container
+              ref={containerRef}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onMouseMove={handleMouseMove}
+            >
+              <Image
+                ref={sourceRef}
+                alt="source"
+                source={selectedProduct.img_url}
+              />
+              <Target
+                ref={targetRef}
+                alt="target"
+                opacity={opacity}
+                offset={offset}
+                source={selectedProduct.img_url}
+              />
+            </Container>
+
+            {/* <img src={selectedProduct.img_url} alt={selectedProduct.name} /> */}
+          </div>
+
           <div className="prod-detail-cont">
             <h2 className="font-bold brand-text">{selectedProduct.brand}</h2>
             <h3>{selectedProduct.description}</h3>
@@ -151,7 +229,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getProductById: (id) => dispatch(getProductById(id)),
-    addToCart: (product, userid) => dispatch(addToCart(product, userid)),
+    addToCart: (product, userid, token) =>
+      dispatch(addToCart(product, userid, token)),
     addToWishlist: (productid, userid, token) =>
       dispatch(addToWishlist(productid, userid, token)),
   };

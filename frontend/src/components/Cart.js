@@ -8,9 +8,10 @@ import CartPrice from "./CartPrice";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-function Cart({ user }) {
+function Cart({ user, token }) {
   const [cart] = useSelector((state) => state.cart.cart);
   const cartProducts = useSelector((state) => state.cart.items);
+  const totalItems = useSelector((state) => state.cart.totalItems);
   //const userid = useSelector((state) => state.user.user.id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,9 +20,9 @@ function Cart({ user }) {
   // );
   useEffect(() => {
     if (user) {
-      dispatch(getCartItems(user.id));
+      dispatch(getCartItems(user.id, token));
     }
-  }, []);
+  }, [user]);
   const loginClickHandle = () => {
     navigate("/login");
   };
@@ -30,18 +31,26 @@ function Cart({ user }) {
     <div>
       {user ? (
         <>
-          <div className="cart-cont">
-            {cartProducts &&
-              cartProducts.map((product) => {
-                return (
-                  <CartItem data={product} key={product._id} />
-                  // <div>
-                  //   <img src={product.img_url} alt={product.name}></img>
-                  // </div>
-                );
-              })}
+          <div className="cart-div">
+            <div className="cart-cont">
+              <h5>Shopping Cart: {totalItems} items</h5>
+              {cartProducts &&
+                cartProducts.map((product) => {
+                  return (
+                    <CartItem data={product} key={product._id} />
+                    // <div>
+                    //   <img src={product.img_url} alt={product.name}></img>
+                    // </div>
+                  );
+                })}
+            </div>
+            <div className="order-summ-cont">
+              <h5>Order Summary:</h5>
+              <div className="price-container">
+                {cartProducts && <CartPrice />}
+              </div>
+            </div>
           </div>
-          <div className="price-container">{cartProducts && <CartPrice />}</div>
         </>
       ) : (
         <div className="wishlist-login-cont">
@@ -60,6 +69,7 @@ function Cart({ user }) {
 const mapStateToProps = (state) => {
   return {
     user: state.user.user,
+    token: state.user.token,
   };
 };
 

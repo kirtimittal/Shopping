@@ -4,24 +4,13 @@ import { IoMdClose } from "react-icons/io";
 import { addToCart } from "../store/actions/CartActions";
 import { connect } from "react-redux";
 import { removeFromWishlist } from "../store/actions/WishlistActions";
-import { toast } from "react-toastify";
-
-const notify = (message, type) => {
-  toast(message, {
-    type: type,
-    autoClose: 3000, // Close after 3 seconds
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-  });
-};
+import notify from "./Notify";
 
 function Product({ data, addToCart, user, removeFromWishlist, token }) {
   // const discountprice =
   //   data.actualprice - data.actualprice * (data.discount / 100);
   const addProductToCart = () => {
-    addToCart(data, user.id);
+    addToCart(data, user.id, token);
     removeFromWishlist(data._id, user.id, token);
     notify("Item added to Cart", "info");
   };
@@ -65,7 +54,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: (product, userid) => dispatch(addToCart(product, userid)),
+    addToCart: (product, userid, token) =>
+      dispatch(addToCart(product, userid, token)),
     removeFromWishlist: (productid, userid, token) =>
       dispatch(removeFromWishlist(productid, userid, token)),
   };

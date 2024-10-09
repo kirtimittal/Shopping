@@ -127,3 +127,28 @@ export const loginWithGoogle = (token) => {
     });
   };
 };
+
+export const updateUser = (user, id) => {
+  user = { ...user, id };
+  return async (dispatch) => {
+    try {
+      const res = await fetch("http://localhost:4000/api/user/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
+      });
+
+      const data = await res.json();
+      console.log(data);
+      dispatch({
+        type: "UPDATE",
+        data,
+      });
+    } catch (err) {
+      dispatch({
+        type: "FAILURE",
+        error: err.message,
+      });
+    }
+  };
+};

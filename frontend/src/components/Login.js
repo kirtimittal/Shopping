@@ -12,25 +12,14 @@ import Signup from "./Signup.js";
 import { ThreeDots } from "react-loader-spinner";
 import Example from "./Notificationex.js";
 // import { LoginSocialGoogle } from "reactjs-social-login";
-
+import notify from "./Notify.js";
 // // CUSTOMIZE ANY UI BUTTON
 // import { GoogleLoginButton } from "react-social-login-buttons";
-import { toast } from "react-toastify";
 
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { loginWithGoogle } from "../store/actions/UserActions.js";
-
-const notify = (message, type) => {
-  toast(message, {
-    type: type,
-    autoClose: 3000, // Close after 3 seconds
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-  });
-};
+import "../css/App.css";
 
 function Login({ checkLogin, user }) {
   const [username, setUsername] = useState("");
@@ -192,7 +181,11 @@ function Login({ checkLogin, user }) {
             </Form>
           </Col>
         </Row>
-
+        <div className="divider">
+          <div>
+            <b>OR</b>
+          </div>
+        </div>
         <GoogleOAuthProvider clientId="229313699502-aagqig7sm0efn74vle83nub6r7oeo3it.apps.googleusercontent.com">
           {/* <div className="App">
             <h2>Login with Google</h2> */}

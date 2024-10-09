@@ -1,4 +1,4 @@
-export const addToCart = (product, userid) => {
+export const addToCart = (product, userid, token) => {
   console.log(userid);
   const obj = {
     productid: product._id,
@@ -10,6 +10,7 @@ export const addToCart = (product, userid) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `${token}`,
       },
       body: JSON.stringify(obj),
     })
@@ -19,15 +20,20 @@ export const addToCart = (product, userid) => {
         dispatch({
           type: "ADD_TO_CART",
           cart: data.cart,
+          message: "Added to Cart",
         });
       })
       .catch((err) => alert(err));
   };
 };
 
-export const getCartItems = (userid) => {
+export const getCartItems = (userid, token) => {
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/cart/getItems/${userid}`)
+    fetch(`http://localhost:4000/api/cart/getItems/${userid}`, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -56,12 +62,13 @@ export const getCartItems = (userid) => {
   };
 };
 
-export const removeFromCart = (productid, userid) => {
+export const removeFromCart = (productid, userid, token) => {
   return (dispatch) => {
     fetch(`http://localhost:4000/api/cart/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `${token}`,
       },
       body: JSON.stringify({ productid, userid }),
     })

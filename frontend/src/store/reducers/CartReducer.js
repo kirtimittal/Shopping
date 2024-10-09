@@ -3,6 +3,8 @@ const initialState = {
   items: [],
   totalPrice: 0,
   totalItems: 0,
+  message: "",
+  error: null,
 };
 
 const CartReducer = (state = initialState, action) => {
@@ -13,6 +15,8 @@ const CartReducer = (state = initialState, action) => {
         cart: [action.cart.items],
         totalPrice: action.cart.totalPrice,
         totalItems: action.cart.totalItems,
+        message: action.message,
+        error: null,
       };
     }
     case "REMOVE_FROM_CART": {
@@ -21,6 +25,8 @@ const CartReducer = (state = initialState, action) => {
         cart: [action.cart.items],
         totalPrice: action.cart.totalPrice,
         totalItems: action.cart.totalItems,
+        message: "",
+        error: null,
       };
     }
     case "ADD_ITEMS": {
@@ -41,6 +47,7 @@ const CartReducer = (state = initialState, action) => {
       return {
         ...state,
         items: newItems,
+        message: "",
         error: null,
       };
     }
@@ -57,6 +64,8 @@ const CartReducer = (state = initialState, action) => {
       return {
         ...state,
         items: filteredProducts,
+        message: "",
+        error: null,
       };
     }
     default: {

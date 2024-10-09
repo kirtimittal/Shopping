@@ -9,12 +9,15 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  //console.log(email, password);
   let user = await Users.findOne({ email });
-
+  //console.log(user);
   if (!user || !user.password) {
     res.json({ message: "Invalid credentials" });
   } else {
     bcrypt.compare(password, user.password).then((isMatch) => {
+      console.log(isMatch);
+      console.log(password + " " + user.password);
       if (!isMatch) {
         res.json({ message: "Username or password is incorrect" });
       } else {
@@ -139,4 +142,30 @@ const googleLogin = async (req, res) => {
   }
 };
 
-module.exports = { signup, login, googleLogin, logout };
+const updateProfile = async (req, res) => {
+  const { id, name, password, email, mobile, address } = req.body;
+  let user = await Users.findById({ _id: id });
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.mobile = req.body.mobile || user.mobile;
+    user.address = req.body.address || user.address;
+    if (req.body.password) {
+      //user.password = req.body.password;
+      let hashpwd = await bcrypt.hash(req.body.password, 10);
+      console.log(hashpwd);
+      user.password = hashpwd;
+    }
+    user.save().then((u) => {
+      res.json({
+        message: "User updated successfully",
+        user: u,
+        success: true,
+      });
+    });
+  } else {
+    res.json({ message: "Invalid credentials" });
+  }
+};
+
+module.exports = { signup, login, googleLogin, logout, updateProfile };

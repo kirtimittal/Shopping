@@ -63,17 +63,14 @@ function UserReducer(state = initialState, action) {
         error: null,
       };
     }
-    // case "UPDATE": {
-
-    //   return {
-    //     ...state,
-    //     user: action.data.user,
-    //     token: action.token,
-    //     message: action.data.message,
-    //     loading: false,
-    //     error: null,
-    //   };
-    // }
+    case "UPDATE": {
+      return {
+        ...state,
+        message: action.data.message,
+        loading: false,
+        error: null,
+      };
+    }
     default: {
       return state;
     }
