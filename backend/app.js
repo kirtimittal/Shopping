@@ -8,7 +8,7 @@ const cors = require("cors");
 const connectDB = require("./db/connect.js");
 const category = require("./routes/category/index.js");
 const orders = require("./routes/order/index.js");
-
+const PORT = process.env.PORT || 4000;
 const corsOptions = {
   origin: "*",
 };
