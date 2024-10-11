@@ -1,3 +1,5 @@
+let BASE_URL = "https://shopping-1-r5s0.onrender.com";
+
 export const addToWishlist = (productid, userid, token) => {
   console.log(productid + " " + userid);
   const wishlist = {
@@ -5,7 +7,7 @@ export const addToWishlist = (productid, userid, token) => {
     userid,
   };
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/wishlist`, {
+    fetch(`${BASE_URL}/api/wishlist`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +41,7 @@ export const addToWishlist = (productid, userid, token) => {
 
 export const getWishlist = (userid, token) => {
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/wishlist/${userid}`, {
+    fetch(`${BASE_URL}/api/wishlist/${userid}`, {
       headers: {
         Authorization: `${token}`,
       },
@@ -48,7 +50,7 @@ export const getWishlist = (userid, token) => {
       .then((productid) => {
         console.log(productid);
         productid.forEach((id) => {
-          fetch(`http://localhost:4000/product/${id}`)
+          fetch(`${BASE_URL}/product/${id}`)
             .then((response) => response.json())
             .then((data) => {
               console.log(data);
@@ -69,7 +71,7 @@ export const removeFromWishlist = (productid, userid, token) => {
     userid,
   };
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/wishlist/`, {
+    fetch(`${BASE_URL}/api/wishlist/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

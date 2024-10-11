@@ -1,3 +1,5 @@
+let BASE_URL = "https://shopping-1-r5s0.onrender.com";
+
 export const checkLogin = (email, password) => {
   const user = {
     email,
@@ -7,7 +9,7 @@ export const checkLogin = (email, password) => {
     dispatch({
       type: "LOADING",
     });
-    fetch(`http://localhost:4000/api/user/login`, {
+    fetch(`${BASE_URL}/api/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +46,7 @@ export const checkLogin = (email, password) => {
 
 export const signup = (formdata) => {
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/user/signup`, {
+    fetch(`${BASE_URL}/api/user/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +69,7 @@ export const signup = (formdata) => {
 export const logout = (userid) => {
   console.log(userid);
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/user/logout`, {
+    fetch(`${BASE_URL}/api/user/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +116,7 @@ export const updateLoginCredentials = (user, token) => {
 
 export const loginWithGoogle = (token) => {
   return async (dispatch) => {
-    const res = await fetch("http://localhost:4000/api/user/google-login", {
+    const res = await fetch(`${BASE_URL}/api/user/google-login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token }),
@@ -132,7 +134,7 @@ export const updateUser = (user, id) => {
   user = { ...user, id };
   return async (dispatch) => {
     try {
-      const res = await fetch("http://localhost:4000/api/user/update", {
+      const res = await fetch(`${BASE_URL}/api/user/update`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),

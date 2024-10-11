@@ -1,7 +1,9 @@
+let BASE_URL = "https://shopping-1-r5s0.onrender.com";
+
 export const initProducts = (category, parentCat) => {
   let products = [];
   return (dispatch) => {
-    fetch(`http://localhost:4000/products/${parentCat}/${category}`)
+    fetch(`${BASE_URL}/products/${parentCat}/${category}`)
       //   .then((res) => {
       //     console.log(res);
       //     products = res;
@@ -25,7 +27,7 @@ export const initProducts = (category, parentCat) => {
 export const initBrands = (category, parentCat) => {
   let brands = [];
   return (dispatch) => {
-    fetch(`http://localhost:4000/brands/${parentCat}/${category}`)
+    fetch(`${BASE_URL}/brands/${parentCat}/${category}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -43,7 +45,7 @@ export const getProductsByBrands = (selectedBrand, category, parentCat) => {
   let products = [];
   return (dispatch) => {
     fetch(
-      `http://localhost:4000/getProductsByBrand/${parentCat}/${category}/${selectedBrand}`
+      `${BASE_URL}/getProductsByBrand/${parentCat}/${category}/${selectedBrand}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -67,7 +69,7 @@ export const getProductsByCategory = (
   let products = [];
   return (dispatch) => {
     fetch(
-      `http://localhost:4000/getProductsByCategory/${parentCat}/${category}?page=${currentPage}&limit=${limit}`
+      `${BASE_URL}/getProductsByCategory/${parentCat}/${category}?page=${currentPage}&limit=${limit}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -96,7 +98,7 @@ export const sortByPrice = (method) => {
 export const searchProduct = (word) => {
   let products = [];
   return (dispatch) => {
-    fetch(`http://localhost:4000/search/${word}`)
+    fetch(`${BASE_URL}/search/${word}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -113,7 +115,7 @@ export const searchProduct = (word) => {
 export const getProductById = (id) => {
   let selectedProduct = {};
   return (dispatch) => {
-    fetch(`http://localhost:4000/product/${id}`)
+    fetch(`${BASE_URL}/product/${id}`)
       .then((response) => response.json())
       .then((data) => {
         selectedProduct = data;

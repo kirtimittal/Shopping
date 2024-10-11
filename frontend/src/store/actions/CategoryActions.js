@@ -1,12 +1,14 @@
+let BASE_URL = "https://shopping-1-r5s0.onrender.com";
+
 export const getCategories = () => {
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/category/`)
+    fetch(`${BASE_URL}/api/category/`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
 
         data.categories.forEach((category) => {
-          fetch(`http://localhost:4000/api/category/${category._id}`)
+          fetch(`${BASE_URL}/api/category/${category._id}`)
             .then((response) => response.json())
             .then((data) => {
               console.log(data);
