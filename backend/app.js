@@ -8,7 +8,8 @@ const cors = require("cors");
 const connectDB = require("./db/connect.js");
 const category = require("./routes/category/index.js");
 const orders = require("./routes/order/index.js");
-const PORT = process.env.PORT || 4000;
+//const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 const corsOptions = {
   origin: "*",
 };
@@ -22,7 +23,5 @@ app.use("/api/category", category);
 app.use("/api/orders", orders);
 
 connectDB().then(
-  app.listen(process.env.PORT, () =>
-    console.log(`Connected to server on Port ${process.env.PORT}`)
-  )
+  app.listen(PORT, () => console.log(`Connected to server on Port ${PORT}`))
 );

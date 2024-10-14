@@ -18,6 +18,8 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Example from "./components/Notificationex.js";
+import Order from "./components/Order.js";
+import OrderDetails from "./components/OrderDetails.js";
 
 function App() {
   // const parentCategory = useSelector(
@@ -61,6 +63,8 @@ function App() {
           <Route path="/updateprofile" element={<UpdateProfile />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/orders" element={<Order />} />
+          <Route path="/orderdetails" element={<OrderDetails />} />
         </Routes>
       </div>
       <ToastContainer />

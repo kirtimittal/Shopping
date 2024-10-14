@@ -55,7 +55,7 @@ function NavigationBar() {
                       <div className="dropdown-content">
                         <Link to="/updateprofile">Edit Profile</Link>
                         <Link to="/wishlist">Wishlist</Link>
-                        <Link to="/updateprofile">Orders</Link>
+                        <Link to="/orders">Orders</Link>
                         <Link to="/logout">Logout</Link>
                       </div>
                     </div>

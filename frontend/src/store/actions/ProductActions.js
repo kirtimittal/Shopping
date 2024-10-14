@@ -1,5 +1,4 @@
-let BASE_URL = "https://shopping-1-r5s0.onrender.com";
-
+let BASE_URL = "http://localhost:4000";
 export const initProducts = (category, parentCat) => {
   let products = [];
   return (dispatch) => {

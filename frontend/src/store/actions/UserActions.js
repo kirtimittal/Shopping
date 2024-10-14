@@ -1,4 +1,4 @@
-let BASE_URL = "https://shopping-1-r5s0.onrender.com";
+let BASE_URL = "http://localhost:4000";
 
 export const checkLogin = (email, password) => {
   const user = {

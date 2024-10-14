@@ -1,3 +1,6 @@
+//let BASE_URL="https://shopping-1-r5s0.onrender.com";
+let BASE_URL = "http://localhost:4000";
+
 export const addToCart = (product, userid, token) => {
   console.log(userid);
   const obj = {
@@ -6,7 +9,7 @@ export const addToCart = (product, userid, token) => {
     qty: 1,
   };
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/cart/add`, {
+    fetch(`${BASE_URL}/api/cart/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +32,7 @@ export const addToCart = (product, userid, token) => {
 
 export const getCartItems = (userid, token) => {
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/cart/getItems/${userid}`, {
+    fetch(`${BASE_URL}/api/cart/getItems/${userid}`, {
       headers: {
         Authorization: `${token}`,
       },
@@ -40,7 +43,7 @@ export const getCartItems = (userid, token) => {
 
         //data.cart.forEach((item) => {
         data.cart[0].items.forEach((product) => {
-          fetch(`http://localhost:4000/product/${product.productid}`)
+          fetch(`${BASE_URL}/product/${product.productid}`)
             .then((response) => response.json())
             .then((data) => {
               console.log(data);
@@ -64,7 +67,7 @@ export const getCartItems = (userid, token) => {
 
 export const removeFromCart = (productid, userid, token) => {
   return (dispatch) => {
-    fetch(`http://localhost:4000/api/cart/delete`, {
+    fetch(`${BASE_URL}/api/cart/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -101,6 +104,30 @@ export const removeFromCart = (productid, userid, token) => {
         }
         dispatch({
           type: "REMOVE_FROM_CART",
+          cart: data.cart,
+        });
+      })
+      .catch((err) => alert(err));
+  };
+};
+export const emptyCart = (userid, token) => {
+  const obj = {
+    userid,
+  };
+  return (dispatch) => {
+    fetch(`${BASE_URL}/api/cart/empty`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        dispatch({
+          type: "RESET_CART",
           cart: data.cart,
         });
       })

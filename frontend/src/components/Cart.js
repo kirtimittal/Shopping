@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 function Cart({ user, token }) {
-  const [cart] = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state) => state.cart.cart);
   const cartProducts = useSelector((state) => state.cart.items);
   const totalItems = useSelector((state) => state.cart.totalItems);
   //const userid = useSelector((state) => state.user.user.id);

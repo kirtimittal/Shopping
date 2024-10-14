@@ -17,6 +17,16 @@ const OrderSchema = new Schema({
   tracking_no: {
     type: String,
   },
+  totalPrice: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  totalItems: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
   items: [
     {
       productid: {

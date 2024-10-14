@@ -84,4 +84,26 @@ const getCartItems = async (req, res) => {
   res.json({ status: 1, message: "Success", cart: items });
 };
 
-module.exports = { addProductToCart, removeProductFromCart, getCartItems };
+const emptyCart = async (req, res) => {
+  console.log(req.body);
+  const { userid } = req.body;
+  const cart = await Cart.find({ userid });
+  if (cart) {
+    const updatedCart = await Cart.findOneAndUpdate(
+      { userid },
+      { items: [], totalItems: 0, totalPrice: 0 },
+      { new: true }
+    );
+
+    res.json({ message: "Cart Empty Successfully", cart: updatedCart });
+  } else {
+    res.status(404).json({ message: "Cart Not Found" });
+  }
+};
+
+module.exports = {
+  addProductToCart,
+  removeProductFromCart,
+  getCartItems,
+  emptyCart,
+};

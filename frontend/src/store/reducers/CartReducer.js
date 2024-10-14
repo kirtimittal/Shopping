@@ -68,6 +68,16 @@ const CartReducer = (state = initialState, action) => {
         error: null,
       };
     }
+    case "RESET_CART": {
+      return {
+        items: [],
+        cart: [action.cart.items],
+        totalPrice: action.cart.totalPrice,
+        totalItems: action.cart.totalItems,
+        message: "",
+        error: null,
+      };
+    }
     default: {
       return state;
     }
