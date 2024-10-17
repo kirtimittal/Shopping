@@ -9,38 +9,38 @@ import { useNavigate } from "react-router-dom";
 function CartPrice() {
   const cart = useSelector((state) => state.cart.cart[0]);
   const order = useSelector((state) => state.order);
-  const totalItems = useSelector((state) => state.cart.totalItems);
+  //const totalItems = useSelector((state) => state.cart.totalItems);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
-  const items = useSelector((state) => state.cart.items);
+  //const items = useSelector((state) => state.cart.items);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   console.log(cart);
-  const placeOrder = () => {
-    const proditems = items.map((item) => {
-      return {
-        productid: item._id,
-        name: item.name,
-        qty: 1,
-        price: item.discountedPrice.$numberDecimal,
-      };
-    });
-    const address = {
-      street: "delhi",
-      city: "delhi",
-      postalCode: "111111",
-      country: "india",
-    };
-    dispatch(
-      addOrder(
-        user.user.id,
-        user.token,
-        totalItems,
-        totalPrice,
-        proditems,
-        address
-      )
-    );
+  // const placeOrder = () => {
+  //   const proditems = cart.map((item) => {
+  //     return {
+  //       productid: item.productid._id,
+  //       name: item.productid.name,
+  //       qty: 1,
+  //       price: item.productid.discountedPrice.$numberDecimal,
+  //     };
+  //   });
+  //   const address = user.user.address;
+  //   console.log(address);
+  //   dispatch(
+  //     addOrder(
+  //       user.user.id,
+  //       user.token,
+  //       totalItems,
+  //       totalPrice,
+  //       proditems,
+  //       address
+  //     )
+  //   );
+  // };
+
+  const confirmOrder = () => {
+    navigate("/order/confirm");
   };
 
   useEffect(() => {
@@ -80,9 +80,9 @@ function CartPrice() {
             type="submit"
             id="place-order-btn"
             className="order-btn"
-            onClick={placeOrder}
+            onClick={confirmOrder}
           >
-            Place Order
+            Click to Proceed
           </Button>
         </div>
       </div>

@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 
 const addOrder = async (req, res) => {
   const { userid, totalPrice, totalItems, items, shippingAddress } = req.body;
+  console.log(shippingAddress);
   newOrder = new Order({
     userid,
     status: "Processing",
@@ -13,14 +14,17 @@ const addOrder = async (req, res) => {
     shippingAddress,
   });
 
-  const order = await newOrder.save();
-  res.json({ message: "Order placed Successfully", order });
+  let order = await newOrder.save();
+  let latestorder = await Order.findOne({ _id: order._id }).populate(
+    "items.productid"
+  );
+  res.json({ message: "Order placed Successfully", order: latestorder });
 };
 
 const getOrders = async (req, res) => {
   const { userid } = req.params;
 
-  const order = await Order.find({ userid });
+  const order = await Order.find({ userid }).populate("items.productid");
   res.json({ order });
 };
 

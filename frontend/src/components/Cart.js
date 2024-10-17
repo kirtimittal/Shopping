@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 function Cart({ user, token }) {
-  const cart = useSelector((state) => state.cart.cart);
-  const cartProducts = useSelector((state) => state.cart.items);
+  const cart = useSelector((state) => state.cart.cart[0]);
+  //const cartProducts = useSelector((state) => state.cart.items);
   const totalItems = useSelector((state) => state.cart.totalItems);
   //const userid = useSelector((state) => state.user.user.id);
   const dispatch = useDispatch();
@@ -18,11 +18,15 @@ function Cart({ user, token }) {
   // var cartProducts = products.filter((product) =>
   //   cart.find((item) => item.productid === product._id)
   // );
+  console.log(cart);
+  const navigateToWishlist = () => {
+    navigate("/wishlist");
+  };
   useEffect(() => {
     if (user) {
       dispatch(getCartItems(user.id, token));
     }
-  }, [user]);
+  }, []);
   const loginClickHandle = () => {
     navigate("/login");
   };
@@ -31,26 +35,35 @@ function Cart({ user, token }) {
     <div>
       {user ? (
         <>
-          <div className="cart-div">
-            <div className="cart-cont">
-              <h5>Shopping Cart: {totalItems} items</h5>
-              {cartProducts &&
-                cartProducts.map((product) => {
+          {cart && cart.length > 0 ? (
+            <div className="cart-div">
+              <div className="cart-cont">
+                <h5>Shopping Cart: {totalItems} items</h5>
+                {cart.map((product) => {
                   return (
-                    <CartItem data={product} key={product._id} />
+                    <CartItem data={product.productid} key={product._id} />
                     // <div>
                     //   <img src={product.img_url} alt={product.name}></img>
                     // </div>
                   );
                 })}
-            </div>
-            <div className="order-summ-cont">
-              <h5>Order Summary:</h5>
-              <div className="price-container">
-                {cartProducts && <CartPrice />}
+              </div>
+              <div className="order-summ-cont">
+                <h5>Order Summary:</h5>
+                <div className="price-container">{cart && <CartPrice />}</div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="wishlist-login-cont">
+              <h4 className="label-msg">
+                There is nothing in your bag. Let's add some items
+              </h4>
+
+              <Button variant="outline-primary" onClick={navigateToWishlist}>
+                Add Items From Wishlist
+              </Button>
+            </div>
+          )}
         </>
       ) : (
         <div className="wishlist-login-cont">

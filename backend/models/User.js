@@ -23,7 +23,11 @@ const UserSchema = new Schema({
   },
   address: [
     {
-      type: String,
+      street: { type: String },
+      city: { type: String },
+      postalCode: { type: String },
+      country: { type: String },
+      state: { type: String },
     },
   ],
   isLoggedIn: {

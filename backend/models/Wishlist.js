@@ -7,12 +7,12 @@ const WishlistSchema = new Schema({
   userid: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: "users",
+    ref: "Users",
   },
   productid: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: "products",
+    ref: "Products",
   },
   date_time: {
     type: Date,

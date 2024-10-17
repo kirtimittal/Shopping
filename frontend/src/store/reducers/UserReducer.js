@@ -29,7 +29,6 @@ function UserReducer(state = initialState, action) {
       console.log(action.data);
       return {
         ...state,
-
         loading: false,
         error: null,
       };
@@ -66,6 +65,7 @@ function UserReducer(state = initialState, action) {
     case "UPDATE": {
       return {
         ...state,
+        user: action.data.user,
         message: action.data.message,
         loading: false,
         error: null,

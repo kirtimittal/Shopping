@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const OrderDetails = () => {
   const order = useSelector((state) => state.order.orderDetails);
-  const orderedProd = useSelector((state) => state.order.items);
+  //const orderedProd = useSelector((state) => state.order.items);
   return (
     <Container className="my-4">
       {/* Order Summary */}
@@ -55,18 +55,14 @@ const OrderDetails = () => {
               </tr>
             </thead>
             <tbody>
-              {orderedProd &&
-                orderedProd.map((product, index) => (
+              {order.items &&
+                order.items.map((product, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{product.name}</td>
-                    <td>{product.quantity ?? 1}</td>
-                    <td>${product.discountedPrice.$numberDecimal}</td>
-                    <td>
-                      $
-                      {product.quantity ??
-                        1 * product.discountedPrice.$numberDecimal}
-                    </td>
+                    <td>{product.productid.name}</td>
+                    <td>{product.qty ?? 1}</td>
+                    <td>${product.price}</td>
+                    <td>${product.price * product.qty}</td>
                   </tr>
                 ))}
             </tbody>

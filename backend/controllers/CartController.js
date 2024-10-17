@@ -38,7 +38,8 @@ const addProductToCart = async (req, res) => {
 
   cart.totalPrice = totalPrice;
   cart.totalItems = cart.items.reduce((acc, curr) => acc + curr.qty, 0);
-  const newProduct = await cart.save();
+  let newProduct = await cart.save();
+  newProduct = await Cart.find({ userid }).populate("items.productid");
   // const product = req.body;
   // cart.push(product);
   // console.log(cart);
@@ -63,7 +64,8 @@ const removeProductFromCart = async (req, res) => {
     console.log(totalPrice);
     cart.totalPrice = totalPrice;
     cart.totalItems = cart.items.reduce((acc, curr) => acc + curr.qty, 0);
-    const updatedCart = await cart.save();
+    let updatedCart = await cart.save();
+    updatedCart = await Cart.find({ userid }).populate("items.productid");
     // const product = req.body;
     // cart.push(product);
     console.log(updatedCart);
@@ -80,7 +82,7 @@ const removeProductFromCart = async (req, res) => {
 const getCartItems = async (req, res) => {
   console.log(req.body);
   const { userid } = req.params;
-  const items = await Cart.find({ userid });
+  const items = await Cart.find({ userid }).populate("items.productid");
   res.json({ status: 1, message: "Success", cart: items });
 };
 

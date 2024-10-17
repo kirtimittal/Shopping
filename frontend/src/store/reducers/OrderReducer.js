@@ -3,7 +3,7 @@ const initialState = {
   orderItems: null,
   message: "",
   error: null,
-  items: [],
+  //items: [],
 };
 
 const OrderReducer = (state = initialState, action) => {
@@ -24,14 +24,28 @@ const OrderReducer = (state = initialState, action) => {
         error: null,
       };
     }
-    case "ADD_ORDER_ITEMS": {
-      return {
-        ...state,
-        items: [...state.items, action.data],
-        message: "",
-        error: null,
-      };
-    }
+    // case "ADD_ORDER_ITEMS": {
+    //   // const exists = state.items.some((item) => {
+    //   //     if (item._id === action.data._id) {
+    //   //       return true;
+    //   //     } else {
+    //   //       return false;
+    //   //     }
+    //   //   });
+    //   //   console.log(exists);
+    //   //   let newItems = [];
+    //   //   if (exists) {
+    //   //     newItems = [...state.items];
+    //   //   } else {
+    //   //     newItems = [...state.items, action.data];
+    //   //   }
+    //   return {
+    //     ...state,
+    //     items: [...state.items, action.data],
+    //     message: "",
+    //     error: null,
+    //   };
+    // }
     case "FAILURE": {
       return {
         ...state,

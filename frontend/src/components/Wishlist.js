@@ -24,7 +24,7 @@ function Wishlist({ user, getWishlist, wishlist, token }) {
     <div>
       {user ? (
         <div>
-          {wishlist && (
+          {wishlist && wishlist.length > 0 && (
             <>
               <h3 className="wishlist-header">My Wishlist</h3>
               <div className="product-cont wishlist-cont">
@@ -36,7 +36,9 @@ function Wishlist({ user, getWishlist, wishlist, token }) {
             </>
           )}
           {wishlist.length === 0 && (
-            <div>Nothing is added in your wishlist</div>
+            <div className="wishlist-login-cont">
+              <h4 className="label-msg">Nothing is added in your wishlist.</h4>
+            </div>
           )}
         </div>
       ) : (

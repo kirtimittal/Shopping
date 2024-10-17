@@ -5,6 +5,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import notify from "./Notify";
 import { resetMessage } from "../store/actions/UserActions";
+import MultipleAddressesForm from "./Addresses";
 
 function UpdateProfile({ signup, user }) {
   const dispatch = useDispatch();
@@ -127,7 +128,16 @@ function UpdateProfile({ signup, user }) {
               required
             />
           </Form.Group>
-          <Form.Group controlId="formBasicAddress">
+          <MultipleAddressesForm
+            onSave={(addresses) => {
+              console.log(addresses);
+              setFormData({
+                ...formData,
+                address: addresses,
+              });
+            }}
+          />
+          {/* <Form.Group controlId="formBasicAddress">
             <Form.Label>Address</Form.Label>
             <Form.Control
               type="text"
@@ -137,7 +147,7 @@ function UpdateProfile({ signup, user }) {
               onChange={handleChange}
               required
             />
-          </Form.Group>
+          </Form.Group> */}
 
           <Button variant="primary" type="submit" id="signup-btn">
             Update

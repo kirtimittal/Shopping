@@ -18,6 +18,7 @@ export const addOrder = (
         totalPrice,
         shippingAddress: address,
       };
+      console.log(order);
       const res = await fetch(`${BASE_URL}/api/orders/`, {
         method: "POST",
         headers: {
@@ -33,18 +34,18 @@ export const addOrder = (
         type: "ADD_ORDER",
         data,
       });
-      data.order.items.forEach((item) => {
-        fetch(`${BASE_URL}/product/${item.productid}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            dispatch({
-              type: "ADD_ORDER_ITEMS",
-              data,
-            });
-          })
-          .catch((err) => alert(err));
-      });
+      //   data.order.items.forEach((item) => {
+      //     fetch(`${BASE_URL}/product/${item.productid}`)
+      //       .then((response) => response.json())
+      //       .then((data) => {
+      //         console.log(data);
+      //         dispatch({
+      //           type: "ADD_ORDER_ITEMS",
+      //           data,
+      //         });
+      //       })
+      //       .catch((err) => alert(err));
+      //   });
     } catch (err) {
       dispatch({
         type: "FAILURE",
@@ -74,18 +75,21 @@ export const getOrders = (userid, token) => {
 
       const data = await res.json();
       console.log(data);
-      data.items.forEach((item) => {
-        fetch(`${BASE_URL}/product/${item.productid}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            dispatch({
-              type: "ADD_ORDER_ITEMS",
-              data,
-            });
-          })
-          .catch((err) => alert(err));
-      });
+      //   data.order.forEach((order) => {
+      //     order.items.forEach((item) => {
+      //       fetch(`${BASE_URL}/product/${item.productid}`)
+      //         .then((response) => response.json())
+      //         .then((data) => {
+      //           console.log(data);
+      //           dispatch({
+      //             type: "ADD_ORDER_ITEMS",
+      //             data,
+      //           });
+      //         })
+      //         .catch((err) => alert(err));
+      //     });
+      //   });
+
       dispatch({
         type: "GET_ORDER",
         data,
@@ -98,3 +102,44 @@ export const getOrders = (userid, token) => {
     }
   };
 };
+
+// export const getProductInfoOrders = (userid, token) => {
+//     return async (dispatch) => {
+//       try {
+//         let items = [];
+//         const res = await fetch(`${BASE_URL}/api/orders/${userid}`, {
+//           headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `${token}`,
+//           },
+//         });
+
+//         const data = await res.json();
+//         console.log(data);
+//         data.order.forEach((order) => {
+//           order.items.forEach((item) => {
+//             fetch(`${BASE_URL}/product/${item.productid}`)
+//               .then((response) => response.json())
+//               .then((data) => {
+//                 console.log(data);
+//                 dispatch({
+//                   type: "ADD_ORDER_ITEMS",
+//                   data,
+//                 });
+//               })
+//               .catch((err) => alert(err));
+//           });
+//         });
+
+//         dispatch({
+//           type: "GET_ORDER",
+//           data,
+//         });
+//       } catch (err) {
+//         dispatch({
+//           type: "FAILURE",
+//           error: err.message,
+//         });
+//       }
+//     };
+//   };

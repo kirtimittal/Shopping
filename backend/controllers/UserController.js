@@ -29,6 +29,7 @@ const login = async (req, res) => {
           const token = jwt.sign(payload, SECRET_KEY, {
             expiresIn: "2h",
           });
+
           res.json({
             message: "Loggedin successfully",
             token: "Bearer " + token,
@@ -36,6 +37,7 @@ const login = async (req, res) => {
               id: user._id,
               name: user.name,
               email: user.email,
+              address: user.address,
             },
           });
         });
@@ -131,6 +133,7 @@ const googleLogin = async (req, res) => {
           id: user._id,
           name: user.name,
           email: user.email,
+          address: user.address,
         },
       });
     });
@@ -159,7 +162,12 @@ const updateProfile = async (req, res) => {
     user.save().then((u) => {
       res.json({
         message: "User updated successfully",
-        user: u,
+        user: {
+          id: u._id,
+          name: u.name,
+          email: u.email,
+          address: u.address,
+        },
         success: true,
       });
     });

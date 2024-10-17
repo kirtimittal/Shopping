@@ -1,47 +1,34 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import "../css/Products.css";
-import Footer from "./Footer";
+
 import { Link, useParams } from "react-router-dom";
 import { getProductsByCategory } from "../store/actions/ProductActions";
 import { connect, useSelector } from "react-redux";
 import Filter from "./Filter";
 import SortComp from "./Sort";
 
-function Products({
-  products,
-  getProductsByCategory,
-  sortByPrice,
-  itemsPerPage,
-}) {
-  const { parentCat, category } = useParams();
-
+function SearchProducts({ itemsPerPage, products }) {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = useSelector((state) => state.products.totalPages);
-
-  console.log(category);
-  useEffect(() => {
-    getProductsByCategory(category, parentCat, currentPage, itemsPerPage);
-  }, [category, parentCat, currentPage]);
-  products = products.products;
-
   return (
     <div>
-      <div className="header-cont">
-        <h4>FILTERS</h4>
-        <SortComp />
-      </div>
-      <hr></hr>
-      <Filter category={category} parentCat={parentCat} />
+      {/* {products.products &&
+        products.products.map((item) => {
+          return (
+            <Filter category={item.subCategory} parentCat={item.category} />
+          );
+        })} */}
+      {/* <Filter category={category} parentCat={parentCat} /> */}
 
       <div className="vertical-line" />
       <div className="allproducts-cont">
         <div className="product-cont">
-          {products &&
-            products.map((item) => {
+          {products.products &&
+            products.products.map((item) => {
               return (
                 <Link
-                  to={`/${parentCat}/${category}/${item._id}`}
+                  to={`/${item.category}/${item.subCategory}/${item._id}`}
                   key={item._id}
                 >
                   <Product key={item.id} data={item} id={item._id} />
@@ -61,9 +48,6 @@ function Products({
           ))}
         </div>
       </div>
-      <hr />
-      <br />
-      <Footer />
     </div>
   );
 }
@@ -76,12 +60,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProductsByCategory: (category, parentCat, currentPage, itemsPerPage) =>
-      dispatch(
-        getProductsByCategory(category, parentCat, currentPage, itemsPerPage)
-      ),
+    // getProductsByCategory: (category, parentCat, currentPage, itemsPerPage) =>
+    //   dispatch(
+    //     getProductsByCategory(category, parentCat, currentPage, itemsPerPage)
+    //   ),
     //sortByPrice: (method) => dispatch(sortByPrice(method)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchProducts);

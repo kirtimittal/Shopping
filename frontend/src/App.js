@@ -20,6 +20,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Example from "./components/Notificationex.js";
 import Order from "./components/Order.js";
 import OrderDetails from "./components/OrderDetails.js";
+import SearchProducts from "./components/SearchProducts.js";
+import ConfirmOrder from "./components/ConfirmOrder.js";
 
 function App() {
   // const parentCategory = useSelector(
@@ -65,6 +67,8 @@ function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/orders" element={<Order />} />
           <Route path="/orderdetails" element={<OrderDetails />} />
+          <Route path="/search" element={<SearchProducts />} />
+          <Route path="/order/confirm" element={<ConfirmOrder />} />
         </Routes>
       </div>
       <ToastContainer />

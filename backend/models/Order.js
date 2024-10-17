@@ -6,7 +6,7 @@ const OrderSchema = new Schema({
   userid: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: "users",
+    ref: "Users",
   },
   order_date: { type: Date, default: new Date() },
   status: {
@@ -32,7 +32,7 @@ const OrderSchema = new Schema({
       productid: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: "products",
+        ref: "Products",
       },
       name: {
         type: String,
@@ -49,10 +49,11 @@ const OrderSchema = new Schema({
     },
   ],
   shippingAddress: {
-    street: { type: String, required: true },
-    city: { type: String, required: true },
-    postalCode: { type: String, required: true },
-    country: { type: String, required: true },
+    street: { type: String },
+    city: { type: String },
+    postalCode: { type: String },
+    country: { type: String },
+    state: { type: String },
   },
 });
 

@@ -13,9 +13,15 @@ const CategoryReducer = (state = initialState, action) => {
     }
     case "GET_SUB_CATEGORIES": {
       console.log(state);
+      let newCat = [];
+      if (state.categories.includes(action.category.categories)) {
+        newCat = [...state.categories];
+      } else {
+        newCat = [...state.categories, action.category.categories];
+      }
       return {
         ...state,
-        categories: [...state.categories, action.category.categories],
+        categories: newCat,
       };
     }
     default: {

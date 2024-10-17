@@ -3,6 +3,7 @@ import { Form, Container, Button } from "react-bootstrap";
 import { signup } from "../store/actions/UserActions";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import MultipleAddressesForm from "./Addresses";
 
 function Signup({ signup, user }) {
   const [formData, setFormData] = useState({
@@ -106,17 +107,26 @@ function Signup({ signup, user }) {
               required
             />
           </Form.Group>
-          <Form.Group controlId="formBasicAddress">
-            <Form.Label>Address</Form.Label>
-            <Form.Control
+          {/* <Form.Group controlId="formBasicAddress"> */}
+          {/* <Form.Label>Address</Form.Label> */}
+          <MultipleAddressesForm
+            onSave={(addresses) => {
+              console.log(addresses);
+              setFormData({
+                ...formData,
+                address: addresses,
+              });
+            }}
+          />
+          {/* <Form.Control
               type="text"
               placeholder="Enter address"
               name="address"
               value={formData.address}
               onChange={handleChange}
               required
-            />
-          </Form.Group>
+            /> */}
+          {/* </Form.Group> */}
 
           <Button variant="primary" type="submit" id="signup-btn">
             Sign Up

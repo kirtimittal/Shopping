@@ -22,7 +22,7 @@ export const addToCart = (product, userid, token) => {
         console.log(data);
         dispatch({
           type: "ADD_TO_CART",
-          cart: data.cart,
+          cart: data.cart[0],
           message: "Added to Cart",
         });
       })
@@ -42,18 +42,18 @@ export const getCartItems = (userid, token) => {
         console.log(data);
 
         //data.cart.forEach((item) => {
-        data.cart[0].items.forEach((product) => {
-          fetch(`${BASE_URL}/product/${product.productid}`)
-            .then((response) => response.json())
-            .then((data) => {
-              console.log(data);
-              dispatch({
-                type: "ADD_ITEMS",
-                data,
-              });
-            })
-            .catch((err) => alert(err));
-        });
+        // data.cart[0].items.forEach((product) => {
+        //   fetch(`${BASE_URL}/product/${product.productid}`)
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //       console.log(data);
+        //       dispatch({
+        //         type: "ADD_ITEMS",
+        //         data,
+        //       });
+        //     })
+        //     .catch((err) => alert(err));
+        // });
         // });
 
         dispatch({
@@ -79,32 +79,32 @@ export const removeFromCart = (productid, userid, token) => {
       .then((data) => {
         console.log(data);
 
-        if (data.cart.items.length === 0) {
-          dispatch({
-            type: "REMOVE_ITEMS",
-            productid: "",
-          });
-        } else {
-          //   data.cart.items.forEach((product) => {
-          //     fetch(`http://localhost:4000/product/${product.productid}`)
-          //       .then((response) => response.json())
-          //       .then((data) => {
-          //         console.log(data);
-          //         dispatch({
-          //           type: "REMOVE_ITEMS",
-          //           data,
-          //         });
-          //       });
-          //   });
-          // }
-          dispatch({
-            type: "REMOVE_ITEMS",
-            productid,
-          });
-        }
+        // if (data.cart.items.length === 0) {
+        //   dispatch({
+        //     type: "REMOVE_ITEMS",
+        //     productid: "",
+        //   });
+        // } else {
+        //   //   data.cart.items.forEach((product) => {
+        //   //     fetch(`http://localhost:4000/product/${product.productid}`)
+        //   //       .then((response) => response.json())
+        //   //       .then((data) => {
+        //   //         console.log(data);
+        //   //         dispatch({
+        //   //           type: "REMOVE_ITEMS",
+        //   //           data,
+        //   //         });
+        //   //       });
+        //   //   });
+        //   // }
+        //   dispatch({
+        //     type: "REMOVE_ITEMS",
+        //     productid,
+        //   });
+        // }
         dispatch({
           type: "REMOVE_FROM_CART",
-          cart: data.cart,
+          cart: data.cart[0],
         });
       })
       .catch((err) => alert(err));

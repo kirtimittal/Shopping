@@ -44,8 +44,9 @@
 
 .container
 {
-  width: 28% !important;
-    height: 84vh !important;
+  width: 35% !important;
+  min-height:84vh;
+    height: auto !important;
     /* border: 1px solid gray; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 }
@@ -82,4 +83,37 @@
 .divider{
  text-align: center;
  margin: 10px;
+}
+
+.footer-div{
+  padding: 50px;
+}
+
+.address-lbl-cont{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: -10px !important;
+}
+.address-icon-div{
+  display: flex;
+ 
+}
+.plus-icon-div{
+  padding-right:10px;
+}
+
+.confirm-order-img{
+  width: 80px;
+  height:80px;
+}
+.address-cont{
+  margin-top:15px;
+}
+.address-card{
+  border: 1px solid rgba(0, 0, 0, 0.176);
+  margin:10px;
+  border-radius: 5px;
+}
+.address-flex{
+  display: flex;
 }

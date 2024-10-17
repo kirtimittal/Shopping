@@ -3,16 +3,19 @@ import "../css/Search.css";
 import { CiSearch } from "react-icons/ci";
 import { connect } from "react-redux";
 import { searchProduct } from "../store/actions/ProductActions";
+import Products from "./Products";
+import { useNavigate } from "react-router-dom";
 
 function Search({ searchProduct }) {
   const [searchInput, setSearchInput] = useState("");
-
+  const navigate = useNavigate();
   const handleOnKey = (e) => {
     console.log(e.key);
     if (e.key === "Enter") {
       console.log(searchInput);
       searchProduct(searchInput);
       setSearchInput("");
+      navigate("/search");
     } else {
       //setSearchInput(e.target.value);
     }
