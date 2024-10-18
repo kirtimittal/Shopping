@@ -22,6 +22,7 @@ import Order from "./components/Order.js";
 import OrderDetails from "./components/OrderDetails.js";
 import SearchProducts from "./components/SearchProducts.js";
 import ConfirmOrder from "./components/ConfirmOrder.js";
+import ProductOrderDetails from "./components/ProductOrderDetail.js";
 
 function App() {
   // const parentCategory = useSelector(
@@ -69,6 +70,10 @@ function App() {
           <Route path="/orderdetails" element={<OrderDetails />} />
           <Route path="/search" element={<SearchProducts />} />
           <Route path="/order/confirm" element={<ConfirmOrder />} />
+          <Route
+            path="/order/:orderId/product/:productId"
+            element={<ProductOrderDetails />}
+          />
         </Routes>
       </div>
       <ToastContainer />

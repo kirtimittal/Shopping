@@ -117,3 +117,7 @@
 .address-flex{
   display: flex;
 }
+.rating i {
+  color: #f8e825;
+  margin-right: 4px;
+}

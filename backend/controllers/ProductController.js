@@ -116,7 +116,9 @@ const searchProduct = async (req, res) => {
 const getProductById = async (req, res) => {
   const { id } = req.params;
   console.log(req.params);
-  let selectedProduct = await Product.findById({ _id: id }); // products.find((product) => product.id == id);
+  let selectedProduct = await Product.findById({ _id: id }).populate(
+    "review.reviewId"
+  ); // products.find((product) => product.id == id);
 
   res.json(selectedProduct);
 };

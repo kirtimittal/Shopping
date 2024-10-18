@@ -40,6 +40,21 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
+  review: [
+    {
+      reviewId: {
+        type: Schema.Types.ObjectId,
+        required: false,
+        ref: "Review",
+      },
+    },
+  ],
+  rating: {
+    default: 0,
+    required: false,
+    type: Number,
+  },
+  numReviews: { type: Number, required: true, default: 0 },
 });
 
 const Product = model("Products", ProductSchema);

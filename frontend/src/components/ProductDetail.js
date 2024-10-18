@@ -9,6 +9,7 @@ import { addToCart } from "../store/actions/CartActions";
 import { addToWishlist } from "../store/actions/WishlistActions";
 import styled from "styled-components";
 import notify from "./Notify";
+import Rating from "./Rating";
 
 const Container = styled.div`
   position: relative;
@@ -212,6 +213,31 @@ function ProductDetail({
           </div>
         </div>
       )}
+      <div>
+        {selectedProduct && selectedProduct.review.length > 0 && (
+          <>
+            <h4>Customer Reviews</h4>
+            <Rating
+              value={selectedProduct.rating}
+              text={`${selectedProduct.numReviews} reviews`}
+            />
+            <div>
+              {selectedProduct.review.map((review) => {
+                return (
+                  <>
+                    <h2>{review.reviewId.name}</h2>
+                    <Rating value={review.reviewId.rating} text="" />
+                    <p>{review.reviewId.comment}</p>
+                  </>
+                );
+              })}
+            </div>
+          </>
+        )}
+        {selectedProduct && selectedProduct.review.length === 0 && (
+          <h4>No Reviews Yet</h4>
+        )}
+      </div>
       {/* {error && alert(error.message)} */}
     </>
   );
