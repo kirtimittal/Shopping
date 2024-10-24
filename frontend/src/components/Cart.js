@@ -41,7 +41,12 @@ function Cart({ user, token }) {
                 <h5>Shopping Cart: {totalItems} items</h5>
                 {cart.map((product) => {
                   return (
-                    <CartItem data={product.productid} key={product._id} />
+                    <CartItem
+                      data={product.productid}
+                      key={product._id}
+                      qty={product.qty}
+                      size={product.size}
+                    />
                     // <div>
                     //   <img src={product.img_url} alt={product.name}></img>
                     // </div>

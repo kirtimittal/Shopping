@@ -47,8 +47,9 @@ const ConfirmOrder = () => {
       return {
         productid: item.productid._id,
         name: item.productid.name,
-        qty: 1,
+        qty: item.qty,
         price: item.productid.discountedPrice.$numberDecimal,
+        size: item.size,
       };
     });
     dispatch(
@@ -64,7 +65,7 @@ const ConfirmOrder = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 confirm-order-cont">
       <h2 className="mb-4">Confirm Your Order</h2>
 
       <div className="row">
@@ -85,9 +86,13 @@ const ConfirmOrder = () => {
                     </div>
                     <div>
                       <strong>{item.productid.name}</strong> <br />
-                      Quantity: {item.qty}
+                      Quantity: {item.qty} <br />
+                      Size:{item.size}
                     </div>
-                    <div>${item.productid.discountedPrice.$numberDecimal}</div>
+                    <div>
+                      $
+                      {item.productid.discountedPrice.$numberDecimal * item.qty}
+                    </div>
                   </div>
                 </ListGroup.Item>
               ))}
@@ -131,12 +136,12 @@ const ConfirmOrder = () => {
               })}
           </Card>
 
-          <Card>
+          {/* <Card>
             <Card.Header>Payment Method</Card.Header>
             <Card.Body>
               <p>Netbanking</p>
             </Card.Body>
-          </Card>
+          </Card> */}
 
           {/* Confirm and Go Back Buttons */}
           <div className="mt-4">

@@ -7,9 +7,33 @@ function Size({ data, onClickHandle, itemid }) {
   //   if (sizeSelected) {
   //     setSelected(false);
   //   }
+  console.log(selected);
   return (
-    <div>
-      <Dropdown>
+    <>
+      {data &&
+        data.map((item, index) => (
+          <div
+            className={selected === item ? "size-item divBorder" : "size-item"}
+            key={index}
+            onClick={() => {
+              setSelected(item);
+              onClickHandle(item);
+            }}
+          >
+            {item}
+          </div>
+          //   href="#"
+          //   onClick={() => {
+          //     setSelected(item);
+          //     onClickHandle(selected);
+          //   }}
+          //   key={itemid}
+          // >
+          //   {item}
+          // </Dropdown.Item>
+        ))}
+
+      {/* <Dropdown>
         <Dropdown.Toggle variant="success">
           {selected ?? "Select Size"}
         </Dropdown.Toggle>
@@ -28,8 +52,8 @@ function Size({ data, onClickHandle, itemid }) {
               </Dropdown.Item>
             ))}
         </Dropdown.Menu>
-      </Dropdown>
-    </div>
+      </Dropdown> */}
+    </>
     // <div
     //   className={selected ? "size-item divBorder" : "size-item"}
     //   onClick={() => {

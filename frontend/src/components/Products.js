@@ -28,10 +28,12 @@ function Products({
   return (
     <div>
       <div className="header-cont">
-        <h4>FILTERS</h4>
+        <div>
+          <h4>FILTERS</h4>
+        </div>
         <SortComp />
       </div>
-      <hr></hr>
+
       <Filter category={category} parentCat={parentCat} />
 
       <div className="vertical-line" />
@@ -61,7 +63,7 @@ function Products({
           ))}
         </div>
       </div>
-      <hr />
+
       <br />
       <Footer />
     </div>

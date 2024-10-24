@@ -8,6 +8,7 @@ const notify = (message, type) => {
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
+    position: "top-center",
   });
 };
 

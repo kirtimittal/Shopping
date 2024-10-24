@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { initBrands, initProducts } from "../store/actions/ProductActions";
 import FilterCategory from "./FilterCategory";
 import "../css/Filter.css";
 import { getProductsByBrands } from "../store/actions/ProductActions";
+import CategoryItem from "./CategoryItem";
 
 function Filter({
   brands,
@@ -13,26 +14,29 @@ function Filter({
   category,
   parentCat,
 }) {
+  const [selectedBrand, setSelectedBrand] = useState([]);
   useEffect(() => {
     initBrands(category, parentCat);
   }, [category, parentCat]);
 
-  let selectedBrand = [];
-
-  const handleOnChange = (id, checked) => {
-    if (checked) {
-      selectedBrand.push(id.toLowerCase());
-    } else {
-      const startIndex = selectedBrand.indexOf(id.toLowerCase());
-      selectedBrand.splice(startIndex, 1);
-    }
-
+  useEffect(() => {
     let selectedBrands = selectedBrand.join(",");
-    console.log(selectedBrands);
     if (selectedBrands !== "") {
       getProductsByBrands(selectedBrands, category, parentCat);
     } else {
       initProducts(category, parentCat);
+    }
+  }, [selectedBrand]);
+
+  const handleOnChange = (id, checked) => {
+    if (checked) {
+      setSelectedBrand([...selectedBrand, id.toLowerCase()]);
+    } else {
+      const startIndex = selectedBrand.indexOf(id.toLowerCase());
+      selectedBrand.splice(startIndex, 1);
+      let newBrand = [...selectedBrand];
+      console.log(newBrand);
+      setSelectedBrand(newBrand);
     }
   };
 
@@ -46,6 +50,18 @@ function Filter({
             onCheckChange={(id, checked) => handleOnChange(id, checked)}
           />
         ))}
+      <div className="brand-div">
+        {selectedBrand &&
+          selectedBrand.map((brand, index) => {
+            return (
+              <CategoryItem
+                key={index}
+                data={brand}
+                onCloseClick={(id, checked) => handleOnChange(id, checked)}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 }

@@ -68,7 +68,7 @@ function UpdateProfile({ signup, user }) {
   };
   return (
     <div id="signup-div">
-      <Container>
+      <Container className="signup-cont">
         <h2>Update Profile</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicName">

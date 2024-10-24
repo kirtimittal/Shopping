@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 80px;
 }
 
 .App-logo {
@@ -44,17 +45,25 @@
 
 .container
 {
-  width: 35% !important;
-  min-height:84vh;
+ 
+  min-height:66vh;
     height: auto !important;
     /* border: 1px solid gray; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    color:black;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 26px;
+    margin:auto;
+    
 }
 
 .container h4{
   margin-top:40px;
   margin-bottom:60px;
   text-align: center;
+  font-weight: bold;
+  font-size: 35px;
 }
 .container #login-btn{
   width: 100%;
@@ -69,6 +78,9 @@
 }
 #signup-btn{
   width:100%;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 20px;
 }
 
 #signup-div form div{
@@ -120,4 +132,63 @@
 .rating i {
   color: #f8e825;
   margin-right: 4px;
+}
+.hr-line{
+  width:80%;
+  margin: auto;
+}
+
+.form-control:focus {
+  color: black;
+  background-color: #adb5bd30;
+  border-color:#adb5bd30 !important;
+   outline: 0;
+  box-shadow: 0 0 0 .25rem #adb5bd30 !important;
+}
+.login-div{
+  background-color: #282c34;
+  background-image: url("https://www.apexon.com/wp-content/uploads/2017/04/AdobeStock_529601148-735x300.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 93vh;
+
+}
+
+.address-form{
+  display: flex;
+  flex-direction: column;
+}
+
+.address-group-cont{
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .margin-flex{
+  margin-right: 10px;
+} */
+
+#signup-div{
+  background-image:url("https://t4.ftcdn.net/jpg/05/88/11/91/240_F_588119127_ai0xZYPNgiPvEebGlR19I0O90qF2SILQ.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 120vh;
+}
+.signup-cont{
+
+  position: relative;
+    top: 20px;
+    width: 37% !important;
+    background-color: #f8f9faba;
+}
+
+.login-cont{
+  position: absolute;
+  top: 81px;
+  right: 50px;
+  width: 28% !important;
+}
+
+.confirm-order-cont{
+  width:40%;
 }

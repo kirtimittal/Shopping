@@ -9,7 +9,7 @@ function Product({ data }) {
       <img src={data.img_url} alt={data.name}></img>
 
       <h5 className="font-bold brand-text">{data.brand}</h5>
-      <h6>{data.description}</h6>
+      <h6 id="prod-name">{data.name}</h6>
       {/* {discountprice && ( */}
       <div className="price-cont">
         <h6 className="price-cont font-bold">

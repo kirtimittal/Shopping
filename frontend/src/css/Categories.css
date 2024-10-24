@@ -2,11 +2,15 @@
     display: flex;
     justify-content: center;
     flex-flow: wrap;
+    position: relative;
+    width:70%;
+    margin:auto;
 }
 
 .backcolor{ 
     background-color: antiquewhite;
     margin:10px;
+    position: relative;
 }
 
 .category-cont a{
@@ -15,8 +19,20 @@
 }
 
 .category-cont img{
-    height: 273px;
-    width: 298px; 
+    height: 400px;
+    width: 400px; 
 
+}
+.category-caption{
+    top: 270px;
+    z-index: 1;
+    width: 379px;
+    /* padding: 10px; */
+    margin: 10px;
+    height: 110px;
+    text-align: center;
+    background-color: #373432;
+    color: white;
+    position: absolute;
 }
 

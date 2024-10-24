@@ -15,11 +15,12 @@ import Example from "./Notificationex.js";
 import notify from "./Notify.js";
 // // CUSTOMIZE ANY UI BUTTON
 // import { GoogleLoginButton } from "react-social-login-buttons";
-
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { loginWithGoogle } from "../store/actions/UserActions.js";
 import "../css/App.css";
+import { FaUser, FaLock } from "react-icons/fa";
+import { InputGroup } from "react-bootstrap";
 
 function Login({ checkLogin, user }) {
   const [username, setUsername] = useState("");
@@ -145,30 +146,40 @@ function Login({ checkLogin, user }) {
   }
 
   return (
-    <>
-      <Container>
+    <div className="login-div">
+      <Container className="login-cont">
         <Row className="justify-content-md-center">
           <Col md={12}>
-            <h4 id="login-label">Login or Signup</h4>
+            <h4 id="login-label">Login</h4>
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="username">
                 <Form.Label>Username</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={username}
-                  onChange={(event) => setUsername(event.target.value)}
-                  placeholder="Enter username"
-                />
+                <InputGroup>
+                  <InputGroup.Text>
+                    <FaUser />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                    placeholder="Enter username"
+                  />
+                </InputGroup>
               </Form.Group>
               <br />
               <Form.Group controlId="password">
                 <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder="Enter password"
-                />
+                <InputGroup>
+                  <InputGroup.Text>
+                    <FaLock />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    placeholder="Enter password"
+                  />
+                </InputGroup>
               </Form.Group>
               <br />
               <br />
@@ -237,7 +248,7 @@ function Login({ checkLogin, user }) {
           {handleNavigate()}
         </div>
       )} */}
-    </>
+    </div>
   );
 }
 

@@ -13,7 +13,10 @@ const getProducts = async (req, res) => {
 
 const addProducts = async (req, res) => {
   const product = req.body;
-  const newprod = new Product(product);
+  const discountedPrice =
+    product.actualPrice -
+    product.actualPrice * (product.discount.split("%")[0] / 100);
+  const newprod = new Product({ ...product, discountedPrice });
   newprod.save().then((product) => {
     res.json(product);
   });

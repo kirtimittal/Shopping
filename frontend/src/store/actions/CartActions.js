@@ -1,13 +1,15 @@
 //let BASE_URL="https://shopping-1-r5s0.onrender.com";
 let BASE_URL = "http://localhost:4000";
 
-export const addToCart = (product, userid, token) => {
+export const addToCart = (product, userid, token, size, qty) => {
   console.log(userid);
   const obj = {
     productid: product._id,
     userid: userid,
-    qty: 1,
+    qty,
+    size,
   };
+  console.log(size, qty);
   return (dispatch) => {
     fetch(`${BASE_URL}/api/cart/add`, {
       method: "POST",

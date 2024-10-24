@@ -38,7 +38,7 @@ function OrderCard({ orderDetails }) {
                   <h6>{data.productid.description}</h6>
                   {/* {discountprice && ( */}
                   <h5>
-                    <b>Qty: 1</b>
+                    <b>Qty:{data.qty}</b>
                   </h5>
                   {/* <div className="price-cont">
           <h6 className="price-cont font-bold">

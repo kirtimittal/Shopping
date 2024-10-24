@@ -5,7 +5,15 @@ import { connect, useDispatch } from "react-redux";
 
 import { removeFromCart } from "../store/actions/CartActions";
 
-function CartItem({ data, addToCart, user, removeFromWishlist, token }) {
+function CartItem({
+  data,
+  addToCart,
+  user,
+  removeFromWishlist,
+  token,
+  qty,
+  size,
+}) {
   // const discountprice =
   //   data.actualprice - data.actualprice * (data.discount / 100);
   const dispatch = useDispatch();
@@ -13,7 +21,7 @@ function CartItem({ data, addToCart, user, removeFromWishlist, token }) {
     dispatch(removeFromCart(data._id, user.id, token));
   };
   return (
-    <div className="product-item wishlist-item cart-item">
+    <div className="product-item cart-item">
       {/* onClick={removeProductFromCart} */}
 
       <div className="img_cont">
@@ -21,17 +29,20 @@ function CartItem({ data, addToCart, user, removeFromWishlist, token }) {
       </div>
       <div className="details-cont">
         <h5 className="font-bold brand-text">{data.brand}</h5>
-        <h6>{data.description}</h6>
+        <h6>{data.name}</h6>
         {/* {discountprice && ( */}
         <h5>
-          <b>Qty: 1</b>
+          <b>Qty: {qty}</b>
+        </h5>
+        <h5>
+          <b>Size: {size}</b>
         </h5>
         <div className="price-cont">
           <h6 className="price-cont font-bold">
-            Rs. {data.discountedPrice.$numberDecimal}
+            Rs. {data.discountedPrice.$numberDecimal}{" "}
           </h6>
           <h6 className="strike-product price-cont">
-            Rs. {data.actualPrice.$numberDecimal}
+            Rs. {data.actualPrice.$numberDecimal}{" "}
           </h6>
           <h6 className="discount-text price-cont">({data.discount} OFF) </h6>
         </div>

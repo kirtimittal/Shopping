@@ -47,7 +47,7 @@ function Signup({ signup, user }) {
   };
   return (
     <div id="signup-div">
-      <Container>
+      <Container className="signup-cont">
         <h2>Sign Up</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicName">

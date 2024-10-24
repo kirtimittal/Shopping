@@ -47,4 +47,14 @@ const addReview = async (req, res) => {
   }
 };
 
-module.exports = { addReview };
+const getReview = async (req, res) => {
+  const { productid, userid } = req.params;
+  const review = await Review.findOne({ productid, userid });
+  if (review) {
+    res.json({ message: "Product reviewed", review });
+  } else {
+    res.json({ message: "Not Reviewed", review: null });
+  }
+};
+
+module.exports = { addReview, getReview };

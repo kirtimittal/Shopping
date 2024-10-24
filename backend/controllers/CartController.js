@@ -3,25 +3,27 @@ const Product = require("../models/Product.js");
 //const cart = [];
 const addProductToCart = async (req, res) => {
   console.log(req.body);
-  const { userid, productid, qty } = req.body;
+  const { userid, productid, qty, size } = req.body;
   let cart = await Cart.findOne({ userid });
   if (cart) {
     const productIndex = cart.items.findIndex(
-      (item) => item.productid == productid
+      (item) => item.productid == productid && item.size === size
     );
     console.log(productIndex);
     if (productIndex > -1) {
-      cart.items[productIndex].qty = qty;
+      cart.items[productIndex].qty =
+        cart.items[productIndex].qty + parseInt(qty);
     } else {
       cart.items.push({
         productid,
         qty,
+        size,
       });
     }
   } else {
     cart = new Cart({
       userid,
-      items: [{ productid, qty }],
+      items: [{ productid, qty, size }],
     });
   }
 
@@ -31,7 +33,7 @@ const addProductToCart = async (req, res) => {
     const product = await Product.findById({ _id: item.productid });
 
     if (product) {
-      totalPrice = totalPrice + product.discountedPrice * qty;
+      totalPrice = totalPrice + product.discountedPrice * item.qty;
       console.log(product.discountedPrice);
     }
   }

@@ -83,45 +83,49 @@ const MultipleAddressesForm = ({ onSave }) => {
               onChange={(event) => handleInputChange(index, event)}
             />
           </div> */}
-          <div>
-            <Form.Label>City:</Form.Label>
-            <Form.Control
-              type="text"
-              name="city"
-              value={address.city}
-              onChange={(event) => handleInputChange(index, event)}
-              required
-            />
+          <div className="address-group-cont">
+            <div className="margin-flex">
+              <Form.Label>City:</Form.Label>
+              <Form.Control
+                type="text"
+                name="city"
+                value={address.city}
+                onChange={(event) => handleInputChange(index, event)}
+                required
+              />
+            </div>
+            <div>
+              <Form.Label>State:</Form.Label>
+              <Form.Control
+                type="text"
+                name="state"
+                value={address.state}
+                onChange={(event) => handleInputChange(index, event)}
+                required
+              />
+            </div>
           </div>
-          <div>
-            <Form.Label>State:</Form.Label>
-            <Form.Control
-              type="text"
-              name="state"
-              value={address.state}
-              onChange={(event) => handleInputChange(index, event)}
-              required
-            />
-          </div>
-          <div>
-            <Form.Label>ZIP Code:</Form.Label>
-            <Form.Control
-              type="text"
-              name="postalCode"
-              value={address.postalCode}
-              onChange={(event) => handleInputChange(index, event)}
-              required
-            />
-          </div>
-          <div>
-            <Form.Label>Country:</Form.Label>
-            <Form.Control
-              type="text"
-              name="country"
-              value={address.country}
-              onChange={(event) => handleInputChange(index, event)}
-              required
-            />
+          <div className="address-group-cont">
+            <div className="margin-flex">
+              <Form.Label>ZIP Code:</Form.Label>
+              <Form.Control
+                type="text"
+                name="postalCode"
+                value={address.postalCode}
+                onChange={(event) => handleInputChange(index, event)}
+                required
+              />
+            </div>
+            <div>
+              <Form.Label>Country:</Form.Label>
+              <Form.Control
+                type="text"
+                name="country"
+                value={address.country}
+                onChange={(event) => handleInputChange(index, event)}
+                required
+              />
+            </div>
           </div>
           {/* <button
             type="button"

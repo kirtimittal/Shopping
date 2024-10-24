@@ -14,7 +14,7 @@ function Home() {
       <h1 id="category-label">Shop By Category</h1>
       <Categories />
       <br />
-      <hr />
+      <hr className="hr-line" />
       <br />
       <Footer />
     </div>
