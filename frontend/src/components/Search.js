@@ -15,7 +15,7 @@ function Search({ searchProduct }) {
       console.log(searchInput);
       searchProduct(searchInput);
       setSearchInput("");
-      navigate("/search");
+      setTimeout(() => navigate("/search"), 3000);
     } else {
       //setSearchInput(e.target.value);
     }
@@ -28,7 +28,7 @@ function Search({ searchProduct }) {
         className="form-control search-input"
         name="search"
         id="search"
-        placeholder="Search for products"
+        placeholder="Search for products, brands and more..."
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
         onKeyDown={handleOnKey}

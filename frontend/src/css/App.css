@@ -125,6 +125,8 @@
   border: 1px solid rgba(0, 0, 0, 0.176);
   margin:10px;
   border-radius: 5px;
+  padding: 10px;
+  box-shadow: 3px 2px 20px 5px #c6c7c857;
 }
 .address-flex{
   display: flex;
@@ -191,4 +193,28 @@
 
 .confirm-order-cont{
   width:40%;
+}
+
+.thank-you-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.thank-you-icon {
+  font-size: 4rem;
+  color: green; /* Choose your color */
+}
+
+.thank-you-header {
+  font-size: 2rem;
+  margin: 20px 0;
+}
+
+.thank-you-para {
+  font-size: 1rem;
+  color: #555;
 }

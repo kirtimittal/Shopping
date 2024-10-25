@@ -31,6 +31,10 @@ function Cart({ user, token }) {
     navigate("/login");
   };
 
+  const confirmOrder = () => {
+    navigate("/order/confirm");
+  };
+
   return (
     <div>
       {user ? (
@@ -55,7 +59,14 @@ function Cart({ user, token }) {
               </div>
               <div className="order-summ-cont">
                 <h5>Order Summary:</h5>
-                <div className="price-container">{cart && <CartPrice />}</div>
+                <div className="price-container">
+                  {cart && (
+                    <CartPrice
+                      onClickHandle={confirmOrder}
+                      text={"Click to proceed"}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           ) : (

@@ -24,6 +24,14 @@ const OrderReducer = (state = initialState, action) => {
         error: null,
       };
     }
+    case "SEARCH": {
+      return {
+        ...state,
+        orderItems: action.data.order,
+        message: "",
+        error: null,
+      };
+    }
     // case "ADD_ORDER_ITEMS": {
     //   // const exists = state.items.some((item) => {
     //   //     if (item._id === action.data._id) {

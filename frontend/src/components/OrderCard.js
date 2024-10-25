@@ -4,6 +4,10 @@ import { IoMdClose } from "react-icons/io";
 import { connect, useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { FaShippingFast } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import { AiOutlineSync } from "react-icons/ai";
 
 function OrderCard({ orderDetails }) {
   // const discountprice =
@@ -14,51 +18,71 @@ function OrderCard({ orderDetails }) {
   //     orderDetails.items.map((product) => prod._id === product.productid)
   //   );
   //   console.log(products);
+
+  const renderStatus = (status) => {
+    switch (status) {
+      case "Processing":
+        return <AiOutlineSync style={{ color: "green" }} />;
+      case "Shipped":
+        return <FaShippingFast style={{ color: "green" }} />;
+      case "Delivered":
+        return <FaCheckCircle style={{ color: "green" }} />;
+      case "Cancelled":
+        return <MdCancel style={{ color: "red" }} />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div>
+    <>
       {orderDetails.items &&
         orderDetails.items.map((data) => (
-          <Link to={`/order/${orderDetails._id}/product/${data.productid._id}`}>
-            <div>
+          <div className="order-detail-cont">
+            <div className="status-cont-flex">
+              <h4>{renderStatus(orderDetails.status)}</h4>
               <div>{orderDetails.status}</div>
-              <div>{orderDetails.order_date}</div>
-              <div className="product-item wishlist-item cart-item">
-                {/* onClick={removeProductFromCart} */}
-
-                <div className="img_cont">
-                  <img
-                    src={data.productid.img_url}
-                    alt={data.productid.name}
-                  ></img>
-                </div>
-                <div className="details-cont">
-                  <h5 className="font-bold brand-text">
-                    {data.productid.brand}
-                  </h5>
-                  <h6>{data.productid.description}</h6>
-                  {/* {discountprice && ( */}
-                  <h5>
-                    <b>Qty:{data.qty}</b>
-                  </h5>
-                  {/* <div className="price-cont">
-          <h6 className="price-cont font-bold">
-            Rs. {data.discountedPrice.$numberDecimal}
-          </h6>
-          <h6 className="strike-product price-cont">
-            Rs. {data.actualPrice.$numberDecimal}
-          </h6>
-          <h6 className="discount-text price-cont">({data.discount} OFF) </h6>
-        </div> */}
-                </div>
-                {/* <div className="close" onClick={removeProductFromCart}>
-        <IoMdClose />
-      </div> */}
-                {/* )} */}
-              </div>
             </div>
-          </Link>
+
+            <div>
+              On {new Date(orderDetails.last_updated).toLocaleDateString()}
+            </div>
+            <Link
+              to={`/order/${orderDetails._id}/product/${data.productid._id}`}
+            >
+              <div>
+                <div className="product-item cart-item order-item">
+                  {/* onClick={removeProductFromCart} */}
+
+                  <div className="img_cont">
+                    <img
+                      src={data.productid.img_url}
+                      alt={data.productid.name}
+                    ></img>
+                  </div>
+                  <div className="details-cont">
+                    <h5 className="font-bold brand-text">
+                      {data.productid.brand}
+                    </h5>
+                    <h6>{data.productid.description}</h6>
+                    {/* {discountprice && ( */}
+                    <div>Qty: {data.qty}</div>
+                    <div>Size: {data.size}</div>
+                  </div>
+                  <div className="arrow-order-item">
+                    <h5>{">"}</h5>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
         ))}
-    </div>
+      {!orderDetails.items && (
+        <div>
+          <h4>Orders Not found!!</h4>
+        </div>
+      )}
+    </>
   );
 }
 

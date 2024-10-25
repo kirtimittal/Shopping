@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { initBrands, initProducts } from "../store/actions/ProductActions";
 import FilterCategory from "./FilterCategory";
 import "../css/Filter.css";
@@ -7,7 +7,7 @@ import { getProductsByBrands } from "../store/actions/ProductActions";
 import CategoryItem from "./CategoryItem";
 
 function Filter({
-  brands,
+  //brands,
   initBrands,
   getProductsByBrands,
   initProducts,
@@ -15,9 +15,12 @@ function Filter({
   parentCat,
 }) {
   const [selectedBrand, setSelectedBrand] = useState([]);
-  useEffect(() => {
-    initBrands(category, parentCat);
-  }, [category, parentCat]);
+  let products = useSelector((state) => state.products.products);
+  const brands = [...new Set(products.map((product) => product.brand))];
+
+  // useEffect(() => {
+  //   initBrands(category, parentCat);
+  // }, [category, parentCat]);
 
   useEffect(() => {
     let selectedBrands = selectedBrand.join(",");
@@ -44,9 +47,10 @@ function Filter({
     <div className="filter-cont">
       <h5>BRAND</h5>
       {brands &&
-        brands.map((brand) => (
+        brands.map((brand, index) => (
           <FilterCategory
             data={brand}
+            key={index}
             onCheckChange={(id, checked) => handleOnChange(id, checked)}
           />
         ))}

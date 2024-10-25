@@ -58,6 +58,7 @@ const OrderSchema = new Schema({
     country: { type: String },
     state: { type: String },
   },
+  last_updated: { type: Date, default: new Date() },
 });
 
 const Order = model("Order", OrderSchema);

@@ -19,9 +19,11 @@ function Products({
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = useSelector((state) => state.products.totalPages);
 
-  console.log(category);
+  console.log(products);
   useEffect(() => {
-    getProductsByCategory(category, parentCat, currentPage, itemsPerPage);
+    if (parentCat && category) {
+      getProductsByCategory(category, parentCat, currentPage, itemsPerPage);
+    }
   }, [category, parentCat, currentPage]);
   products = products.products;
 

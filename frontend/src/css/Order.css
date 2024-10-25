@@ -1,0 +1,86 @@
+.order-flex-cont{
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+.shipping-addr-div{
+    width: 37%;
+}
+.order-price-cont{
+    width: 38%;
+    height: 50%;
+}
+.order-det-header{
+    padding-left: 20px;
+    margin-top: 62px;
+}
+.allorder-cont{
+    display: flex;
+    justify-content: center;
+    /* width: 61%; */
+    flex-direction: column;
+    /* width: 88%; */
+    align-items: center;
+    /* width: 44%; */
+    margin-left: 40px;
+    margin-top: 40px;
+
+}
+
+.bg-div{
+    background-color: #efeaea;
+    position: relative;
+    width: 46%;
+    display: flex;
+    gap: -23px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.order-detail-cont{
+    width: 93%;
+    /* height: 300px; */
+    margin: 30px;
+    padding: 10px;
+    background-color: white;
+}
+
+.order-item{
+    background-color: #efeaea;
+    width:96% !important; 
+    align-items: center;
+}
+.order-detail-cont a{
+    text-decoration: none;
+    color:black
+}
+.status-cont-flex{
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+.arrow-order-item{
+    position: absolute;
+    right: 10px;
+    color: #968888;
+}
+.order-filter-cont{
+    display: flex;
+    width: 46%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-filter-btn{
+    border: 1px solid rgb(199, 195, 195);
+    margin-bottom: 10px;
+    padding: 6px;
+    border-radius: 10px;
+    width: 12%;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    align-items: baseline;
+}

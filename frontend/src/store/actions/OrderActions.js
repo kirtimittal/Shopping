@@ -103,6 +103,62 @@ export const getOrders = (userid, token) => {
   };
 };
 
+export const searchOrder = (searchInput, userid, token) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(
+        `${BASE_URL}/api/orders/${userid}/search/${searchInput}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+      console.log(data);
+
+      dispatch({
+        type: "SEARCH",
+        data,
+      });
+    } catch (err) {
+      dispatch({
+        type: "FAILURE",
+        error: err.message,
+      });
+    }
+  };
+};
+export const getOrderByStatus = (status, userid, token) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(
+        `${BASE_URL}/api/orders/${userid}/filter/${status}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+
+      dispatch({
+        type: "SEARCH",
+        data,
+      });
+    } catch (err) {
+      dispatch({
+        type: "FAILURE",
+        error: err.message,
+      });
+    }
+  };
+};
+
 // export const getProductInfoOrders = (userid, token) => {
 //     return async (dispatch) => {
 //       try {
