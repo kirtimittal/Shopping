@@ -14,7 +14,7 @@ function Products({
   sortByPrice,
   itemsPerPage,
 }) {
-  const { parentCat, category } = useParams();
+  const { parentCat, category, searchInput } = useParams();
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = useSelector((state) => state.products.totalPages);
@@ -36,7 +36,11 @@ function Products({
         <SortComp />
       </div>
 
-      <Filter category={category} parentCat={parentCat} />
+      <Filter
+        category={category}
+        parentCat={parentCat}
+        searchInput={searchInput}
+      />
 
       <div className="vertical-line" />
       <div className="allproducts-cont">
@@ -52,6 +56,7 @@ function Products({
                 </Link>
               );
             })}
+          {products && products.length === 0 && <div>No products Found</div>}
         </div>
         <div className="page-cont">
           {Array.from({ length: totalPages }, (_, index) => (

@@ -1,8 +1,8 @@
 let BASE_URL = "http://localhost:4000";
-export const initProducts = (category, parentCat) => {
+export const initProducts = (category, parentCat, searchInput) => {
   let products = [];
   return (dispatch) => {
-    fetch(`${BASE_URL}/products/${parentCat}/${category}`)
+    fetch(`${BASE_URL}/products/${parentCat}/${category}/${searchInput}`)
       //   .then((res) => {
       //     console.log(res);
       //     products = res;
@@ -14,6 +14,7 @@ export const initProducts = (category, parentCat) => {
       .then((response) => response.json())
       .then((data) => {
         products = data;
+        console.log(data);
         dispatch({
           type: "GET_PRODUCTS",
           products,
@@ -40,11 +41,16 @@ export const initBrands = (category, parentCat) => {
   };
 };
 
-export const getProductsByBrands = (selectedBrand, category, parentCat) => {
+export const getProductsByBrands = (
+  selectedBrand,
+  category,
+  parentCat,
+  searchInput
+) => {
   let products = [];
   return (dispatch) => {
     fetch(
-      `${BASE_URL}/getProductsByBrand/${parentCat}/${category}/${selectedBrand}`
+      `${BASE_URL}/getProductsByBrand/${parentCat}/${category}/${selectedBrand}/${searchInput}`
     )
       .then((response) => response.json())
       .then((data) => {

@@ -1,13 +1,25 @@
 const Product = require("../models/Product.js");
 
 const getProducts = async (req, res) => {
-  let { category, parentCat } = req.params;
+  let { category, parentCat, searchInput } = req.params;
   // category = category.toLowerCase();
   // parentCat = parentCat.toLowerCase();
-  const products = await Product.find({
-    subCategory: category,
-    category: parentCat,
-  });
+  let products = null;
+  if (parentCat !== "undefined" && category !== "undefined") {
+    products = await Product.find({
+      subCategory: category,
+      category: parentCat,
+    });
+  } else {
+    products = await Product.find({
+      $or: [
+        { name: { $regex: ".*" + searchInput + ".*" } },
+        { description: { $regex: ".*" + searchInput + ".*" } },
+        { brand: { $regex: ".*" + searchInput + ".*" } },
+      ],
+    });
+  }
+  console.log(products);
   res.json(products);
 };
 
@@ -44,19 +56,35 @@ const getBrands = async (req, res) => {
 
 const getProductsByBrand = async (req, res) => {
   console.log(req.params);
-  let { brands, parentCat, category } = req.params;
+  let { brands, parentCat, category, searchInput } = req.params;
   const brnd = brands.toLowerCase().split(",");
   console.log(brnd);
   let selectedProducts = [];
-
-  selectedProducts = await Product.find({
-    $or: brnd.map((word) => ({
-      brand: { $regex: word, $options: "i" },
-    })),
-    subCategory: category,
-    category: parentCat,
-  });
-
+  if (parentCat !== "undefined" && category !== "undefined") {
+    selectedProducts = await Product.find({
+      $or: brnd.map((word) => ({
+        brand: { $regex: word, $options: "i" },
+      })),
+      subCategory: category,
+      category: parentCat,
+    });
+  } else {
+    selectedProducts = await Product.find({
+      // $or: brnd.map((word) => ({
+      //   brand: { $regex: word, $options: "i" },
+      // })),
+      $or: [
+        { name: { $regex: ".*" + searchInput + ".*" } },
+        { description: { $regex: ".*" + searchInput + ".*" } },
+        { brand: { $regex: ".*" + searchInput + ".*" } },
+      ],
+    });
+  }
+  //console.log(selectedProducts);
+  selectedProducts = selectedProducts.filter((product) =>
+    brnd.includes(product.brand.toLowerCase())
+  );
+  //console.log(selectedProducts);
   // products.forEach((product) => {
   //   if (brands.includes(product.brand.toLowerCase())) {
   //     selectedProducts.push(product);

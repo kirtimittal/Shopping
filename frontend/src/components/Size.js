@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dropdown } from "react-bootstrap";
 
 function Size({ data, onClickHandle, itemid }) {
@@ -7,6 +7,10 @@ function Size({ data, onClickHandle, itemid }) {
   //   if (sizeSelected) {
   //     setSelected(false);
   //   }
+  useEffect(() => {
+    setSelected(data[0]);
+    onClickHandle(data[0]);
+  }, []);
   console.log(selected);
   return (
     <>

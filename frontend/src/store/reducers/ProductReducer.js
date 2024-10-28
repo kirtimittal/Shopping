@@ -8,10 +8,14 @@ const initialState = {
 const ProductReducer = (state = initialState, action) => {
   switch (action.type) {
     case "GET_PRODUCTS": {
+      let brands = [
+        ...new Set(action.products.map((product) => product.brand)),
+      ];
       return {
         ...state,
         products: action.products,
         totalPages: action.totalPages,
+        brands: brands,
       };
     }
     case "GET_BRANDS": {
@@ -52,6 +56,17 @@ const ProductReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedProduct: action.selectedProduct,
+      };
+    }
+    case "SEARCH_PRODUCTS": {
+      let brands = [
+        ...new Set(action.products.map((product) => product.brand)),
+      ];
+      return {
+        ...state,
+        products: action.products,
+        totalPages: action.totalPages,
+        brands: brands,
       };
     }
     default: {

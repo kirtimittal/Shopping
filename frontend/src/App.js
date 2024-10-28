@@ -69,7 +69,10 @@ function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/orders" element={<Order />} />
           <Route path="/orderdetails" element={<OrderDetails />} />
-          <Route path="/search" element={<Products itemsPerPage={10} />} />
+          <Route
+            path="/search/:searchInput"
+            element={<Products itemsPerPage={10} />}
+          />
           <Route path="/order/confirm" element={<ConfirmOrder />} />
           <Route
             path="/order/:orderId/product/:productId"

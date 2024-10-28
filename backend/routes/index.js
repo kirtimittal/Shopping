@@ -4,11 +4,14 @@ const ProductController = require("../controllers/ProductController.js");
 
 const router = express.Router();
 
-router.get("/products/:parentCat/:category", ProductController.getProducts);
+router.get(
+  "/products/:parentCat/:category/:searchInput",
+  ProductController.getProducts
+);
 router.post("/products", ProductController.addProducts);
 router.get("/brands/:parentCat/:category", ProductController.getBrands);
 router.get(
-  "/getProductsByBrand/:parentCat/:category/:brands",
+  "/getProductsByBrand/:parentCat/:category/:brands/:searchInput",
   ProductController.getProductsByBrand
 );
 router.get(

@@ -15,7 +15,7 @@ function Search({ searchProduct }) {
       console.log(searchInput);
       searchProduct(searchInput);
       setSearchInput("");
-      setTimeout(() => navigate("/search"), 3000);
+      setTimeout(() => navigate(`/search/${searchInput}`), 3000);
     } else {
       //setSearchInput(e.target.value);
     }

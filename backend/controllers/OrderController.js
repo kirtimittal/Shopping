@@ -35,7 +35,8 @@ const searchOrders = async (req, res) => {
 
   const orders = await Order.find({ userid })
     .populate("items.productid")
-    .sort({ order_date: -1 });
+    .sort({ order_date: -1 })
+    .lean();
 
   const filteredOrders = orders
     .map((order) => {
@@ -53,9 +54,9 @@ const searchOrders = async (req, res) => {
         ),
       };
     })
-    .filter((order) => order.items.length > 0)
-    .map((order) => order._doc);
-  console.log(filteredOrders);
+    .filter((order) => order.items.length > 0);
+  //.map((order) => order._doc);
+  //console.log(filteredOrders);
   res.json({ order: filteredOrders });
 
   // products.forEach((product) => {

@@ -3,8 +3,9 @@ import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { addReview, resetMessage } from "../store/actions/ReviewActions";
 import notify from "./Notify";
+import { Button } from "react-bootstrap";
 
-const StarRatingSubmit = ({ productId }) => {
+const StarRatingSubmit = ({ productId, status }) => {
   const user = useSelector((state) => state.user);
   const message = useSelector((state) => state.review.message);
   const error = useSelector((state) => state.review.error);
@@ -53,7 +54,7 @@ const StarRatingSubmit = ({ productId }) => {
   };
 
   return (
-    <div>
+    <div className="rating-rev-cont">
       <h3>Rate this product:</h3>
       <div className="star-rating">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -69,16 +70,21 @@ const StarRatingSubmit = ({ productId }) => {
           </span>
         ))}
       </div>
-      <div>
+      <div className="comment-div">
         <h5>Add Comment(optional)</h5>
         <textarea
           rows={3}
-          cols={10}
+          cols={20}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
       </div>
-      <button onClick={submitRating}>Submit</button>
+      <Button
+        onClick={submitRating}
+        disabled={status === "Delivered" ? false : true}
+      >
+        Submit
+      </Button>
     </div>
   );
 };

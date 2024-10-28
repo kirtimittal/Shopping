@@ -7,27 +7,31 @@ import { getProductsByBrands } from "../store/actions/ProductActions";
 import CategoryItem from "./CategoryItem";
 
 function Filter({
-  //brands,
+  brands,
   initBrands,
   getProductsByBrands,
   initProducts,
   category,
   parentCat,
+  searchInput,
 }) {
   const [selectedBrand, setSelectedBrand] = useState([]);
   let products = useSelector((state) => state.products.products);
-  const brands = [...new Set(products.map((product) => product.brand))];
+  //const [brands, setBrands] = useState(null);
+  //const brands = [...new Set(products.map((product) => product.brand))];
 
-  // useEffect(() => {
-  //   initBrands(category, parentCat);
-  // }, [category, parentCat]);
+  useEffect(() => {
+    if (category && parentCat) {
+      initBrands(category, parentCat);
+    }
+  }, [category, parentCat]);
 
   useEffect(() => {
     let selectedBrands = selectedBrand.join(",");
     if (selectedBrands !== "") {
-      getProductsByBrands(selectedBrands, category, parentCat);
+      getProductsByBrands(selectedBrands, category, parentCat, searchInput);
     } else {
-      initProducts(category, parentCat);
+      initProducts(category, parentCat, searchInput);
     }
   }, [selectedBrand]);
 
@@ -80,10 +84,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     initBrands: (category, parentCat) =>
       dispatch(initBrands(category, parentCat)),
-    getProductsByBrands: (brand, category, parentCat) =>
-      dispatch(getProductsByBrands(brand, category, parentCat)),
-    initProducts: (category, parentCat) =>
-      dispatch(initProducts(category, parentCat)),
+    getProductsByBrands: (brand, category, parentCat, searchInput) =>
+      dispatch(getProductsByBrands(brand, category, parentCat, searchInput)),
+    initProducts: (category, parentCat, searchInput) =>
+      dispatch(initProducts(category, parentCat, searchInput)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
