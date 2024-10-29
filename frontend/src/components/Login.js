@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Form, Button, Container, Row, Col, Navbar } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavigationBar from "./Navbar.js";
 import { connect, useDispatch } from "react-redux";
 import {
@@ -29,7 +29,6 @@ function Login({ checkLogin, user }) {
   // const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   // const [provider, setProvider] = useState("");
   // const [profile, setProfile] = useState(null);
 
@@ -53,6 +52,7 @@ function Login({ checkLogin, user }) {
   };
   const handleNavigate = () => {
     const props = { isAuth, username: user.user.name }; // Props to pass
+
     navigate("/", { state: props });
   };
 
@@ -198,6 +198,24 @@ function Login({ checkLogin, user }) {
           </div>
         </div>
         <GoogleOAuthProvider clientId="229313699502-aagqig7sm0efn74vle83nub6r7oeo3it.apps.googleusercontent.com">
+          {/* <GoogleLogin
+            onSuccess={handleSuccess}
+            onError={handleError}
+            render={(renderProps) => (
+              <button
+                className="google-btn"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                  alt="Google icon"
+                  className="google-icon"
+                />
+                Sign in with Google
+              </button>
+            )}
+          /> */}
           {/* <div className="App">
             <h2>Login with Google</h2> */}
           <GoogleLogin onSuccess={handleSuccess} onError={handleError} />

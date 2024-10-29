@@ -5,6 +5,7 @@ import FilterCategory from "./FilterCategory";
 import "../css/Filter.css";
 import { getProductsByBrands } from "../store/actions/ProductActions";
 import CategoryItem from "./CategoryItem";
+import { useLocation } from "react-router-dom";
 
 function Filter({
   brands,
@@ -16,6 +17,7 @@ function Filter({
   searchInput,
 }) {
   const [selectedBrand, setSelectedBrand] = useState([]);
+  const location = useLocation();
   let products = useSelector((state) => state.products.products);
   //const [brands, setBrands] = useState(null);
   //const brands = [...new Set(products.map((product) => product.brand))];
@@ -35,6 +37,10 @@ function Filter({
     }
   }, [selectedBrand]);
 
+  useEffect(() => {
+    setSelectedBrand([]);
+  }, [location]);
+
   const handleOnChange = (id, checked) => {
     if (checked) {
       setSelectedBrand([...selectedBrand, id.toLowerCase()]);
@@ -49,15 +55,26 @@ function Filter({
 
   return (
     <div className="filter-cont">
-      <h5>BRAND</h5>
+      <div className="filter-header-cont">
+        <h5>BRAND</h5>
+        <div
+          className="filter-clear-all-btn"
+          onClick={() => setSelectedBrand([])}
+        >
+          Clear
+        </div>
+      </div>
+
       {brands &&
         brands.map((brand, index) => (
           <FilterCategory
             data={brand}
             key={index}
             onCheckChange={(id, checked) => handleOnChange(id, checked)}
+            selectedBrand={selectedBrand}
           />
         ))}
+
       <div className="brand-div">
         {selectedBrand &&
           selectedBrand.map((brand, index) => {

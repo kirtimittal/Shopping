@@ -30,3 +30,13 @@ margin-left: 76px;
     padding-bottom: -14px;
     margin-left: 10px;
 }
+
+.filter-header-cont{
+    display: flex;
+    justify-content: space-between;
+}
+.filter-clear-all-btn{
+    color:red;
+    margin-right: 10px;
+    cursor: pointer;
+}

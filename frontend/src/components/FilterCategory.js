@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import "../css/Filter.css";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 // import { getProductsByBrands } from "../store/actions/ProductActions.js";
 // import { connect } from "react-redux";
 
-function FilterCategory({ data, onCheckChange }) {
+function FilterCategory({ data, onCheckChange, selectedBrand }) {
   const [checked, setChecked] = useState(false);
+  const location = useLocation();
   //const [filterList, setFilterList] = useState([]);
   //   let selectedBrand = [];
 
@@ -16,6 +18,9 @@ function FilterCategory({ data, onCheckChange }) {
   //     console.log(selectedBrand);
   //     getSelectedProducts(selectedBrand);
   //   };
+  useEffect(() => {
+    setChecked(false);
+  }, [location]);
 
   return (
     <div className="filter-item">
@@ -26,7 +31,7 @@ function FilterCategory({ data, onCheckChange }) {
           type="checkbox"
           id={data}
           label={data}
-          checked={checked}
+          checked={selectedBrand.includes(data.toLowerCase()) ? true : false}
           onChange={(e) => {
             onCheckChange(e.target.id, e.target.checked);
             //setFilterList([...filterList, e.target.id]);
