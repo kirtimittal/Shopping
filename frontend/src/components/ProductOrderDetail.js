@@ -40,6 +40,18 @@ const ProductOrderDetails = () => {
     }
   };
 
+  const convertDateFormat = (date) => {
+    // const year = date.split("-")[0];
+    // let month = date.split("-")[1];
+    // const dt = date.split("-")[2];
+    let formatttedDate = date.toLocaleString("default", {
+      month: "short",
+      year: "numeric",
+      day: "numeric",
+    });
+    return formatttedDate;
+  };
+
   return (
     <div className="order-product-cont">
       <div className="prod-item-1">
@@ -54,7 +66,7 @@ const ProductOrderDetails = () => {
             <div>
               {"  "} {order[0].status}{" "}
             </div>
-            <div>On {new Date(order[0].last_updated).toLocaleDateString()}</div>
+            <div>On {convertDateFormat(new Date(order[0].last_updated))}</div>
           </div>
         </div>
       </div>

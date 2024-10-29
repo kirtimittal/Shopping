@@ -38,7 +38,7 @@ function App() {
       <div className="App">
         <NavigationBar />
       </div>
-      <div className="content">
+      <div id="content" className="content">
         <Routes>
           <Route
             exact

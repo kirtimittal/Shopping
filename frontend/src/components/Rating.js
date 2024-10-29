@@ -16,7 +16,7 @@ const Rating = ({ value, text }) => {
           )}
         </span>
       ))}
-      {text && <span>{text}</span>}
+      {text && <span> {text}</span>}
     </div>
   );
 };

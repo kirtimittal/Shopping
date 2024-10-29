@@ -40,8 +40,8 @@ function Signup({ signup, user }) {
     } else {
       setIsValidated(true);
       signup(formData);
-      alert("Signup succcess");
-      navigate("/login");
+      alert("Signup successful.Please login to continue");
+      navigate("/");
     }
     console.log(formData);
   };

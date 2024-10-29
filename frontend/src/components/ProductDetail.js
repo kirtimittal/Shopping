@@ -160,6 +160,17 @@ function ProductDetail({
   const setQty = (q) => {
     localStorage.setItem("Qty", q);
   };
+  const convertDateFormat = (date) => {
+    // const year = date.split("-")[0];
+    // let month = date.split("-")[1];
+    // const dt = date.split("-")[2];
+    let formatttedDate = date.toLocaleString("default", {
+      month: "short",
+      year: "numeric",
+      day: "numeric",
+    });
+    return formatttedDate;
+  };
 
   return (
     <>
@@ -258,12 +269,12 @@ function ProductDetail({
             <hr />
             <br />
             <h5>RATINGS</h5>
-            <h3>
+            <h4>
               <Rating
                 value={selectedProduct.rating}
                 text={`${selectedProduct.numReviews} reviews`}
               />
-            </h3>
+            </h4>
             <hr />
             <h5>Customer Reviews ({`${selectedProduct.numReviews}`})</h5>
             <div>
@@ -276,7 +287,10 @@ function ProductDetail({
                           <Rating value={review.reviewId.rating} text="" />
                           <p>{review.reviewId.comment}</p>
                           <div>
-                            {review.reviewId.name} | {review.reviewId.dateAdded}
+                            {review.reviewId.name} |{" "}
+                            {convertDateFormat(
+                              new Date(review.reviewId.dateAdded)
+                            )}
                           </div>
                           <hr />
                         </>

@@ -104,6 +104,12 @@ const ConfirmOrder = () => {
                 </div>
               );
             })}
+          {user.user && user.user.address.length === 0 && (
+            <>
+              {notify("Please update your address before proceeding", "info")}
+              <div>No Address Found</div>
+            </>
+          )}
         </div>
         <div className="order-price-cont">
           <div>

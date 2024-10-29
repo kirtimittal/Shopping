@@ -52,8 +52,8 @@ function Login({ checkLogin, user }) {
   };
   const handleNavigate = () => {
     const props = { isAuth, username: user.user.name }; // Props to pass
-
-    navigate("/", { state: props });
+    navigate(-1);
+    //navigate("/", { state: props });
   };
 
   // const onLoginStart = useCallback(() => {

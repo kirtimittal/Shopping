@@ -48,7 +48,7 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (user) => {
-  let updateduser = await user.updateOne(
+  let updateduser = await Users.updateOne(
     { email: user.email },
     { isLoggedIn: true, lastLoggedIn: Date.now() },
     { new: true }

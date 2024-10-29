@@ -34,6 +34,18 @@ function OrderCard({ orderDetails }) {
     }
   };
 
+  const convertDateFormat = (date) => {
+    // const year = date.split("-")[0];
+    // let month = date.split("-")[1];
+    // const dt = date.split("-")[2];
+    let formatttedDate = date.toLocaleString("default", {
+      month: "short",
+      year: "numeric",
+      day: "numeric",
+    });
+    return formatttedDate;
+  };
+
   return (
     <>
       {orderDetails.items &&
@@ -45,7 +57,7 @@ function OrderCard({ orderDetails }) {
             </div>
 
             <div>
-              On {new Date(orderDetails.last_updated).toLocaleDateString()}
+              On {convertDateFormat(new Date(orderDetails.last_updated))}
             </div>
             <Link
               to={`/order/${orderDetails._id}/product/${data.productid._id}`}

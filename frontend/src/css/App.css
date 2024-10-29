@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 .App {
   text-align: center;
   height: 80px;
@@ -171,9 +173,9 @@
 } */
 
 #signup-div{
-  background-image:url("https://t4.ftcdn.net/jpg/05/88/11/91/240_F_588119127_ai0xZYPNgiPvEebGlR19I0O90qF2SILQ.jpg");
+  /* background-image:url("https://t4.ftcdn.net/jpg/05/88/11/91/240_F_588119127_ai0xZYPNgiPvEebGlR19I0O90qF2SILQ.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   min-height: 120vh;
 }
 .signup-cont{
@@ -181,7 +183,7 @@
   position: relative;
     top: 20px;
     width: 37% !important;
-    background-color: #f8f9faba;
+    background-color: #efeaea;
 
 }
 
