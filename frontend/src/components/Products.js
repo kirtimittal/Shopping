@@ -7,6 +7,7 @@ import { getProductsByCategory } from "../store/actions/ProductActions";
 import { connect, useSelector } from "react-redux";
 import Filter from "./Filter";
 import SortComp from "./Sort";
+import notfound from "../images/notfound.png";
 
 function Products({
   products,
@@ -29,49 +30,59 @@ function Products({
 
   return (
     <div>
-      <div className="header-cont">
-        <div>
-          <h4>FILTERS</h4>
+      {products && products.length === 0 && (
+        <div className="not-found-cont">
+          <img src={notfound} alt="not found" />
+          <h4>We couldn't find any matches!</h4>
+          <div>Please check the spelling or try searching something else</div>
         </div>
-        <SortComp />
-      </div>
+      )}
+      {products && products.length > 0 && (
+        <>
+          <div className="header-cont">
+            <div>
+              <h4>FILTERS</h4>
+            </div>
+            <SortComp />
+          </div>
 
-      <Filter
-        category={category}
-        parentCat={parentCat}
-        searchInput={searchInput}
-      />
+          <Filter
+            category={category}
+            parentCat={parentCat}
+            searchInput={searchInput}
+          />
 
-      <div className="vertical-line" />
-      <div className="allproducts-cont">
-        <div className="product-cont">
-          {products &&
-            products.map((item) => {
-              return (
-                <Link
-                  to={`/${parentCat}/${category}/${item._id}`}
-                  key={item._id}
+          <div className="vertical-line" />
+          <div className="allproducts-cont">
+            <div className="product-cont">
+              {products &&
+                products.map((item) => {
+                  return (
+                    <Link
+                      to={`/${parentCat}/${category}/${item._id}`}
+                      key={item._id}
+                    >
+                      <Product key={item.id} data={item} id={item._id} />
+                    </Link>
+                  );
+                })}
+            </div>
+            <div className="page-cont">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index + 1)}
+                  disabled={currentPage === index + 1}
                 >
-                  <Product key={item.id} data={item} id={item._id} />
-                </Link>
-              );
-            })}
-          {products && products.length === 0 && <div>No products Found</div>}
-        </div>
-        <div className="page-cont">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentPage(index + 1)}
-              disabled={currentPage === index + 1}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-      </div>
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </div>
 
-      <br />
+          <br />
+        </>
+      )}
       <Footer />
     </div>
   );

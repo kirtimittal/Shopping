@@ -13,6 +13,7 @@ const MultipleAddressesForm = ({ onSave }) => {
     if (user) {
       if (user.address.length > 0) {
         setAddresses(user.address);
+        onSave(user.address);
       }
     }
   }, []);
@@ -51,7 +52,10 @@ const MultipleAddressesForm = ({ onSave }) => {
       {addresses.map((address, index) => (
         <div key={index} className="address-form">
           <div className="address-lbl-cont">
-            <h5>Address {index + 1}</h5>
+            <h5>
+              Address {index + 1}{" "}
+              {index === 0 && <span class="required">*</span>}
+            </h5>
             <div className="address-icon-div">
               <div onClick={handleAddAddress} className="plus-icon-div">
                 <FaPlusCircle style={{ color: "#0d6efd" }} />

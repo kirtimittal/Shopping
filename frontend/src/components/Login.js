@@ -163,6 +163,7 @@ function Login({ checkLogin, user }) {
                     value={username}
                     onChange={(event) => setUsername(event.target.value)}
                     placeholder="Enter username"
+                    required="true"
                   />
                 </InputGroup>
               </Form.Group>
@@ -178,6 +179,7 @@ function Login({ checkLogin, user }) {
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                     placeholder="Enter password"
+                    required="true"
                   />
                 </InputGroup>
               </Form.Group>
@@ -191,36 +193,21 @@ function Login({ checkLogin, user }) {
               </div>
             </Form>
           </Col>
-        </Row>
-        <div className="divider">
-          <div>
-            <b>OR</b>
+          <div className="divider">
+            <div>
+              <b>OR</b>
+            </div>
           </div>
-        </div>
-        <GoogleOAuthProvider clientId="229313699502-aagqig7sm0efn74vle83nub6r7oeo3it.apps.googleusercontent.com">
-          {/* <GoogleLogin
-            onSuccess={handleSuccess}
-            onError={handleError}
-            render={(renderProps) => (
-              <button
-                className="google-btn"
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                  alt="Google icon"
-                  className="google-icon"
-                />
-                Sign in with Google
-              </button>
-            )}
-          /> */}
-          {/* <div className="App">
+          <div className="google-login-cont">
+            <GoogleOAuthProvider clientId="229313699502-aagqig7sm0efn74vle83nub6r7oeo3it.apps.googleusercontent.com">
+              {/* <div className="App">
             <h2>Login with Google</h2> */}
-          <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
-          {/* </div> */}
-        </GoogleOAuthProvider>
+              <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+              {/* </div> */}
+            </GoogleOAuthProvider>
+          </div>
+        </Row>
+
         {/* {provider && profile ? (
           <div>{console.log(profile)}</div>
         ) : (

@@ -30,6 +30,7 @@ function UserReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
+        message: action.data.message,
         error: null,
       };
     }

@@ -38,6 +38,7 @@ const login = async (req, res) => {
               name: user.name,
               email: user.email,
               address: user.address,
+              mobile: user.mobile,
             },
           });
         });
@@ -50,7 +51,10 @@ const login = async (req, res) => {
 const updateUser = async (user) => {
   let updateduser = await Users.updateOne(
     { email: user.email },
-    { isLoggedIn: true, lastLoggedIn: Date.now() },
+    {
+      isLoggedIn: true,
+      lastLoggedIn: Date.now(),
+    },
     { new: true }
   );
   return updateduser;
@@ -70,7 +74,7 @@ const signup = async (req, res) => {
         user.password = hash;
         user.save().then((u) => {
           res.json({
-            message: "User inserted successfully",
+            message: "Signup Successfull",
             user: u,
             success: true,
           });
@@ -113,6 +117,7 @@ const googleLogin = async (req, res) => {
         googleId: sub,
         email,
         name,
+        mobile: "",
       });
       await user.save();
     }
@@ -134,6 +139,7 @@ const googleLogin = async (req, res) => {
           name: user.name,
           email: user.email,
           address: user.address,
+          mobile: user.mobile,
         },
       });
     });
@@ -167,6 +173,7 @@ const updateProfile = async (req, res) => {
           name: u.name,
           email: u.email,
           address: u.address,
+          mobile: u.mobile,
         },
         success: true,
       });

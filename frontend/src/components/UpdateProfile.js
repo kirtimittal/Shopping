@@ -42,6 +42,8 @@ function UpdateProfile({ signup, user }) {
         ...formData,
         name: user.user.name,
         email: user.user.email,
+        mobile: user.user.mobile,
+        address: user.user.address,
       });
     }
   }, [user.user]);
@@ -80,6 +82,7 @@ function UpdateProfile({ signup, user }) {
               value={formData.name}
               onChange={handleChange}
               required
+              disabled={true}
             />
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
@@ -91,6 +94,7 @@ function UpdateProfile({ signup, user }) {
               value={formData.email}
               onChange={handleChange}
               required
+              disabled={true}
             />
           </Form.Group>
 
@@ -102,7 +106,6 @@ function UpdateProfile({ signup, user }) {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              required
             />
           </Form.Group>
 
@@ -114,7 +117,6 @@ function UpdateProfile({ signup, user }) {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              required
             />
           </Form.Group>
           <Form.Group controlId="formBasicMobile">

@@ -4,26 +4,41 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Rating from "./Rating";
 import StarRatingSubmit from "./StarRatingSubmit";
-import { getReview } from "../store/actions/ReviewActions";
+import { getReview, resetMessage } from "../store/actions/ReviewActions";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { AiOutlineSync } from "react-icons/ai";
+import notify from "./Notify";
 
 const ProductOrderDetails = () => {
   const { orderId, productId } = useParams();
   const orders = useSelector((state) => state.order.orderItems);
   const dispatch = useDispatch();
   const review = useSelector((state) => state.review.review);
-  const order = orders.filter((order) => order._id === orderId);
+  const order = orders && orders.filter((order) => order._id === orderId);
   const user = useSelector((state) => state.user);
+  const message = useSelector((state) => state.review.message);
+  const error = useSelector((state) => state.review.error);
+
   let product =
+    orders &&
     order[0].items &&
     order[0].items.filter((item) => item.productid._id === productId)[0];
 
   useEffect(() => {
     dispatch(getReview(user.user.id, productId, user.token));
   }, [productId, user.user.id]);
+
+  useEffect(() => {
+    if (message !== "") {
+      notify(message, "success");
+      dispatch(resetMessage());
+    } else if (error !== null) {
+      notify(message, "error");
+      dispatch(resetMessage());
+    }
+  }, [message, error]);
 
   const renderStatus = (status) => {
     switch (status) {

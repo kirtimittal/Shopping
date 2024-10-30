@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Container, Button } from "react-bootstrap";
-import { signup } from "../store/actions/UserActions";
-import { connect } from "react-redux";
+import { resetMessage, signup } from "../store/actions/UserActions";
+import { connect, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MultipleAddressesForm from "./Addresses";
+import notify from "./Notify.js";
 
 function Signup({ signup, user }) {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ function Signup({ signup, user }) {
   });
   const [isValidated, setIsValidated] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
     //if (name === "address") {
@@ -32,6 +34,23 @@ function Signup({ signup, user }) {
 
     console.log(formData);
   };
+  useEffect(() => {
+    if (!isValidated) {
+      notify("Password and confirm Password does not match", "error");
+    }
+  }, [isValidated]);
+
+  useEffect(() => {
+    if (user.message === "Signup Successfull") {
+      notify(user.message, "success");
+      dispatch(resetMessage());
+      navigate("/");
+    } else if (user.message !== "") {
+      notify(user.message, "info");
+      dispatch(resetMessage());
+    }
+  }, [user.message]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -40,8 +59,7 @@ function Signup({ signup, user }) {
     } else {
       setIsValidated(true);
       signup(formData);
-      alert("Signup successful.Please login to continue");
-      navigate("/");
+      //alert("Signup successful.Please login to continue");
     }
     console.log(formData);
   };
@@ -51,7 +69,9 @@ function Signup({ signup, user }) {
         <h2>Sign Up</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicName">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>
+              Name<span class="required">*</span>
+            </Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter name"
@@ -62,7 +82,9 @@ function Signup({ signup, user }) {
             />
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>
+              Email address<span class="required">*</span>
+            </Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
@@ -74,7 +96,9 @@ function Signup({ signup, user }) {
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>
+              Password<span class="required">*</span>
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Password"
@@ -82,11 +106,14 @@ function Signup({ signup, user }) {
               value={formData.password}
               onChange={handleChange}
               required
+              minLength={8}
             />
           </Form.Group>
 
           <Form.Group controlId="formConfirmPassword">
-            <Form.Label>Confirm Password</Form.Label>
+            <Form.Label>
+              Confirm Password<span class="required">*</span>
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Confirm Password"
@@ -97,7 +124,9 @@ function Signup({ signup, user }) {
             />
           </Form.Group>
           <Form.Group controlId="formBasicMobile">
-            <Form.Label>Phone No</Form.Label>
+            <Form.Label>
+              Phone No<span class="required">*</span>
+            </Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter mobile"
@@ -133,10 +162,12 @@ function Signup({ signup, user }) {
           </Button>
         </Form>
       </Container>
-      {user.success && <div>{alert("Signup succcess")}</div>}
-      {!isValidated && (
-        <div>{alert("Password and confirm Pasword does not match")}</div>
-      )}
+      {user.success && <div>{notify("Signup Successful", "success")}</div>}
+      {/* {!isValidated && (
+        <div>
+          {notify("Password and confirm Password does not match", "error")}
+        </div>
+      )} */}
     </div>
   );
 }

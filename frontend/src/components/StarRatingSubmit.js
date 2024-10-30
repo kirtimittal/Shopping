@@ -7,22 +7,10 @@ import { Button } from "react-bootstrap";
 
 const StarRatingSubmit = ({ productId, status }) => {
   const user = useSelector((state) => state.user);
-  const message = useSelector((state) => state.review.message);
-  const error = useSelector((state) => state.review.error);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (message !== "") {
-      notify(message, "success");
-      dispatch(resetMessage());
-    } else if (error !== null) {
-      notify(message, "error");
-      dispatch(resetMessage());
-    }
-  }, [message, error]);
 
   const submitRating = () => {
     dispatch(

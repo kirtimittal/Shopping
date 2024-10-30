@@ -132,6 +132,7 @@ export const loginWithGoogle = (token) => {
 
 export const updateUser = (user, id) => {
   user = { ...user, id };
+  console.log(user);
   return async (dispatch) => {
     try {
       const res = await fetch(`${BASE_URL}/api/user/update`, {
