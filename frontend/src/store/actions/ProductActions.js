@@ -2,6 +2,9 @@ let BASE_URL = "http://localhost:4000";
 export const initProducts = (category, parentCat, searchInput) => {
   let products = [];
   return (dispatch) => {
+    dispatch({
+      type: "PRODUCT_LOADING",
+    });
     fetch(`${BASE_URL}/products/${parentCat}/${category}/${searchInput}`)
       //   .then((res) => {
       //     console.log(res);
@@ -73,6 +76,9 @@ export const getProductsByCategory = (
 ) => {
   let products = [];
   return (dispatch) => {
+    dispatch({
+      type: "PRODUCT_LOADING",
+    });
     fetch(
       `${BASE_URL}/getProductsByCategory/${parentCat}/${category}?page=${currentPage}&limit=${limit}`
     )
@@ -103,6 +109,9 @@ export const sortByPrice = (method) => {
 export const searchProduct = (word) => {
   let products = [];
   return (dispatch) => {
+    dispatch({
+      type: "PRODUCT_LOADING",
+    });
     fetch(`${BASE_URL}/search/${word}`)
       .then((response) => response.json())
       .then((data) => {

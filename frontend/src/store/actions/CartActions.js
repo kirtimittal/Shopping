@@ -11,6 +11,9 @@ export const addToCart = (product, userid, token, size, qty) => {
   };
   console.log(size, qty);
   return (dispatch) => {
+    dispatch({
+      type: "LOADING",
+    });
     fetch(`${BASE_URL}/api/cart/add`, {
       method: "POST",
       headers: {
@@ -34,6 +37,9 @@ export const addToCart = (product, userid, token, size, qty) => {
 
 export const getCartItems = (userid, token) => {
   return (dispatch) => {
+    dispatch({
+      type: "LOADING",
+    });
     fetch(`${BASE_URL}/api/cart/getItems/${userid}`, {
       headers: {
         Authorization: `${token}`,
@@ -69,6 +75,9 @@ export const getCartItems = (userid, token) => {
 
 export const removeFromCart = (productid, userid, token) => {
   return (dispatch) => {
+    dispatch({
+      type: "LOADING",
+    });
     fetch(`${BASE_URL}/api/cart/delete`, {
       method: "DELETE",
       headers: {

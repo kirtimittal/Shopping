@@ -7,6 +7,7 @@ import notify from "./Notify";
 import { emptyCart } from "../store/actions/CartActions";
 import CartPrice from "./CartPrice";
 import "../css/Order.css";
+import { ThreeDots } from "react-loader-spinner";
 
 const ConfirmOrder = () => {
   const cartItems = useSelector((state) => state.cart.cart[0]);
@@ -74,6 +75,7 @@ const ConfirmOrder = () => {
       <br />
       <br />
       <br />
+
       <div className="order-flex-cont">
         <div className="shipping-addr-div">
           <h5>Select Delivery Address</h5>

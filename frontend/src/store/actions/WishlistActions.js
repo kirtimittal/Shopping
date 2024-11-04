@@ -7,6 +7,9 @@ export const addToWishlist = (productid, userid, token) => {
     userid,
   };
   return (dispatch) => {
+    dispatch({
+      type: "LOADING",
+    });
     fetch(`${BASE_URL}/api/wishlist`, {
       method: "POST",
       headers: {
@@ -41,6 +44,9 @@ export const addToWishlist = (productid, userid, token) => {
 
 export const getWishlist = (userid, token) => {
   return (dispatch) => {
+    dispatch({
+      type: "LOADING",
+    });
     fetch(`${BASE_URL}/api/wishlist/${userid}`, {
       headers: {
         Authorization: `${token}`,
@@ -60,6 +66,12 @@ export const getWishlist = (userid, token) => {
               });
             });
         });
+        if (productid.length === 0) {
+          dispatch({
+            type: "ADD_TO_ITEMS",
+            data: productid,
+          });
+        }
       })
       .catch((err) => alert(err));
   };
@@ -71,6 +83,9 @@ export const removeFromWishlist = (productid, userid, token) => {
     userid,
   };
   return (dispatch) => {
+    dispatch({
+      type: "LOADING",
+    });
     fetch(`${BASE_URL}/api/wishlist/`, {
       method: "DELETE",
       headers: {

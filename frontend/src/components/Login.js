@@ -130,7 +130,7 @@ function Login({ checkLogin, user }) {
 
   if (user.loading) {
     return (
-      <div>
+      <div className="spinner-cont">
         <ThreeDots
           visible={true}
           height="80"
@@ -138,8 +138,8 @@ function Login({ checkLogin, user }) {
           color="#4fa94d"
           radius="9"
           ariaLabel="three-dots-loading"
-          wrapperStyle={{ margin: "500px" }}
-          wrapperClass=""
+          wrapperStyle={{}}
+          wrapperClass="loader-spinner"
         />
       </div>
     );
@@ -147,6 +147,20 @@ function Login({ checkLogin, user }) {
 
   return (
     <div className="login-div">
+      {/* {user.loading && (
+        <div>
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="80"
+            color="#4fa94d"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{ margin: "500px" }}
+            wrapperClass=""
+          />
+        </div>
+      )} */}
       <Container className="login-cont">
         <Row className="justify-content-md-center">
           <Col md={12}>

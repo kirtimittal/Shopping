@@ -7,9 +7,11 @@ import CartItem from "./CartItem";
 import CartPrice from "./CartPrice";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { ThreeDots } from "react-loader-spinner";
 
 function Cart({ user, token }) {
   const cart = useSelector((state) => state.cart.cart[0]);
+  const loading = useSelector((state) => state.cart.loading);
   //const cartProducts = useSelector((state) => state.cart.items);
   const totalItems = useSelector((state) => state.cart.totalItems);
   //const userid = useSelector((state) => state.user.user.id);
@@ -39,6 +41,20 @@ function Cart({ user, token }) {
     <div>
       {user ? (
         <>
+          {loading && (
+            <div className="spinner-cont">
+              <ThreeDots
+                visible={true}
+                height="80"
+                width="80"
+                color="#4fa94d"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass="loader-spinner"
+              />
+            </div>
+          )}
           {cart && cart.length > 0 ? (
             <div className="cart-div">
               <div className="cart-cont">

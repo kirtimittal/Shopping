@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import WishlistItem from "./WishlistItem";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { ThreeDots } from "react-loader-spinner";
 
-function Wishlist({ user, getWishlist, wishlist, token }) {
+function Wishlist({ user, getWishlist, wishlist, token, loading }) {
   const navigate = useNavigate();
   // if user is null then show msg please login
   // if logged in show wishlist by user Id
@@ -24,6 +25,20 @@ function Wishlist({ user, getWishlist, wishlist, token }) {
     <div>
       {user ? (
         <div>
+          {loading && (
+            <div className="spinner-cont">
+              <ThreeDots
+                visible={true}
+                height="80"
+                width="80"
+                color="#4fa94d"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass="loader-spinner"
+              />
+            </div>
+          )}
           {wishlist && wishlist.length > 0 && (
             <>
               <h3 className="wishlist-header">My Wishlist</h3>
@@ -60,6 +75,7 @@ const mapStateToProps = (state) => {
     user: state.user.user,
     wishlist: state.wishlist.items,
     token: state.user.token,
+    loading: state.wishlist.loading,
   };
 };
 

@@ -154,7 +154,7 @@
   background-image: url("https://www.apexon.com/wp-content/uploads/2017/04/AdobeStock_529601148-735x300.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 93vh;
+  height: 91.5vh;
 
 }
 
@@ -243,3 +243,29 @@ div#container.haAclf{
 iframe#gsi_630403_662703.qJTHM {
   width:100%;
 }
+
+@media only screen and (max-width: 600px) {
+.search-width{
+  display: none;
+}
+
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+  .search-width {
+    width: 278px !important;
+}
+}
+
+.loader-spinner{
+  /* width:100px;
+  margin:auto; */
+}
+.spinner-cont{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  height:100vh;
+}
+

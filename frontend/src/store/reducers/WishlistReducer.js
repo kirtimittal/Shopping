@@ -3,16 +3,32 @@ const initialState = {
   error: null,
   items: [],
   message: "",
+  loading: false,
 };
 
 function WishlistReducer(state = initialState, action) {
   switch (action.type) {
+    case "LOADING": {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    }
+    case "UNLOADING": {
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    }
     case "ADD_TO_WISHLIST": {
       return {
         ...state,
         wishlistProducts: [...state.wishlistProducts, action.data],
         error: null,
         message: action.message,
+        loading: false,
       };
     }
     case "ERROR": {
@@ -20,6 +36,7 @@ function WishlistReducer(state = initialState, action) {
         ...state,
         error: action.data,
         message: "",
+        loading: false,
       };
     }
     case "ADD_TO_ITEMS": {
@@ -39,14 +56,16 @@ function WishlistReducer(state = initialState, action) {
       }
       return {
         ...state,
-        items: newItems,
+        items: action.data.length === 0 ? [] : newItems,
         error: null,
         message: "",
+        loading: false,
       };
     }
     case "REMOVE_FROM_WISHLIST": {
       return {
         ...state,
+        loading: false,
         error: null,
         message: "",
         items: state.items.filter((item) => item._id !== action.productid),

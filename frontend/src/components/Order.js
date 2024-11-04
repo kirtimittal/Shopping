@@ -8,9 +8,11 @@ import { CiSearch } from "react-icons/ci";
 import { searchOrder } from "../store/actions/OrderActions.js";
 import { Modal, Form } from "react-bootstrap";
 import { BsFilter } from "react-icons/bs";
+import { ThreeDots } from "react-loader-spinner";
 
 function Order() {
   const orders = useSelector((state) => state.order.orderItems);
+  const loading = useSelector((state) => state.order.loading);
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -77,7 +79,22 @@ function Order() {
           <h5>FILTER</h5>
         </div>
       </div>
-
+      <div>
+        {loading && (
+          <div className="spinner-cont">
+            <ThreeDots
+              visible={true}
+              height="80"
+              width="80"
+              color="#4fa94d"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass="loader-spinner"
+            />
+          </div>
+        )}
+      </div>
       <div className="bg-div">
         {user.user ? (
           orders &&

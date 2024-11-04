@@ -19,6 +19,9 @@ export const addOrder = (
         shippingAddress: address,
       };
       console.log(order);
+      dispatch({
+        type: "LOADING",
+      });
       const res = await fetch(`${BASE_URL}/api/orders/`, {
         method: "POST",
         headers: {
@@ -66,6 +69,9 @@ export const resetMessage = () => {
 export const getOrders = (userid, token) => {
   return async (dispatch) => {
     try {
+      dispatch({
+        type: "LOADING",
+      });
       const res = await fetch(`${BASE_URL}/api/orders/${userid}`, {
         headers: {
           "Content-Type": "application/json",
@@ -106,6 +112,9 @@ export const getOrders = (userid, token) => {
 export const searchOrder = (searchInput, userid, token) => {
   return async (dispatch) => {
     try {
+      dispatch({
+        type: "LOADING",
+      });
       const res = await fetch(
         `${BASE_URL}/api/orders/${userid}/search/${searchInput}`,
         {
@@ -134,6 +143,9 @@ export const searchOrder = (searchInput, userid, token) => {
 export const getOrderByStatus = (status, userid, token) => {
   return async (dispatch) => {
     try {
+      dispatch({
+        type: "LOADING",
+      });
       const res = await fetch(
         `${BASE_URL}/api/orders/${userid}/filter/${status}`,
         {

@@ -3,16 +3,25 @@ const initialState = {
   brands: [],
   selectedProduct: null,
   totalPages: 0,
+  loading: false,
 };
 
 const ProductReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "PRODUCT_LOADING": {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    }
     case "GET_PRODUCTS": {
       let brands = [
         ...new Set(action.products.map((product) => product.brand)),
       ];
       return {
         ...state,
+        loading: false,
         products: action.products,
         totalPages: action.totalPages,
         brands: brands,

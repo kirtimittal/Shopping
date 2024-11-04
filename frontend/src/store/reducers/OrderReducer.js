@@ -3,14 +3,23 @@ const initialState = {
   orderItems: null,
   message: "",
   error: null,
+  loading: false,
   //items: [],
 };
 
 const OrderReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "LOADING": {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    }
     case "ADD_ORDER": {
       return {
         ...state,
+        loading: false,
         orderDetails: action.data.order,
         message: action.data.message,
         error: null,
@@ -19,6 +28,7 @@ const OrderReducer = (state = initialState, action) => {
     case "GET_ORDER": {
       return {
         ...state,
+        loading: false,
         orderItems: action.data.order,
         message: action.data.message,
         error: null,
@@ -27,6 +37,7 @@ const OrderReducer = (state = initialState, action) => {
     case "SEARCH": {
       return {
         ...state,
+        loading: false,
         orderItems: action.data.order,
         message: "",
         error: null,
@@ -59,6 +70,7 @@ const OrderReducer = (state = initialState, action) => {
         ...state,
         message: "",
         error: action.error,
+        loading: false,
       };
     }
     case "RESET": {
@@ -66,6 +78,7 @@ const OrderReducer = (state = initialState, action) => {
         ...state,
         message: "",
         error: null,
+        loading: false,
       };
     }
     default: {

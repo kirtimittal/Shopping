@@ -8,12 +8,14 @@ import { connect, useSelector } from "react-redux";
 import Filter from "./Filter";
 import SortComp from "./Sort";
 import notfound from "../images/notfound.png";
+import { ThreeDots } from "react-loader-spinner";
 
 function Products({
   products,
   getProductsByCategory,
   sortByPrice,
   itemsPerPage,
+  loading,
 }) {
   const { parentCat, category, searchInput } = useParams();
 
@@ -30,6 +32,20 @@ function Products({
 
   return (
     <div>
+      {loading && (
+        <div className="spinner-cont">
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="80"
+            color="#4fa94d"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass="loader-spinner"
+          />
+        </div>
+      )}
       {products && products.length === 0 && (
         <div className="not-found-cont">
           <img src={notfound} alt="not found" />
@@ -91,6 +107,7 @@ function Products({
 const mapStateToProps = (state) => {
   return {
     products: state.products,
+    loading: state.products.loading,
   };
 };
 
