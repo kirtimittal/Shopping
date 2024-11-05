@@ -60,7 +60,7 @@ function Order() {
     <div className="allorder-cont">
       <div className="order-filter-cont">
         <h4>All Orders</h4>
-        <div className="input-group mb-3 search-width">
+        <div className="input-group mb-3 order-search-width">
           <CiSearch className="search-img" />
           <input
             type="text"
