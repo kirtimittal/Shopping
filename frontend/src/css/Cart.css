@@ -43,8 +43,8 @@
     
   }
   .img_cont img{
-    width: 167px !important;
-    height: 190px !important;
+    width: 167px;
+    height: 190px;
   }
   .price-container{
     /* float: right; */

@@ -22,7 +22,9 @@ const ConfirmOrder = () => {
   console.log(user);
 
   const [address, setAddress] = useState(null);
-
+  const loginClickHandle = () => {
+    navigate("/login");
+  };
   useEffect(() => {
     if (order.message && order.message !== "") {
       //notify(order.message, "success");
@@ -75,55 +77,57 @@ const ConfirmOrder = () => {
       <br />
       <br />
       <br />
-
-      <div className="order-flex-cont">
-        <div className="shipping-addr-div">
-          <h5>Select Delivery Address</h5>
-          <br />
-          {user.user &&
-            user.user.address.map((shippingAddress, index) => {
-              return (
-                <div className="address-card">
-                  <Card.Body>
-                    <div className="address-flex">
-                      <Form.Check
-                        type="radio"
-                        name="address"
-                        value={JSON.stringify(shippingAddress)}
-                        onChange={handleRadioChange}
-                        label=""
-                      ></Form.Check>
-                      <div>
-                        <p>{shippingAddress.street}</p>
-                        <p>{shippingAddress.state}</p>
-                        <p>
-                          {shippingAddress.city}, {shippingAddress.postalCode}
-                        </p>
-                        <p>{shippingAddress.country}</p>
+      {!user.user && <div>{navigate("/cart")}</div>}
+      {user.user && (
+        <div className="order-flex-cont">
+          <div className="shipping-addr-div">
+            <h5>Select Delivery Address</h5>
+            <br />
+            {user.user &&
+              user.user.address.map((shippingAddress, index) => {
+                return (
+                  <div className="address-card">
+                    <Card.Body>
+                      <div className="address-flex">
+                        <Form.Check
+                          type="radio"
+                          name="address"
+                          value={JSON.stringify(shippingAddress)}
+                          onChange={handleRadioChange}
+                          label=""
+                        ></Form.Check>
+                        <div>
+                          <p>{shippingAddress.street}</p>
+                          <p>{shippingAddress.state}</p>
+                          <p>
+                            {shippingAddress.city}, {shippingAddress.postalCode}
+                          </p>
+                          <p>{shippingAddress.country}</p>
+                        </div>
                       </div>
-                    </div>
-                  </Card.Body>
-                </div>
-              );
-            })}
-          {user.user && user.user.address.length === 0 && (
-            <>
-              {notify("Please update your address before proceeding", "info")}
-              <div>No Address Found</div>
-            </>
-          )}
-        </div>
-        <div className="order-price-cont">
-          <div>
-            <h5>Order Summary:</h5>
-            <div className="price-container">
-              {cartItems && (
-                <CartPrice onClickHandle={placeOrder} text={"Place Order"} />
-              )}
+                    </Card.Body>
+                  </div>
+                );
+              })}
+            {user.user && user.user.address.length === 0 && (
+              <>
+                {notify("Please update your address before proceeding", "info")}
+                <div>No Address Found</div>
+              </>
+            )}
+          </div>
+          <div className="order-price-cont">
+            <div>
+              <h5>Order Summary:</h5>
+              <div className="price-container">
+                {cartItems && (
+                  <CartPrice onClickHandle={placeOrder} text={"Place Order"} />
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -46,7 +46,7 @@ function Products({
           />
         </div>
       )}
-      {products && products.length === 0 && (
+      {!loading && products && products.length === 0 && (
         <div className="not-found-cont">
           <img src={notfound} alt="not found" />
           <h4>We couldn't find any matches!</h4>

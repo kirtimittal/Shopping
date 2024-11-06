@@ -21,7 +21,7 @@ function CartItem({
     dispatch(removeFromCart(data._id, user.id, token));
   };
   return (
-    <div className="product-item cart-item">
+    <div className="cart-item">
       {/* onClick={removeProductFromCart} */}
 
       <div className="img_cont">
@@ -31,12 +31,12 @@ function CartItem({
         <h5 className="font-bold brand-text">{data.brand}</h5>
         <h6>{data.name}</h6>
         {/* {discountprice && ( */}
-        <h5>
+        <h6>
           <b>Qty: {qty}</b>
-        </h5>
-        <h5>
+        </h6>
+        <h6>
           <b>Size: {size}</b>
-        </h5>
+        </h6>
         <div className="price-cont">
           <h6 className="price-cont font-bold">
             Rs. {data.discountedPrice.$numberDecimal}{" "}
