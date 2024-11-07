@@ -6,14 +6,14 @@ import { searchProduct } from "../store/actions/ProductActions";
 import Products from "./Products";
 import { useNavigate } from "react-router-dom";
 
-function Search({ searchProduct }) {
+function Search({ searchProduct, itemsPerPage }) {
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
   const handleOnKey = (e) => {
     console.log(e.key);
     if (e.key === "Enter") {
       console.log(searchInput);
-      searchProduct(searchInput);
+      //searchProduct(searchInput,currentPage,itemsPerPage);
       setSearchInput("");
 
       navigate(`/search/${searchInput}`);

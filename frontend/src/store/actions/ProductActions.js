@@ -1,11 +1,19 @@
 let BASE_URL = "http://localhost:4000";
-export const initProducts = (category, parentCat, searchInput) => {
+export const initProducts = (
+  category,
+  parentCat,
+  searchInput,
+  currentPage,
+  itemsPerPage
+) => {
   let products = [];
   return (dispatch) => {
     dispatch({
       type: "PRODUCT_LOADING",
     });
-    fetch(`${BASE_URL}/products/${parentCat}/${category}/${searchInput}`)
+    fetch(
+      `${BASE_URL}/products/${parentCat}/${category}/${searchInput}?page=${currentPage}&limit=${itemsPerPage}`
+    )
       //   .then((res) => {
       //     console.log(res);
       //     products = res;
@@ -16,11 +24,13 @@ export const initProducts = (category, parentCat, searchInput) => {
       //   })
       .then((response) => response.json())
       .then((data) => {
-        products = data;
+        products = data.products;
         console.log(data);
         dispatch({
           type: "GET_PRODUCTS",
           products,
+          totalPages: data.totalPages,
+          brands: data.brands,
         });
       })
       .catch((err) => alert(err));
@@ -48,20 +58,23 @@ export const getProductsByBrands = (
   selectedBrand,
   category,
   parentCat,
-  searchInput
+  searchInput,
+  currentPage,
+  itemsPerPage
 ) => {
   let products = [];
   return (dispatch) => {
     fetch(
-      `${BASE_URL}/getProductsByBrand/${parentCat}/${category}/${selectedBrand}/${searchInput}`
+      `${BASE_URL}/getProductsByBrand/${parentCat}/${category}/${selectedBrand}/${searchInput}?page=${currentPage}&limit=${itemsPerPage}`
     )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        products = data;
+        products = data.selectedProducts;
         dispatch({
           type: "GET_PRODUCTS_BY_BRANDS",
           products,
+          totalPages: data.totalPages,
         });
       })
       .catch((err) => alert(err));
@@ -90,6 +103,7 @@ export const getProductsByCategory = (
           type: "GET_PRODUCTS",
           products,
           totalPages: data.totalPages,
+          brands: data.brands,
         });
       })
       .catch((err) => alert(err));
@@ -106,20 +120,24 @@ export const sortByPrice = (method) => {
   };
 };
 
-export const searchProduct = (word) => {
+export const searchProduct = (word, currentPage, itemsPerPage) => {
   let products = [];
   return (dispatch) => {
     dispatch({
       type: "PRODUCT_LOADING",
     });
-    fetch(`${BASE_URL}/search/${word}`)
+    fetch(
+      `${BASE_URL}/search/${word}?page=${currentPage}&limit=${itemsPerPage}`
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        products = data;
+        products = data.selectedProducts;
         dispatch({
           type: "GET_PRODUCTS",
           products,
+          totalPages: data.totalPages,
+          brands: data.brands,
         });
       })
       .catch((err) => alert(err));

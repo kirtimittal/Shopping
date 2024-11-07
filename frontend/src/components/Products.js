@@ -4,12 +4,12 @@ import "../css/Products.css";
 import Footer from "./Footer";
 import { Link, useParams } from "react-router-dom";
 import { getProductsByCategory } from "../store/actions/ProductActions";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import Filter from "./Filter";
 import SortComp from "./Sort";
 import notfound from "../images/notfound.png";
 import { ThreeDots } from "react-loader-spinner";
-
+import { searchProduct } from "../store/actions/ProductActions";
 function Products({
   products,
   getProductsByCategory,
@@ -18,7 +18,7 @@ function Products({
   loading,
 }) {
   const { parentCat, category, searchInput } = useParams();
-
+  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = useSelector((state) => state.products.totalPages);
 
@@ -28,8 +28,31 @@ function Products({
       getProductsByCategory(category, parentCat, currentPage, itemsPerPage);
     }
   }, [category, parentCat, currentPage]);
-  products = products.products;
 
+  useEffect(() => {
+    if (searchInput) {
+      dispatch(searchProduct(searchInput, currentPage, itemsPerPage));
+    }
+  }, [searchInput]);
+
+  products = products.products;
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // for a smooth scroll effect
+    });
+  };
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
   return (
     <div>
       {loading && (
@@ -56,6 +79,7 @@ function Products({
       {products && products.length > 0 && (
         <>
           <div className="header-cont">
+            {scrollToTop()}
             <div>
               <h4>FILTERS</h4>
             </div>
@@ -66,6 +90,9 @@ function Products({
             category={category}
             parentCat={parentCat}
             searchInput={searchInput}
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            setPage={(page) => setCurrentPage(page)}
           />
 
           <div className="vertical-line" />
@@ -84,7 +111,57 @@ function Products({
                 })}
             </div>
             <div className="page-cont">
-              {Array.from({ length: totalPages }, (_, index) => (
+              <div class="pagination">
+                <div>
+                  <button
+                    href="#"
+                    onClick={handlePrev}
+                    disabled={currentPage === 1}
+                  >
+                    &laquo;
+                  </button>
+                </div>
+
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    href="#"
+                    className={currentPage === index + 1 ? "active" : ""}
+                    onClick={() => setCurrentPage(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                  // <button
+                  //   key={index}
+                  //   onClick={() => setCurrentPage(index + 1)}
+                  //   disabled={currentPage === index + 1}
+                  // >
+                  //   {index + 1}
+                  // </button>
+                ))}
+                <div>
+                  <button
+                    href="#"
+                    onClick={handleNext}
+                    disabled={currentPage === totalPages}
+                  >
+                    &raquo;
+                  </button>
+                </div>
+              </div>
+              {/* <button onClick={handlePrev} disabled={currentPage === 1}>
+                Previous
+              </button>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button> */}
+
+              {/* {Array.from({ length: totalPages }, (_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentPage(index + 1)}
@@ -92,7 +169,7 @@ function Products({
                 >
                   {index + 1}
                 </button>
-              ))}
+              ))} */}
             </div>
           </div>
 

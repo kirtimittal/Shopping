@@ -16,15 +16,15 @@ const ProductReducer = (state = initialState, action) => {
       };
     }
     case "GET_PRODUCTS": {
-      let brands = [
-        ...new Set(action.products.map((product) => product.brand)),
-      ];
+      // let brands = [
+      //   ...new Set(action.products.map((product) => product.brand)),
+      // ];
       return {
         ...state,
         loading: false,
         products: action.products,
         totalPages: action.totalPages,
-        brands: brands,
+        brands: action.brands,
       };
     }
     case "GET_BRANDS": {
@@ -37,6 +37,7 @@ const ProductReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.products,
+        totalPages: action.totalPages,
       };
     }
     case "SORT_BY_PRICE": {

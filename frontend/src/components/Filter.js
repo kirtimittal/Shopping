@@ -15,6 +15,9 @@ function Filter({
   category,
   parentCat,
   searchInput,
+  currentPage,
+  itemsPerPage,
+  setPage,
 }) {
   const [selectedBrand, setSelectedBrand] = useState([]);
   const location = useLocation();
@@ -31,15 +34,40 @@ function Filter({
   useEffect(() => {
     let selectedBrands = selectedBrand.join(",");
     if (selectedBrands !== "") {
-      getProductsByBrands(selectedBrands, category, parentCat, searchInput);
+      setPage(1);
+      getProductsByBrands(
+        selectedBrands,
+        category,
+        parentCat,
+        searchInput,
+        1,
+        itemsPerPage
+      );
     } else {
-      initProducts(category, parentCat, searchInput);
+      initProducts(category, parentCat, searchInput, currentPage, itemsPerPage);
     }
   }, [selectedBrand]);
 
   useEffect(() => {
     setSelectedBrand([]);
   }, [location]);
+
+  useEffect(() => {
+    let selectedBrands = selectedBrand.join(",");
+    if (selectedBrands !== "") {
+      //setPage(1);
+      getProductsByBrands(
+        selectedBrands,
+        category,
+        parentCat,
+        searchInput,
+        currentPage,
+        itemsPerPage
+      );
+    } else {
+      initProducts(category, parentCat, searchInput, currentPage, itemsPerPage);
+    }
+  }, [currentPage]);
 
   const handleOnChange = (id, checked) => {
     if (checked) {
@@ -54,27 +82,28 @@ function Filter({
   };
 
   return (
-    <div className="filter-cont">
-      <div className="filter-header-cont">
-        <h5>BRAND</h5>
-        <div
-          className="filter-clear-all-btn"
-          onClick={() => setSelectedBrand([])}
-        >
-          Clear
+    <div>
+      <div className="filter-cont">
+        <div className="filter-header-cont">
+          <h5>BRAND</h5>
+          <div
+            className="filter-clear-all-btn"
+            onClick={() => setSelectedBrand([])}
+          >
+            Clear
+          </div>
         </div>
+
+        {brands &&
+          brands.map((brand, index) => (
+            <FilterCategory
+              data={brand}
+              key={index}
+              onCheckChange={(id, checked) => handleOnChange(id, checked)}
+              selectedBrand={selectedBrand}
+            />
+          ))}
       </div>
-
-      {brands &&
-        brands.map((brand, index) => (
-          <FilterCategory
-            data={brand}
-            key={index}
-            onCheckChange={(id, checked) => handleOnChange(id, checked)}
-            selectedBrand={selectedBrand}
-          />
-        ))}
-
       <div className="brand-div">
         {selectedBrand &&
           selectedBrand.map((brand, index) => {
@@ -101,10 +130,40 @@ const mapDispatchToProps = (dispatch) => {
   return {
     initBrands: (category, parentCat) =>
       dispatch(initBrands(category, parentCat)),
-    getProductsByBrands: (brand, category, parentCat, searchInput) =>
-      dispatch(getProductsByBrands(brand, category, parentCat, searchInput)),
-    initProducts: (category, parentCat, searchInput) =>
-      dispatch(initProducts(category, parentCat, searchInput)),
+    getProductsByBrands: (
+      brand,
+      category,
+      parentCat,
+      searchInput,
+      currentPage,
+      itemsPerPage
+    ) =>
+      dispatch(
+        getProductsByBrands(
+          brand,
+          category,
+          parentCat,
+          searchInput,
+          currentPage,
+          itemsPerPage
+        )
+      ),
+    initProducts: (
+      category,
+      parentCat,
+      searchInput,
+      currentPage,
+      itemsPerPage
+    ) =>
+      dispatch(
+        initProducts(
+          category,
+          parentCat,
+          searchInput,
+          currentPage,
+          itemsPerPage
+        )
+      ),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

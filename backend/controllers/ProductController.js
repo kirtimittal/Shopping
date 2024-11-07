@@ -2,25 +2,59 @@ const Product = require("../models/Product.js");
 
 const getProducts = async (req, res) => {
   let { category, parentCat, searchInput } = req.params;
+  let { page = 1, limit = 10 } = req.query;
   // category = category.toLowerCase();
   // parentCat = parentCat.toLowerCase();
   let products = null;
+  let count = 0;
+  let brands = null;
   if (parentCat !== "undefined" && category !== "undefined") {
     products = await Product.find({
       subCategory: category,
       category: parentCat,
+    })
+      .limit(limit)
+      .skip((page - 1) * limit);
+    count = await Product.countDocuments({
+      subCategory: category,
+      category: parentCat,
     });
+    brands = await Product.find({
+      subCategory: category,
+      category: parentCat,
+    }).distinct("brand");
   } else {
     products = await Product.find({
       $or: [
-        { name: { $regex: ".*" + searchInput + ".*" } },
-        { description: { $regex: ".*" + searchInput + ".*" } },
-        { brand: { $regex: ".*" + searchInput + ".*" } },
+        { name: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+        { description: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+        { brand: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+      ],
+    })
+      .limit(limit)
+      .skip((page - 1) * limit);
+    count = await Product.countDocuments({
+      $or: [
+        { name: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+        { description: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+        { brand: { $regex: ".*" + searchInput + ".*", $options: "i" } },
       ],
     });
+    brands = await Product.find({
+      $or: [
+        { name: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+        { description: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+        { brand: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+      ],
+    }).distinct("brand");
   }
   console.log(products);
-  res.json(products);
+  res.json({
+    products,
+    totalPages: Math.ceil(count / Number(limit)),
+    currentPage: Number(page),
+    brands,
+  });
 };
 
 const addProducts = async (req, res) => {
@@ -57,11 +91,22 @@ const getBrands = async (req, res) => {
 const getProductsByBrand = async (req, res) => {
   console.log(req.params);
   let { brands, parentCat, category, searchInput } = req.params;
+  let { page = 1, limit = 10 } = req.query;
   const brnd = brands.toLowerCase().split(",");
   console.log(brnd);
   let selectedProducts = [];
+  let count = 0;
   if (parentCat !== "undefined" && category !== "undefined") {
     selectedProducts = await Product.find({
+      $or: brnd.map((word) => ({
+        brand: { $regex: word, $options: "i" },
+      })),
+      subCategory: category,
+      category: parentCat,
+    })
+      .limit(limit)
+      .skip((page - 1) * limit);
+    count = await Product.countDocuments({
       $or: brnd.map((word) => ({
         brand: { $regex: word, $options: "i" },
       })),
@@ -78,12 +123,44 @@ const getProductsByBrand = async (req, res) => {
         { description: { $regex: ".*" + searchInput + ".*" } },
         { brand: { $regex: ".*" + searchInput + ".*" } },
       ],
+      $or: brnd.map((word) => ({
+        brand: { $regex: word, $options: "i" },
+      })),
+    })
+      .limit(limit)
+      .skip((page - 1) * limit);
+    // count = await Product.countDocuments({
+    //   // $or: brnd.map((word) => ({
+    //   //   brand: { $regex: word, $options: "i" },
+    //   // })),
+    //   $or: [
+    //     { name: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+    //     { description: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+    //     { brand: { $regex: ".*" + searchInput + ".*", $options: "i" } },
+    //   ],
+    // });
+    // console.log(selectedProducts.length);
+    // console.log(selectedProducts);
+
+    // selectedProducts = selectedProducts.filter((product) =>
+    //   brnd.includes(product.brand.toLowerCase())
+    // );
+    count = await Product.countDocuments({
+      // $or: brnd.map((word) => ({
+      //   brand: { $regex: word, $options: "i" },
+      // })),
+      $or: [
+        { name: { $regex: ".*" + searchInput + ".*" } },
+        { description: { $regex: ".*" + searchInput + ".*" } },
+        { brand: { $regex: ".*" + searchInput + ".*" } },
+      ],
+      $or: brnd.map((word) => ({
+        brand: { $regex: word, $options: "i" },
+      })),
     });
   }
   //console.log(selectedProducts);
-  selectedProducts = selectedProducts.filter((product) =>
-    brnd.includes(product.brand.toLowerCase())
-  );
+
   //console.log(selectedProducts);
   // products.forEach((product) => {
   //   if (brands.includes(product.brand.toLowerCase())) {
@@ -91,7 +168,11 @@ const getProductsByBrand = async (req, res) => {
   //   }
   // });
 
-  res.json(selectedProducts);
+  res.json({
+    selectedProducts,
+    totalPages: Math.ceil(count / Number(limit)),
+    currentPage: Number(page),
+  });
 };
 
 const getProductsByCategory = async (req, res) => {
@@ -114,24 +195,45 @@ const getProductsByCategory = async (req, res) => {
     subCategory: category,
     category: parentCat,
   });
+  let brands = await Product.find({
+    subCategory: category,
+    category: parentCat,
+  }).distinct("brand");
   console.log(count);
   res.json({
     selectedProducts,
     totalPages: Math.ceil(count / Number(limit)),
     currentPage: Number(page),
+    brands,
   });
 };
 
 const searchProduct = async (req, res) => {
   const { searchString } = req.params;
+  let { page = 1, limit = 10 } = req.query;
   let selectedProducts = await Product.find({
     $or: [
-      { name: { $regex: ".*" + searchString + ".*" } },
-      { description: { $regex: ".*" + searchString + ".*" } },
-      { brand: { $regex: ".*" + searchString + ".*" } },
+      { name: { $regex: ".*" + searchString + ".*", $options: "i" } },
+      { description: { $regex: ".*" + searchString + ".*", $options: "i" } },
+      { brand: { $regex: ".*" + searchString + ".*", $options: "i" } },
+    ],
+  })
+    .limit(limit)
+    .skip((page - 1) * limit);
+  let count = await Product.countDocuments({
+    $or: [
+      { name: { $regex: ".*" + searchString + ".*", $options: "i" } },
+      { description: { $regex: ".*" + searchString + ".*", $options: "i" } },
+      { brand: { $regex: ".*" + searchString + ".*", $options: "i" } },
     ],
   });
-
+  let brands = await Product.find({
+    $or: [
+      { name: { $regex: ".*" + searchString + ".*", $options: "i" } },
+      { description: { $regex: ".*" + searchString + ".*", $options: "i" } },
+      { brand: { $regex: ".*" + searchString + ".*", $options: "i" } },
+    ],
+  }).distinct("brand");
   // products.forEach((product) => {
   //   if (
   //     product.brand.toLowerCase().includes(searchString.toLowerCase()) ||
@@ -141,7 +243,12 @@ const searchProduct = async (req, res) => {
   //   }
   // });
 
-  res.json(selectedProducts);
+  res.json({
+    selectedProducts,
+    totalPages: Math.ceil(count / Number(limit)),
+    currentPage: Number(page),
+    brands,
+  });
 };
 
 const getProductById = async (req, res) => {
