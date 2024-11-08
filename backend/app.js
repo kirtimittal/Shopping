@@ -9,13 +9,19 @@ const connectDB = require("./db/connect.js");
 const category = require("./routes/category/index.js");
 const orders = require("./routes/order/index.js");
 const reviews = require("./routes/review/index.js");
+
 const PORT = process.env.PORT || 4000;
 //const PORT = 4000;
+
+//enable cors
 const corsOptions = {
   origin: "*",
 };
+
 app.use(express.json());
 app.use(cors(corsOptions));
+
+//routes
 app.use("/", routes);
 app.use("/api/cart", cart);
 app.use("/api/user", user);
@@ -23,6 +29,8 @@ app.use("/api/wishlist", wishlist);
 app.use("/api/category", category);
 app.use("/api/orders", orders);
 app.use("/api/reviews", reviews);
+
+//connect to db
 connectDB().then(
   app.listen(PORT, () => console.log(`Connected to server on Port ${PORT}`))
 );

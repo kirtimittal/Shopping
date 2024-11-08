@@ -9,18 +9,19 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  //console.log(email, password);
-  let user = await Users.findOne({ email });
-  //console.log(user);
+  let user = await Users.findOne({ email }); //find user with email
+
   if (!user || !user.password) {
+    //if user does not exist
     res.json({ message: "Invalid credentials" });
   } else {
+    //if exists then compare password
     bcrypt.compare(password, user.password).then((isMatch) => {
-      console.log(isMatch);
-      console.log(password + " " + user.password);
       if (!isMatch) {
+        //if password does not match
         res.json({ message: "Username or password is incorrect" });
       } else {
+        //if match then update isLoggedin=true and create jwt token and send it in response
         const payload = {
           name: user.name,
           email: user.email,
@@ -42,7 +43,6 @@ const login = async (req, res) => {
             },
           });
         });
-        console.log(user);
       }
     });
   }
@@ -59,15 +59,19 @@ const updateUser = async (user) => {
   );
   return updateduser;
 };
+
 const signup = async (req, res) => {
   const { name, password, email, mobile, address } = req.body;
-  let user = await Users.findOne({ email });
+  let user = await Users.findOne({ email }); //find user with email
   if (user) {
+    //if user already exist
     res.json({ message: "User already exists!" });
   } else {
+    //if not, create new user and save
     user = new Users({ name, email, password, mobile, address });
-    console.log(user);
+
     bcrypt.hash(user.password, 10, (err, hash) => {
+      //encrypt password
       if (err) {
         res.json({ message: "Some error occurred in hash." + err });
       } else {
@@ -82,15 +86,14 @@ const signup = async (req, res) => {
       }
     });
   }
-  //const user = new Users({ name, email, password, mobile });
 };
 
 const logout = async (req, res) => {
-  console.log("logout");
   const { userid } = req.body;
-  console.log(userid);
+
   let user = await Users.findById({ _id: userid });
   let updateduser = await Users.updateOne(
+    //update user to isLoggedIn=false
     { email: user.email },
     { isLoggedIn: false },
     { new: true }
@@ -106,7 +109,7 @@ const googleLogin = async (req, res) => {
       audience: process.env.GOOGLE_CLIENT_ID, // Make sure this matches the clientId used in the frontend
     });
     const payload = ticket.getPayload();
-    console.log(payload);
+
     const { email, sub, name } = payload;
 
     let user = await Users.findOne({ email });
@@ -143,9 +146,6 @@ const googleLogin = async (req, res) => {
         },
       });
     });
-    // const jwtToken = generateJWT(user);
-    // res.json({ token: jwtToken, user });
-    //   return payload; // Contains user info
   } catch (error) {
     console.log("Token verification failed");
   }
@@ -153,16 +153,15 @@ const googleLogin = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   const { id, name, password, email, mobile, address } = req.body;
-  let user = await Users.findById({ _id: id });
+  let user = await Users.findById({ _id: id }); //get user
   if (user) {
+    //if exists then update user and save
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     user.mobile = req.body.mobile || user.mobile;
     user.address = req.body.address || user.address;
     if (req.body.password) {
-      //user.password = req.body.password;
       let hashpwd = await bcrypt.hash(req.body.password, 10);
-      console.log(hashpwd);
       user.password = hashpwd;
     }
     user.save().then((u) => {

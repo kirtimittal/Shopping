@@ -3,7 +3,6 @@ const { v4: uuidv4 } = require("uuid");
 
 const addOrder = async (req, res) => {
   const { userid, totalPrice, totalItems, items, shippingAddress } = req.body;
-  console.log(shippingAddress);
   newOrder = new Order({
     userid,
     status: "Processing",
@@ -14,7 +13,7 @@ const addOrder = async (req, res) => {
     shippingAddress,
   });
 
-  let order = await newOrder.save();
+  let order = await newOrder.save(); //add new order
   let latestorder = await Order.findOne({ _id: order._id }).populate(
     "items.productid"
   );
@@ -26,7 +25,7 @@ const getOrders = async (req, res) => {
 
   const order = await Order.find({ userid })
     .populate("items.productid")
-    .sort({ order_date: -1 });
+    .sort({ order_date: -1 }); //get all orders
   res.json({ order });
 };
 
@@ -55,18 +54,7 @@ const searchOrders = async (req, res) => {
       };
     })
     .filter((order) => order.items.length > 0);
-  //.map((order) => order._doc);
-  //console.log(filteredOrders);
   res.json({ order: filteredOrders });
-
-  // products.forEach((product) => {
-  //   if (
-  //     product.brand.toLowerCase().includes(searchString.toLowerCase()) ||
-  //     product.description.toLowerCase().includes(searchString.toLowerCase())
-  //   ) {
-  //     selectedProducts.push(product);
-  //   }
-  // });
 };
 
 const getOrderById = async (req, res) => {};
@@ -79,15 +67,6 @@ const filterOrdersByStatus = async (req, res) => {
     .sort({ order_date: -1 });
 
   res.json({ order: orders });
-
-  // products.forEach((product) => {
-  //   if (
-  //     product.brand.toLowerCase().includes(searchString.toLowerCase()) ||
-  //     product.description.toLowerCase().includes(searchString.toLowerCase())
-  //   ) {
-  //     selectedProducts.push(product);
-  //   }
-  // });
 };
 
 module.exports = {

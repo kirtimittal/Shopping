@@ -52,44 +52,44 @@ function ProductDetail({
   const cartMessage = useSelector((state) => state.cart.message);
   //const [sizeSelected, setsizeSelected] = useState("");
   //const [qtySelected, setQtySelected] = useState("");
-  const sourceRef = useRef(null);
-  const targetRef = useRef(null);
-  const containerRef = useRef(null);
-  let size = "";
-  const [opacity, setOpacity] = useState(0);
-  const [offset, setOffset] = useState({ left: 0, top: 0 });
+  // const sourceRef = useRef(null);
+  // const targetRef = useRef(null);
+  // const containerRef = useRef(null);
+  // let size = "";
+  // const [opacity, setOpacity] = useState(0);
+  // const [offset, setOffset] = useState({ left: 0, top: 0 });
 
-  const handleMouseEnter = () => {
-    setOpacity(1);
-  };
+  // const handleMouseEnter = () => {
+  //   setOpacity(1);
+  // };
 
-  const handleMouseLeave = () => {
-    setOpacity(0);
-  };
+  // const handleMouseLeave = () => {
+  //   setOpacity(0);
+  // };
 
-  const handleMouseMove = (e) => {
-    const targetRect = targetRef.current.getBoundingClientRect();
-    const sourceRect = sourceRef.current.getBoundingClientRect();
-    const containerRect = containerRef.current.getBoundingClientRect();
+  // const handleMouseMove = (e) => {
+  //   const targetRect = targetRef.current.getBoundingClientRect();
+  //   const sourceRect = sourceRef.current.getBoundingClientRect();
+  //   const containerRect = containerRef.current.getBoundingClientRect();
 
-    const xRatio = (targetRect.width - containerRect.width) / sourceRect.width;
-    const yRatio =
-      (targetRect.height - containerRect.height) / sourceRect.height;
+  //   const xRatio = (targetRect.width - containerRect.width) / sourceRect.width;
+  //   const yRatio =
+  //     (targetRect.height - containerRect.height) / sourceRect.height;
 
-    const left = Math.max(
-      Math.min(e.pageX - sourceRect.left, sourceRect.width),
-      0
-    );
-    const top = Math.max(
-      Math.min(e.pageY - sourceRect.top, sourceRect.height),
-      0
-    );
+  //   const left = Math.max(
+  //     Math.min(e.pageX - sourceRect.left, sourceRect.width),
+  //     0
+  //   );
+  //   const top = Math.max(
+  //     Math.min(e.pageY - sourceRect.top, sourceRect.height),
+  //     0
+  //   );
 
-    setOffset({
-      left: left * -xRatio,
-      top: top * -yRatio,
-    });
-  };
+  //   setOffset({
+  //     left: left * -xRatio,
+  //     top: top * -yRatio,
+  //   });
+  // };
 
   const error = wishlist.error;
   // const sizes = [
@@ -177,7 +177,7 @@ function ProductDetail({
       {selectedProduct && (
         <div className="prod-cont">
           <div>
-            <Container
+            {/* <Container
               ref={containerRef}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -195,9 +195,9 @@ function ProductDetail({
                 offset={offset}
                 source={selectedProduct.img_url}
               />
-            </Container>
+            </Container> */}
 
-            {/* <img src={selectedProduct.img_url} alt={selectedProduct.name} /> */}
+            <img src={selectedProduct.img_url} alt={selectedProduct.name} />
           </div>
 
           <div className="prod-detail-cont">

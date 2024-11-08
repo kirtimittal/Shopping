@@ -2,20 +2,17 @@ const Review = require("../models/Review");
 const Product = require("../models/Product");
 
 const addReview = async (req, res) => {
-  console.log(req.body);
   const { name, rating, userid, comment, productid } = req.body;
-  const product = await Product.findById({ _id: productid });
-  // const reviews = await Review.find({ productid, userid });
-  //.populate(
-  //     "review.reviewID"
-  //   );
+  const product = await Product.findById({ _id: productid }); //find product to review
 
   if (product) {
+    //if exists then check whether already reviewed
     const alreadyReviewed = await Review.findOne({ userid, productid });
-    console.log("alreadyReviewed" + alreadyReviewed);
     if (alreadyReviewed) {
+      //if already reviewed
       res.json({ message: "Product already reviewed" });
     } else {
+      //if not then save review
       const newReview = new Review({
         name,
         rating,
@@ -27,7 +24,7 @@ const addReview = async (req, res) => {
       product.review.push({ reviewId: reviewAdded._id });
       product.numReviews = product.review.length;
       let productReviews = await Review.find({ productid });
-      console.log("productReviews:" + productReviews);
+
       product.rating =
         productReviews.length > 0 &&
         Math.floor(
@@ -35,7 +32,7 @@ const addReview = async (req, res) => {
             productReviews.length
         );
 
-      await product.save();
+      await product.save(); //save product review
       res.json({
         message: "Review Added Successfully",
         review: reviewAdded,
@@ -49,7 +46,7 @@ const addReview = async (req, res) => {
 
 const getReview = async (req, res) => {
   const { productid, userid } = req.params;
-  const review = await Review.findOne({ productid, userid });
+  const review = await Review.findOne({ productid, userid }); //get review
   if (review) {
     res.json({ message: "Product reviewed", review });
   } else {

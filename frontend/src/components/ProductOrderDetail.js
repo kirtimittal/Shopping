@@ -110,7 +110,7 @@ const ProductOrderDetails = () => {
       </div>
       <div className="price-item-4">
         <h5>Total Order Price: </h5>
-        <div>Rs. {product.price}</div>
+        <div>Rs. {product.price * product.qty}</div>
       </div>
       <div className="order-id-item-5">ORDER ID: {order[0]._id}</div>
     </div>

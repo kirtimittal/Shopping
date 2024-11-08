@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import "../css/Products.css";
 import Footer from "./Footer";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { getProductsByCategory } from "../store/actions/ProductActions";
 import { connect, useDispatch, useSelector } from "react-redux";
 import Filter from "./Filter";
@@ -21,6 +21,7 @@ function Products({
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = useSelector((state) => state.products.totalPages);
+  const location = useLocation();
 
   console.log(products);
   useEffect(() => {
@@ -34,6 +35,9 @@ function Products({
       dispatch(searchProduct(searchInput, currentPage, itemsPerPage));
     }
   }, [searchInput]);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [location]);
 
   products = products.products;
   const scrollToTop = () => {

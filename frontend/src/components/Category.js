@@ -1,5 +1,4 @@
 import React from "react";
-import image1 from "../images/image1.jpg";
 import "../css/Categories.css";
 
 function Category({ data, parent }) {
