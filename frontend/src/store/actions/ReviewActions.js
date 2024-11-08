@@ -1,4 +1,5 @@
-let BASE_URL = "http://localhost:4000";
+//let BASE_URL = "http://localhost:4000";
+let BASE_URL = "https://shoppingapi-3kd4.onrender.com";
 
 export const addReview = (name, rating, userid, comment, productid, token) => {
   const obj = { name, rating, userid, comment, productid };

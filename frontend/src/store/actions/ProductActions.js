@@ -1,4 +1,6 @@
-let BASE_URL = "http://localhost:4000";
+//let BASE_URL = "http://localhost:4000";
+let BASE_URL = "https://shoppingapi-3kd4.onrender.com";
+
 export const initProducts = (
   category,
   parentCat,

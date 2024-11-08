@@ -1,5 +1,6 @@
 //let BASE_URL="https://shopping-1-r5s0.onrender.com";
-let BASE_URL = "http://localhost:4000";
+//let BASE_URL = "http://localhost:4000";
+let BASE_URL = "https://shoppingapi-3kd4.onrender.com";
 
 export const addToCart = (product, userid, token, size, qty) => {
   console.log(userid);
