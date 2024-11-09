@@ -154,7 +154,7 @@
   background-image: url("https://www.apexon.com/wp-content/uploads/2017/04/AdobeStock_529601148-735x300.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 91.5vh;
+  height: 120vh;
 
 }
 
@@ -228,6 +228,7 @@
   justify-content: center;
   align-items: center;
   margin-left: 52px;
+  margin-bottom:10px;
 }
 .google-login-cont iframe{
   width:100% !important;
@@ -338,6 +339,10 @@ iframe#gsi_630403_662703.qJTHM {
 }
 .prod-detail-rating-cont {
   width: 50% !important;
+}
+.google-login-cont{
+  width: 59%;
+  margin-bottom:10px;
 }
 }
 

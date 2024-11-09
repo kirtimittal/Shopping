@@ -38,49 +38,62 @@ A full-featured e-commerce application built with the MERN stack (MongoDB, Expre
    git clone https://github.com/kirtimittal/Shopping.git
    cd shopping
 
+   ```
+
 2. **Install dependencies for backend**:
-    ```
-    cd backend
-    npm install
+
+   ```
+   cd backend
+   npm install
+
+   ```
 
 3. **Install dependencies for frontend**:
-    ```
-    cd frontend
-    npm install
+
+   ```
+   cd frontend
+   npm install
+
+   ```
 
 4. **Environment Variables**:
    Create a .env file in the backend folder with the following:
 
-    ``` 
-    PORT=4000
-    atlasUser=sa
-    atlasPassword=kirti123
-    GOOGLE_CLIENT_ID=229313699502-aagqig7sm0efn74vle83nub6r7oeo3it.apps.googleusercontent.com
-    SECRET_KEY=MYSECRETKEY
+   ```
+   PORT=4000
+   atlasUser=your_db_username
+   atlasPassword=your_db_password
+   GOOGLE_CLIENT_ID=your_google_client_id
+   SECRET_KEY=MYSECRETKEY
+
+   ```
 
 5. **Run the application**:
-     Open two terminal windows:
+   Open two terminal windows:
 
    - **Backend:**
-     
-        ``` 
-        cd backend
-        npm start
+
+     ```
+     cd backend
+     npm start
+
+     ```
 
    - **Frontend:**
-     
-        ```
-        cd frontend
-        npm start
+
+     ```
+     cd frontend
+     npm start
+     ```
 
 6. **Access the app**:
 
-    Visit the app at http://localhost:3000 for the frontend.
-    The backend server runs on http://localhost:4000.
+   Visit the app at http://localhost:3000 for the frontend.
+   The backend server runs on http://localhost:4000.
 
 ## Folder Structure
 
-``` plaintext
+```plaintext
 shopping/
 ├── backend/
 │   ├── db/               # Database connection
@@ -96,7 +109,7 @@ shopping/
     ├── src/
     │   ├── components/   # Reusable components
     |   ├── css/          # Style sheets
-    |   ├── images/       # Images for Website 
+    |   ├── images/       # Images for Website
     |   ├── screenshots/  # Screenshots for different pages of Website
     │   ├── store/        # Actions, Reducers and store configuration
     │   ├── App.js        # Main App component
@@ -113,7 +126,7 @@ shopping/
 - POST /api/user/update - Update user profile.
 - POST /api/user/google-login - Login with google and get a token.
 - POST /api/user/logout - Logout a user.
-  
+
 ### Product Routes
 
 - GET /products/:category/:subcatgory/:searchInput - Get all products by category and subcategory or by search field.
@@ -123,7 +136,6 @@ shopping/
 - GET /search/:searchString - Get all products by search Input.
 - GET /product/:id - Get a single product by ID.
 
- 
 ### Category Routes
 
 - GET /api/category/:parentCategory - Get subcategories by parent Category.
@@ -135,7 +147,7 @@ shopping/
 - POST /api/wishlist/ - Add item to wishlist.
 - GET /api/wishlist/:userid - Get user wishlist.
 - DELETE /api/wishlist - Remove item from wishlist.
-  
+
 ### Cart Routes
 
 - POST /api/cart/add - Add item to cart.
@@ -150,7 +162,7 @@ shopping/
 - GET /api/orders/:id - Get single order details by Id.
 - GET /api/orders/:userid/search/:input - Get all orders by searchInput.
 - GET /api/orders/:userid/filter/:status - Get all orders by status.
-  
+
 ### Review Routes
 
 - POST /api/reviews - Add a new review.
@@ -159,41 +171,52 @@ shopping/
 ## Screenshots
 
 ### Home page
-![Homepage of the app](./src/Screenshots/home.png)
+
+![Homepage of the app](./frontend/src/Screenshots/home.png)
 
 ### Product Page
-![Product page of the app](./src/Screenshots/products.png)
+
+![Product page of the app](./frontend/src/Screenshots/products.png)
 
 ### Product Detail Page
-![Product Detail page of the app](./src/Screenshots/Product_detail.png)
+
+![Product Detail page of the app](./frontend/src/Screenshots/Product_detail.png)
 
 ### Login Page
-![Login page of the app](./src/Screenshots/Login.png)
+
+![Login page of the app](./frontend/src/Screenshots/Login.png)
 
 ### SignUp Page
-![SignUp page](./src/Screenshots/Signup.png)
+
+![SignUp page](./frontend/src/Screenshots/Signup.png)
 
 ### Update Profile Page
-![Update Profile page](./src/Screenshots/Update_Profile.png)
+
+![Update Profile page](./frontend/src/Screenshots/Update_Profile.png)
 
 ### Wishlist Page
-![Wishlist page of the app](./src/Screenshots/Wishlist.png)
+
+![Wishlist page of the app](./frontend/src/Screenshots/Wishlist.png)
 
 ### Cart Page
-![Shopping cart page](./src/Screenshots/Cart.png)
+
+![Shopping cart page](./frontend/src/Screenshots/Cart.png)
 
 ### Place Order Page
-![Place Order page](./src/Screenshots/Confirm_Address.png)
+
+![Place Order page](./frontend/src/Screenshots/Confirm_Address.png)
 
 ### Orders Page
-![Orders page](./src/Screenshots/Orders.png)
+
+![Orders page](./frontend/src/Screenshots/Orders.png)
 
 ### Order Detail Page
-![Order Detail page](./src/Screenshots/Order_Detail.png)
+
+![Order Detail page](./frontend/src/Screenshots/Order_Detail.png)
 
 ## Tech Stack
 
-- **Frontend**: React, Redux for state management, Bootstrap for UI components,   Toastify for notifications .
+- **Frontend**: React, Redux for state management, Bootstrap for UI components, Toastify for notifications .
 - **Backend**: Node.js, Express.js, MongoDB for database.
 - **Authentication**: JSON Web Token (JWT) for secure authentication.
 
@@ -203,6 +226,7 @@ shopping/
 - Track Live Order Status.
 
 ## Authors
+
 Developed by Kirti Gupta.
 
 Feel free to open an issue or submit a pull request if you'd like to contribute!
