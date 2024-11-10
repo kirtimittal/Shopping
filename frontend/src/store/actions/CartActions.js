@@ -3,14 +3,12 @@
 let BASE_URL = "https://shoppingapi-3kd4.onrender.com";
 
 export const addToCart = (product, userid, token, size, qty) => {
-  console.log(userid);
   const obj = {
     productid: product._id,
     userid: userid,
     qty,
     size,
   };
-  console.log(size, qty);
   return (dispatch) => {
     dispatch({
       type: "LOADING",
@@ -25,7 +23,6 @@ export const addToCart = (product, userid, token, size, qty) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         dispatch({
           type: "ADD_TO_CART",
           cart: data.cart[0],
@@ -48,8 +45,6 @@ export const getCartItems = (userid, token) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         //data.cart.forEach((item) => {
         // data.cart[0].items.forEach((product) => {
         //   fetch(`${BASE_URL}/product/${product.productid}`)
@@ -89,8 +84,6 @@ export const removeFromCart = (productid, userid, token) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // if (data.cart.items.length === 0) {
         //   dispatch({
         //     type: "REMOVE_ITEMS",
@@ -137,7 +130,6 @@ export const emptyCart = (userid, token) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         dispatch({
           type: "RESET_CART",
           cart: data.cart,

@@ -10,6 +10,7 @@ import SortComp from "./Sort";
 import notfound from "../images/notfound.png";
 import { ThreeDots } from "react-loader-spinner";
 import { searchProduct } from "../store/actions/ProductActions";
+
 function Products({
   products,
   getProductsByCategory,
@@ -23,7 +24,6 @@ function Products({
   const totalPages = useSelector((state) => state.products.totalPages);
   const location = useLocation();
 
-  console.log(products);
   useEffect(() => {
     if (parentCat && category) {
       getProductsByCategory(category, parentCat, currentPage, itemsPerPage);
@@ -35,6 +35,7 @@ function Products({
       dispatch(searchProduct(searchInput, currentPage, itemsPerPage));
     }
   }, [searchInput]);
+
   useEffect(() => {
     setCurrentPage(1);
   }, [location]);
@@ -134,13 +135,6 @@ function Products({
                   >
                     {index + 1}
                   </button>
-                  // <button
-                  //   key={index}
-                  //   onClick={() => setCurrentPage(index + 1)}
-                  //   disabled={currentPage === index + 1}
-                  // >
-                  //   {index + 1}
-                  // </button>
                 ))}
                 <div>
                   <button
@@ -152,28 +146,6 @@ function Products({
                   </button>
                 </div>
               </div>
-              {/* <button onClick={handlePrev} disabled={currentPage === 1}>
-                Previous
-              </button>
-              <span>
-                Page {currentPage} of {totalPages}
-              </span>
-              <button
-                onClick={handleNext}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </button> */}
-
-              {/* {Array.from({ length: totalPages }, (_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentPage(index + 1)}
-                  disabled={currentPage === index + 1}
-                >
-                  {index + 1}
-                </button>
-              ))} */}
             </div>
           </div>
 

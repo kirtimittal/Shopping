@@ -12,29 +12,27 @@ import { ThreeDots } from "react-loader-spinner";
 function Cart({ user, token }) {
   const cart = useSelector((state) => state.cart.cart[0]);
   const loading = useSelector((state) => state.cart.loading);
-  //const cartProducts = useSelector((state) => state.cart.items);
   const totalItems = useSelector((state) => state.cart.totalItems);
-  //const userid = useSelector((state) => state.user.user.id);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // var cartProducts = products.filter((product) =>
-  //   cart.find((item) => item.productid === product._id)
-  // );
-  console.log(cart);
+
   const navigateToWishlist = () => {
-    navigate("/wishlist");
+    navigate("/wishlist"); //go to wishlist
   };
+
   useEffect(() => {
     if (user) {
-      dispatch(getCartItems(user.id, token));
+      dispatch(getCartItems(user.id, token)); //get cart items
     }
   }, []);
+
   const loginClickHandle = () => {
-    navigate("/login");
+    navigate("/login"); //go to login
   };
 
   const confirmOrder = () => {
-    navigate("/order/confirm");
+    navigate("/order/confirm"); //go to confirm order
   };
 
   return (
@@ -67,9 +65,6 @@ function Cart({ user, token }) {
                       qty={product.qty}
                       size={product.size}
                     />
-                    // <div>
-                    //   <img src={product.img_url} alt={product.name}></img>
-                    // </div>
                   );
                 })}
               </div>

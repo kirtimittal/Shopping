@@ -27,7 +27,6 @@ export const initProducts = (
       .then((response) => response.json())
       .then((data) => {
         products = data.products;
-        console.log(data);
         dispatch({
           type: "GET_PRODUCTS",
           products,
@@ -45,7 +44,6 @@ export const initBrands = (category, parentCat) => {
     fetch(`${BASE_URL}/brands/${parentCat}/${category}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         brands = data;
         dispatch({
           type: "GET_BRANDS",
@@ -71,7 +69,6 @@ export const getProductsByBrands = (
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         products = data.selectedProducts;
         dispatch({
           type: "GET_PRODUCTS_BY_BRANDS",
@@ -99,7 +96,6 @@ export const getProductsByCategory = (
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         products = data.selectedProducts;
         dispatch({
           type: "GET_PRODUCTS",
@@ -113,7 +109,6 @@ export const getProductsByCategory = (
 };
 
 export const sortByPrice = (method) => {
-  console.log(method);
   return (dispatch) => {
     dispatch({
       type: "SORT_BY_PRICE",
@@ -133,7 +128,6 @@ export const searchProduct = (word, currentPage, itemsPerPage) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         products = data.selectedProducts;
         dispatch({
           type: "GET_PRODUCTS",
@@ -153,7 +147,7 @@ export const getProductById = (id) => {
       .then((response) => response.json())
       .then((data) => {
         selectedProduct = data;
-        console.log(selectedProduct);
+
         dispatch({
           type: "SET_PRODUCT_SELECTED",
           selectedProduct,

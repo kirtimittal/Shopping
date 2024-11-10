@@ -14,37 +14,36 @@ const ConfirmOrder = () => {
   const user = useSelector((state) => state.user);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const totalItems = useSelector((state) => state.cart.totalItems);
-  //const items = useSelector((state) => state.cart.items);
   const order = useSelector((state) => state.order);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(user);
-
   const [address, setAddress] = useState(null);
+
   const loginClickHandle = () => {
     navigate("/login");
   };
+
   useEffect(() => {
     if (order.message && order.message !== "") {
-      //notify(order.message, "success");
       dispatch(resetMessage());
       dispatch(emptyCart(user.user.id, user.token));
       navigate("/thank-you");
     }
     if (order.error && order.error !== null) {
       notify(order.error, "error");
-
       dispatch(resetMessage());
       navigate("/cart");
     }
   }, [order.message, order.error]);
+
+  //handle radio input change
   const handleRadioChange = (e) => {
     const { name, value } = e.target;
     setAddress(JSON.parse(value));
-    console.log(address);
   };
-  console.log(address);
+
+  //add order
   const placeOrder = () => {
     if (address === null) {
       notify("Please select address", "error");
@@ -73,7 +72,6 @@ const ConfirmOrder = () => {
 
   return (
     <div className="">
-      {/* <h2 className="order-det-header">Order Details</h2> */}
       <br />
       <br />
       <br />

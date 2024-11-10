@@ -12,16 +12,17 @@ const MultipleAddressesForm = ({ onSave }) => {
   useEffect(() => {
     if (user) {
       if (user.address.length > 0) {
-        setAddresses(user.address);
+        setAddresses(user.address); //save address in state
         onSave(user.address);
       }
     }
   }, []);
 
+  //handle input field change
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
     const newAddresses = [...addresses];
-    newAddresses[index][name] = value;
+    newAddresses[index][name] = value; //add address in state
     setAddresses(newAddresses);
     onSave(addresses);
   };
@@ -34,20 +35,14 @@ const MultipleAddressesForm = ({ onSave }) => {
     onSave(addresses);
   };
 
+  //remove address from state
   const handleRemoveAddress = (index) => {
     const newAddresses = addresses.filter((_, i) => i !== index);
     setAddresses(newAddresses);
     onSave(newAddresses);
   };
 
-  //   const handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     // Pass the addresses to the parent component or save them in the backend
-  //     onSave(addresses);
-  //   };
-
   return (
-    // <form onSubmit={handleSubmit}>
     <div>
       {addresses.map((address, index) => (
         <div key={index} className="address-form">
@@ -78,15 +73,6 @@ const MultipleAddressesForm = ({ onSave }) => {
               required
             />
           </div>
-          {/* <div>
-            <label>Address Line 2:</label>
-            <input
-              type="text"
-              name="addressLine2"
-              value={address.addressLine2}
-              onChange={(event) => handleInputChange(index, event)}
-            />
-          </div> */}
           <div className="address-group-cont">
             <div className="margin-flex">
               <Form.Label>City:</Form.Label>
@@ -131,21 +117,9 @@ const MultipleAddressesForm = ({ onSave }) => {
               />
             </div>
           </div>
-          {/* <button
-            type="button"
-            onClick={() => handleRemoveAddress(index)}
-            disabled={index === 0 ? true : false}
-          > */}
-
-          {/* </button> */}
           <hr />
         </div>
       ))}
-
-      {/* <Button variant="primary" type="submit">
-        Save Addresses
-      </Button>
-    </form> */}
     </div>
   );
 };

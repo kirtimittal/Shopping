@@ -6,13 +6,10 @@ export const getCategories = () => {
     fetch(`${BASE_URL}/api/category/`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         data.categories.forEach((category) => {
           fetch(`${BASE_URL}/api/category/${category._id}`)
             .then((response) => response.json())
             .then((data) => {
-              console.log(data);
               if (data.categories.length !== 0) {
                 dispatch({
                   type: "GET_SUB_CATEGORIES",

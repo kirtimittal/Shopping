@@ -9,8 +9,6 @@ function Categories() {
   const parentCategory = useSelector(
     (state) => state.categories.parentCategory
   );
-  console.log(categories);
-
   return (
     <div className="category-cont">
       {categories &&

@@ -10,15 +10,6 @@ import { MdCancel } from "react-icons/md";
 import { AiOutlineSync } from "react-icons/ai";
 
 function OrderCard({ orderDetails }) {
-  // const discountprice =
-  //   data.actualprice - data.actualprice * (data.discount / 100);
-  //   const orderedProd = useSelector((state) => state.order.items);
-
-  //   let products = orderedProd.filter((prod) =>
-  //     orderDetails.items.map((product) => prod._id === product.productid)
-  //   );
-  //   console.log(products);
-
   const renderStatus = (status) => {
     switch (status) {
       case "Processing":
@@ -35,9 +26,6 @@ function OrderCard({ orderDetails }) {
   };
 
   const convertDateFormat = (date) => {
-    // const year = date.split("-")[0];
-    // let month = date.split("-")[1];
-    // const dt = date.split("-")[2];
     let formatttedDate = date.toLocaleString("default", {
       month: "short",
       year: "numeric",

@@ -44,7 +44,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    //initProducts: () => dispatch(initProducts()),
     sortByPrice: (method) => dispatch(sortByPrice(method)),
   };
 };

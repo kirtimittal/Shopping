@@ -97,12 +97,12 @@ function Footer() {
                   <FaInstagram size={20} />
                 </a>
               </div>
-              <h6 className="mt-3">We Accept</h6>
+              {/* <h6 className="mt-3">We Accept</h6>
               <img
                 src="/images/payment-methods.png"
                 alt="Payment Methods"
                 style={{ maxWidth: "100%" }}
-              />
+              /> */}
             </div>
           </div>
 

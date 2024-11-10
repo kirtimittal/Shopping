@@ -11,10 +11,7 @@ import {
 import Signup from "./Signup.js";
 import { ThreeDots } from "react-loader-spinner";
 import Example from "./Notificationex.js";
-// import { LoginSocialGoogle } from "reactjs-social-login";
 import notify from "./Notify.js";
-// // CUSTOMIZE ANY UI BUTTON
-// import { GoogleLoginButton } from "react-social-login-buttons";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { loginWithGoogle } from "../store/actions/UserActions.js";
@@ -26,88 +23,31 @@ function Login({ checkLogin, user }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isAuth, setIsAuth] = useState(false);
-  // const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [provider, setProvider] = useState("");
-  // const [profile, setProfile] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission, e.g., API call to authenticate
     authUser(username, password);
-    console.log("Form submitted:", { username, password });
   };
 
   const authUser = (username, password) => {
     checkLogin(username, password);
-    // if (user.user && !user.loading) {
-    //   console.log("login");
-    //   setIsAuth(true);
-    //   notify(user.message, "success");
-    // } else if (!user.user && !user.loading && user.message) {
-    //   console.log("not login");
-    //   notify(user.message, "error");
-    // }
   };
   const handleNavigate = () => {
     const props = { isAuth, username: user.user.name }; // Props to pass
     navigate(-1);
-    //navigate("/", { state: props });
   };
 
-  // const onLoginStart = useCallback(() => {
-  //   alert("login start");
-  // }, []);
-
-  // const onLogoutSuccess = useCallback(() => {
-  //   setProfile(null);
-  //   setProvider("");
-  //   alert("logout success");
-  // }, []);
   const handleSuccess = (response) => {
-    console.log(response);
     const token = response.credential;
     dispatch(loginWithGoogle(token));
-    //const user = jwtDecode(token);
-    //console.log("User Info: ", user); // User information from Google
   };
 
   const handleError = () => {
     notify("Login Failed", "error");
   };
-
-  // useEffect(() => {
-  //   //https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=
-  //   if (profile) {
-  //     fetch(
-  //       `https://oauth2.googleapis.com/tokeninfo?id_token=${profile.access_token}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${profile.access_token}`,
-  //           Accept: "application/json",
-  //         },
-  //       }
-  //     )
-  //       .then((response) => response.json())
-  //       .then((res) => {
-  //         console.log(res);
-  //         setProfile(res.data);
-  //         dispatch(updateLoginCredentials(res, profile.access_token));
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [profile]);
-  // const handleSignup = (e) => {
-  //   navigate("/signup");
-  // };
-  //   useEffect(() => {
-  //     authUser(username, password);
-  //   }, [username, password]);
-
-  // if (user.error) {
-  //   notify(user.error, "error");
-  // }
 
   useEffect(() => {
     //success but unauthorized
@@ -147,20 +87,6 @@ function Login({ checkLogin, user }) {
 
   return (
     <div className="login-div">
-      {/* {user.loading && (
-        <div>
-          <ThreeDots
-            visible={true}
-            height="80"
-            width="80"
-            color="#4fa94d"
-            radius="9"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{ margin: "500px" }}
-            wrapperClass=""
-          />
-        </div>
-      )} */}
       <Container className="login-cont">
         <Row className="justify-content-md-center">
           <Col md={12}>
@@ -214,59 +140,11 @@ function Login({ checkLogin, user }) {
           </div>
           <div className="google-login-cont">
             <GoogleOAuthProvider clientId="229313699502-aagqig7sm0efn74vle83nub6r7oeo3it.apps.googleusercontent.com">
-              {/* <div className="App">
-            <h2>Login with Google</h2> */}
               <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
-              {/* </div> */}
             </GoogleOAuthProvider>
           </div>
         </Row>
-
-        {/* {provider && profile ? (
-          <div>{console.log(profile)}</div>
-        ) : (
-          // <User
-          //   provider={provider}
-          //   profile={profile}
-          //   onLogout={onLogoutSuccess}
-          // />
-          <div className={`App ${provider && profile ? "hide" : ""}`}>
-            <LoginSocialGoogle
-              isOnlyGetToken
-              client_id="229313699502-aagqig7sm0efn74vle83nub6r7oeo3it.apps.googleusercontent.com"
-              onLoginStart={onLoginStart}
-              onResolve={({ provider, data }) => {
-                setProvider(provider);
-                setProfile(data);
-              }}
-              onReject={(err) => {
-                console.log(err);
-              }}
-            >
-              <GoogleLoginButton />
-            </LoginSocialGoogle>
-          </div>
-        )} */}
       </Container>
-      {/* {user.loading && return (
-        <ThreeDots
-          visible={true}
-          height="80"
-          width="80"
-          color="#4fa94d"
-          radius="9"
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-        />
-      )} */}
-
-      {/* {isAuth && (
-        <div>
-          {alert("login  succcess")}
-          {handleNavigate()}
-        </div>
-      )} */}
     </div>
   );
 }

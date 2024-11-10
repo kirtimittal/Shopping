@@ -8,10 +8,7 @@ import { ThreeDots } from "react-loader-spinner";
 
 function Wishlist({ user, getWishlist, wishlist, token, loading }) {
   const navigate = useNavigate();
-  // if user is null then show msg please login
-  // if logged in show wishlist by user Id
-  // add item to Cart
-  // remove item from wishist
+
   useEffect(() => {
     if (user) {
       getWishlist(user.id, token);
@@ -21,6 +18,7 @@ function Wishlist({ user, getWishlist, wishlist, token, loading }) {
   const loginClickHandle = () => {
     navigate("/login");
   };
+
   return (
     <div>
       {user ? (
@@ -44,7 +42,6 @@ function Wishlist({ user, getWishlist, wishlist, token, loading }) {
               <h3 className="wishlist-header">My Wishlist</h3>
               <div className="product-cont wishlist-cont">
                 {wishlist.map((item) => {
-                  console.log(item);
                   return <WishlistItem key={item._id} data={item} />;
                 })}
               </div>

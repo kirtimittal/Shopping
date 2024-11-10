@@ -6,14 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 function CartPrice({ onClickHandle, text }) {
   const cart = useSelector((state) => state.cart.cart[0]);
-
-  //const totalItems = useSelector((state) => state.cart.totalItems);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
-  //const items = useSelector((state) => state.cart.items);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(cart);
 
   const confirmOrder = () => {
     navigate("/order/confirm");

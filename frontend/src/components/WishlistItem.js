@@ -9,22 +9,20 @@ import { Modal, Button } from "react-bootstrap";
 import Size from "./Size";
 
 function Product({ data, addToCart, user, removeFromWishlist, token }) {
-  // const discountprice =
-  //   data.actualprice - data.actualprice * (data.discount / 100);
-
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
+
   const setSize = (s) => {
     localStorage.setItem("Size", s.trim());
   };
+
   const showModal = () => {
     setShow(true);
   };
+
   const addProductToCart = () => {
     let size = localStorage.getItem("Size");
     let qty = 1;
-    //localStorage.setItem("Size", "");
     if (size === "") {
       setShow(false);
       notify("Size not selected", "error");
@@ -35,9 +33,11 @@ function Product({ data, addToCart, user, removeFromWishlist, token }) {
       localStorage.setItem("Size", "");
     }
   };
+
   const removeProductFromWishlist = () => {
     removeFromWishlist(data._id, user.id, token);
   };
+
   return (
     <div className="product-item wishlist-item">
       <div className="item-cont">
@@ -54,7 +54,7 @@ function Product({ data, addToCart, user, removeFromWishlist, token }) {
 
         <h5 className="font-bold brand-text">{data.brand}</h5>
         <h6>{data.name}</h6>
-        {/* {discountprice && ( */}
+
         <div className="price-cont">
           <h6 className="price-cont font-bold">
             Rs. {data.discountedPrice.$numberDecimal}
@@ -70,7 +70,6 @@ function Product({ data, addToCart, user, removeFromWishlist, token }) {
       <div className="add-to-cart-cont" onClick={showModal}>
         <h4>Move to Cart</h4>
       </div>
-      {/* )} */}
 
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
@@ -82,7 +81,6 @@ function Product({ data, addToCart, user, removeFromWishlist, token }) {
               data={data.sizeAvailable}
               key={data._id}
               itemid={data._id}
-              //   sizeSelected={sizeSelected}
               onClickHandle={(size) => setSize(size)}
             />
           </div>

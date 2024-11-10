@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import { logout } from "../store/actions/UserActions";
 import { useNavigate } from "react-router-dom";
 import notify from "./Notify";
+
 function Logout({ logout, user }) {
   const navigate = useNavigate();
+
   useEffect(() => {
     logout(user.user.id);
     notify("Logout Successfully", "success");

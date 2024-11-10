@@ -2,7 +2,6 @@ import React from "react";
 import "../css/Cart.css";
 import { IoMdClose } from "react-icons/io";
 import { connect, useDispatch } from "react-redux";
-
 import { removeFromCart } from "../store/actions/CartActions";
 
 function CartItem({
@@ -14,23 +13,20 @@ function CartItem({
   qty,
   size,
 }) {
-  // const discountprice =
-  //   data.actualprice - data.actualprice * (data.discount / 100);
   const dispatch = useDispatch();
+
   const removeProductFromCart = () => {
-    dispatch(removeFromCart(data._id, user.id, token));
+    dispatch(removeFromCart(data._id, user.id, token)); //remove product from cart
   };
+
   return (
     <div className="cart-item">
-      {/* onClick={removeProductFromCart} */}
-
       <div className="img_cont">
         <img src={data.img_url} alt={data.name}></img>
       </div>
       <div className="details-cont">
         <h5 className="font-bold brand-text">{data.brand}</h5>
         <h6>{data.name}</h6>
-        {/* {discountprice && ( */}
         <h6>
           <b>Qty: {qty}</b>
         </h6>
@@ -50,7 +46,6 @@ function CartItem({
       <div className="close" onClick={removeProductFromCart}>
         <IoMdClose />
       </div>
-      {/* )} */}
     </div>
   );
 }
@@ -63,11 +58,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    // addToCart: (product) => dispatch(addToCart(product)),
-    // removeFromWishlist: (productid, userid) =>
-    //   dispatch(removeFromWishlist(productid, userid)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

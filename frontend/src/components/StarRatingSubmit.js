@@ -23,22 +23,6 @@ const StarRatingSubmit = ({ productId, status }) => {
         user.token
       )
     );
-    // try {
-    //   const { data } = await axios.post(
-    //     `/api/products/${productId}/reviews`,
-    //     {
-    //       rating,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //       },
-    //     }
-    //   );
-    //   setMessage("Rating submitted successfully!");
-    // } catch (error) {
-    //   setMessage("Error submitting rating");
-    // }
   };
 
   return (

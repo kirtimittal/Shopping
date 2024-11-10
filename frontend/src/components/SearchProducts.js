@@ -13,14 +13,6 @@ function SearchProducts({ itemsPerPage, products }) {
   const totalPages = useSelector((state) => state.products.totalPages);
   return (
     <div>
-      {/* {products.products &&
-        products.products.map((item) => {
-          return (
-            <Filter category={item.subCategory} parentCat={item.category} />
-          );
-        })} */}
-      {/* <Filter category={category} parentCat={parentCat} /> */}
-
       <div className="vertical-line" />
       <div className="allproducts-cont">
         <div className="product-cont">
@@ -59,13 +51,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    // getProductsByCategory: (category, parentCat, currentPage, itemsPerPage) =>
-    //   dispatch(
-    //     getProductsByCategory(category, parentCat, currentPage, itemsPerPage)
-    //   ),
-    //sortByPrice: (method) => dispatch(sortByPrice(method)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchProducts);

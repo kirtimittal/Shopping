@@ -19,21 +19,13 @@ function UpdateProfile({ signup, user }) {
   });
   const [isValidated, setIsValidated] = useState(true);
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    //if (name === "address") {
-    //   setFormData({
-    //     ...formData,
-    //     address: [...formData.address, value],
-    //   });
-    // } else {
     setFormData({
       ...formData,
       [name]: value,
     });
-    //}
-
-    console.log(formData);
   };
 
   useEffect(() => {
@@ -63,11 +55,10 @@ function UpdateProfile({ signup, user }) {
     } else {
       setIsValidated(true);
       dispatch(updateUser(formData, user.user.id));
-      //notify("User updated Successfully", "success");
       navigate("/login");
     }
-    console.log(formData);
   };
+
   return (
     <div id="signup-div">
       <Container className="signup-cont">
@@ -132,25 +123,12 @@ function UpdateProfile({ signup, user }) {
           </Form.Group>
           <MultipleAddressesForm
             onSave={(addresses) => {
-              console.log(addresses);
               setFormData({
                 ...formData,
                 address: addresses,
               });
             }}
           />
-          {/* <Form.Group controlId="formBasicAddress">
-            <Form.Label>Address</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group> */}
-
           <Button variant="primary" type="submit" id="signup-btn">
             Update
           </Button>

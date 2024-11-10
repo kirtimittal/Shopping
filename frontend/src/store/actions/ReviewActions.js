@@ -3,7 +3,7 @@ let BASE_URL = "https://shoppingapi-3kd4.onrender.com";
 
 export const addReview = (name, rating, userid, comment, productid, token) => {
   const obj = { name, rating, userid, comment, productid };
-  console.log("obj" + obj);
+
   return async (dispatch) => {
     try {
       const response = await fetch(`${BASE_URL}/api/reviews/`, {
@@ -15,7 +15,6 @@ export const addReview = (name, rating, userid, comment, productid, token) => {
         body: JSON.stringify(obj),
       });
       const data = await response.json();
-      console.log(data);
       dispatch({
         type: "ADD_REVIEW",
         data,
@@ -43,7 +42,7 @@ export const getReview = (userid, productid, token) => {
         }
       );
       const data = await response.json();
-      console.log(data);
+
       dispatch({
         type: "GET_REVIEW",
         data,

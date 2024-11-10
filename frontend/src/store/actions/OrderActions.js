@@ -19,7 +19,6 @@ export const addOrder = (
         totalPrice,
         shippingAddress: address,
       };
-      console.log(order);
       dispatch({
         type: "LOADING",
       });
@@ -33,7 +32,7 @@ export const addOrder = (
       });
 
       const data = await res.json();
-      console.log(data);
+
       dispatch({
         type: "ADD_ORDER",
         data,
@@ -81,7 +80,7 @@ export const getOrders = (userid, token) => {
       });
 
       const data = await res.json();
-      console.log(data);
+
       //   data.order.forEach((order) => {
       //     order.items.forEach((item) => {
       //       fetch(`${BASE_URL}/product/${item.productid}`)
@@ -127,7 +126,6 @@ export const searchOrder = (searchInput, userid, token) => {
       );
 
       const data = await res.json();
-      console.log(data);
 
       dispatch({
         type: "SEARCH",
@@ -157,7 +155,6 @@ export const getOrderByStatus = (status, userid, token) => {
         }
       );
       const data = await res.json();
-      console.log(data);
 
       dispatch({
         type: "SEARCH",

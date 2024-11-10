@@ -22,12 +22,10 @@ function Filter({
   const [selectedBrand, setSelectedBrand] = useState([]);
   const location = useLocation();
   let products = useSelector((state) => state.products.products);
-  //const [brands, setBrands] = useState(null);
-  //const brands = [...new Set(products.map((product) => product.brand))];
 
   useEffect(() => {
     if (category && parentCat) {
-      initBrands(category, parentCat);
+      initBrands(category, parentCat); //get brands
     }
   }, [category, parentCat]);
 
@@ -76,7 +74,6 @@ function Filter({
       const startIndex = selectedBrand.indexOf(id.toLowerCase());
       selectedBrand.splice(startIndex, 1);
       let newBrand = [...selectedBrand];
-      console.log(newBrand);
       setSelectedBrand(newBrand);
     }
   };

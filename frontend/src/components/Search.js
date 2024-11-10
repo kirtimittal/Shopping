@@ -10,16 +10,10 @@ function Search({ searchProduct, itemsPerPage }) {
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
   const handleOnKey = (e) => {
-    console.log(e.key);
     if (e.key === "Enter") {
-      console.log(searchInput);
-      //searchProduct(searchInput,currentPage,itemsPerPage);
       setSearchInput("");
 
       navigate(`/search/${searchInput}`);
-      //setTimeout(() => navigate(`/search/${searchInput}`), 3000);
-    } else {
-      //setSearchInput(e.target.value);
     }
   };
   return (

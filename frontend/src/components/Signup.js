@@ -20,20 +20,13 @@ function Signup({ signup, user }) {
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
-    //if (name === "address") {
-    //   setFormData({
-    //     ...formData,
-    //     address: [...formData.address, value],
-    //   });
-    // } else {
+
     setFormData({
       ...formData,
       [name]: value,
     });
-    //}
-
-    console.log(formData);
   };
+
   useEffect(() => {
     if (!isValidated) {
       notify("Password and confirm Password does not match", "error");
@@ -59,9 +52,7 @@ function Signup({ signup, user }) {
     } else {
       setIsValidated(true);
       signup(formData);
-      //alert("Signup successful.Please login to continue");
     }
-    console.log(formData);
   };
   return (
     <div id="signup-div">
@@ -136,26 +127,15 @@ function Signup({ signup, user }) {
               required
             />
           </Form.Group>
-          {/* <Form.Group controlId="formBasicAddress"> */}
-          {/* <Form.Label>Address</Form.Label> */}
+
           <MultipleAddressesForm
             onSave={(addresses) => {
-              console.log(addresses);
               setFormData({
                 ...formData,
                 address: addresses,
               });
             }}
           />
-          {/* <Form.Control
-              type="text"
-              placeholder="Enter address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-            /> */}
-          {/* </Form.Group> */}
 
           <Button variant="primary" type="submit" id="signup-btn">
             Sign Up
@@ -163,11 +143,6 @@ function Signup({ signup, user }) {
         </Form>
       </Container>
       {user.success && <div>{notify("Signup Successful", "success")}</div>}
-      {/* {!isValidated && (
-        <div>
-          {notify("Password and confirm Password does not match", "error")}
-        </div>
-      )} */}
     </div>
   );
 }

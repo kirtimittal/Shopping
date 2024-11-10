@@ -23,7 +23,6 @@ export const checkLogin = (email, password) => {
           .then((data) => ({ data, status: response.status }));
       })
       .then(({ data, status }) => {
-        console.log(data);
         // if (status !== 200) {
         //   dispatch({
         //     type: "Failure",
@@ -56,8 +55,6 @@ export const signup = (formdata) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         dispatch({
           type: "SIGNUP",
           data,
@@ -68,7 +65,6 @@ export const signup = (formdata) => {
 };
 
 export const logout = (userid) => {
-  console.log(userid);
   return (dispatch) => {
     fetch(`${BASE_URL}/api/user/logout`, {
       method: "POST",
@@ -79,8 +75,6 @@ export const logout = (userid) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         dispatch({
           type: "LOGOUT",
         });
@@ -133,7 +127,7 @@ export const loginWithGoogle = (token) => {
 
 export const updateUser = (user, id) => {
   user = { ...user, id };
-  console.log(user);
+
   return async (dispatch) => {
     try {
       const res = await fetch(`${BASE_URL}/api/user/update`, {
@@ -143,7 +137,7 @@ export const updateUser = (user, id) => {
       });
 
       const data = await res.json();
-      console.log(data);
+
       dispatch({
         type: "UPDATE",
         data,

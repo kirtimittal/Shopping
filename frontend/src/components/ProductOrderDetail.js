@@ -56,9 +56,6 @@ const ProductOrderDetails = () => {
   };
 
   const convertDateFormat = (date) => {
-    // const year = date.split("-")[0];
-    // let month = date.split("-")[1];
-    // const dt = date.split("-")[2];
     let formatttedDate = date.toLocaleString("default", {
       month: "short",
       year: "numeric",
@@ -114,30 +111,6 @@ const ProductOrderDetails = () => {
       </div>
       <div className="order-id-item-5">ORDER ID: {order[0]._id}</div>
     </div>
-    // <Container>
-    //   <Row>
-    //     <Col md={6}>
-    //       <Image src={product.productid.img_url} alt={product.name} fluid />
-    //     </Col>
-    //     <Col md={6}>
-    //       <h2>{product.name}</h2>
-    //       <p>Price: ${product.price}</p>
-    //       <p>Quantity: {product.qty}</p>
-    //       <p>Total: ${product.qty * product.price}</p>
-    //     </Col>
-    //   </Row>
-    //   <Row>
-    //     {review && (
-    //       <div>
-    //         <h5>
-    //           Your Rating:
-    //           <Rating value={review.rating} text="" />
-    //         </h5>
-    //       </div>
-    //     )}
-    //     {!review && <StarRatingSubmit productId={productId} />}
-    //   </Row>
-    // </Container>
   );
 };
 

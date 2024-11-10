@@ -50,58 +50,7 @@ function ProductDetail({
   const { parentCat, category, id } = useParams();
   const cart = useSelector((state) => state.cart.cart);
   const cartMessage = useSelector((state) => state.cart.message);
-  //const [sizeSelected, setsizeSelected] = useState("");
-  //const [qtySelected, setQtySelected] = useState("");
-  // const sourceRef = useRef(null);
-  // const targetRef = useRef(null);
-  // const containerRef = useRef(null);
-  // let size = "";
-  // const [opacity, setOpacity] = useState(0);
-  // const [offset, setOffset] = useState({ left: 0, top: 0 });
-
-  // const handleMouseEnter = () => {
-  //   setOpacity(1);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setOpacity(0);
-  // };
-
-  // const handleMouseMove = (e) => {
-  //   const targetRect = targetRef.current.getBoundingClientRect();
-  //   const sourceRect = sourceRef.current.getBoundingClientRect();
-  //   const containerRect = containerRef.current.getBoundingClientRect();
-
-  //   const xRatio = (targetRect.width - containerRect.width) / sourceRect.width;
-  //   const yRatio =
-  //     (targetRect.height - containerRect.height) / sourceRect.height;
-
-  //   const left = Math.max(
-  //     Math.min(e.pageX - sourceRect.left, sourceRect.width),
-  //     0
-  //   );
-  //   const top = Math.max(
-  //     Math.min(e.pageY - sourceRect.top, sourceRect.height),
-  //     0
-  //   );
-
-  //   setOffset({
-  //     left: left * -xRatio,
-  //     top: top * -yRatio,
-  //   });
-  // };
-
   const error = wishlist.error;
-  // const sizes = [
-  //   { id: 1, name: "S" },
-  //   { id: 2, name: "M" },
-  //   { id: 3, name: "L" },
-  // ];
-  //const [data, setData] = useState({});
-  console.log(id, category);
-  // const discountprice =
-  //   selectedProduct.actualprice -
-  //   selectedProduct.actualprice * (selectedProduct.discount / 100);
 
   useEffect(() => {
     getProductById(id);
@@ -141,7 +90,6 @@ function ProductDetail({
       //notify("Please select Qty", "info");
     } else {
       addToCart(selectedProduct, user.id, token, size, qtySelected);
-      console.log(cart);
       //notify("Item added to cart", "info");
     }
   };
@@ -161,9 +109,6 @@ function ProductDetail({
     localStorage.setItem("Qty", q);
   };
   const convertDateFormat = (date) => {
-    // const year = date.split("-")[0];
-    // let month = date.split("-")[1];
-    // const dt = date.split("-")[2];
     let formatttedDate = date.toLocaleString("default", {
       month: "short",
       year: "numeric",

@@ -2,7 +2,6 @@
 let BASE_URL = "https://shoppingapi-3kd4.onrender.com";
 
 export const addToWishlist = (productid, userid, token) => {
-  console.log(productid + " " + userid);
   const wishlist = {
     productid,
     userid,
@@ -25,7 +24,6 @@ export const addToWishlist = (productid, userid, token) => {
           .then((data) => ({ data, status: response.status }));
       })
       .then(({ data, status }) => {
-        console.log(status);
         if (status !== 200) {
           dispatch({
             type: "ERROR",
@@ -55,12 +53,10 @@ export const getWishlist = (userid, token) => {
     })
       .then((response) => response.json())
       .then((productid) => {
-        console.log(productid);
         productid.forEach((id) => {
           fetch(`${BASE_URL}/product/${id}`)
             .then((response) => response.json())
             .then((data) => {
-              console.log(data);
               dispatch({
                 type: "ADD_TO_ITEMS",
                 data,
@@ -101,7 +97,6 @@ export const removeFromWishlist = (productid, userid, token) => {
           .then((data) => ({ data, status: response.status }));
       })
       .then(({ data, status }) => {
-        console.log(data);
         if (status !== 200) {
           dispatch({
             type: "ERROR",
