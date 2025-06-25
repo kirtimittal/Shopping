@@ -49,14 +49,14 @@ pipeline {
     //     }
     //   }
     // }
-stage('Prepare PM2 Home') {
-      steps {
-        // Remove old PM2 state and recreate directories
-        bat 'if exist "%PM2_HOME%" rd /s /q "%PM2_HOME%"'
-        //bat 'mkdir "%PM2_HOME%"'
-        bat 'mkdir "%PM2_HOME%\\logs1"'
-      }
-    }
+// stage('Prepare PM2 Home') {
+//       steps {
+//         // Remove old PM2 state and recreate directories
+//         bat 'if exist "%PM2_HOME%" rd /s /q "%PM2_HOME%"'
+//         //bat 'mkdir "%PM2_HOME%"'
+//         bat 'mkdir "%PM2_HOME%\\logs1"'
+//       }
+//     }
     
     stage('Deploy with PM2') {
       steps {
@@ -66,7 +66,7 @@ stage('Prepare PM2 Home') {
         // Stop existing processes
         bat 'npx pm2 delete mern-backend --silent 2>nul || echo "backend not running" && exit 0'
         bat 'npx pm2 delete mern-frontend --silent 2>nul || echo "frontend not running" && exit 0'
-
+        bat 'icacls "%PM2_HOME%\\logs" /grant "Users":(F) /T /C /Q'
         // Start backend service
         dir(BACKEND_DIR) {
           bat "npx pm2 start node --name mern-backend --cwd %CD% -- app.js"
