@@ -30,7 +30,7 @@ pipeline {
     stage('deploy Frontend') {
       steps {
         dir("${FRONTEND_DIR}") {
-          bat 'npx serve -s build -l 3000'
+          bat 'start "" cmd /c "npx serve -s build -l 3000"'
         }
       }
     }
@@ -54,7 +54,7 @@ pipeline {
     stage('Start Backend') {
       steps {
         dir("${BACKEND_DIR}") {
-          bat 'npm start'
+          bat 'start "" cmd /c "npm start"'
         }
       }
     }
