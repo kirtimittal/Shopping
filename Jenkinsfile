@@ -55,8 +55,8 @@ pipeline {
         bat 'if exist "%PM2_HOME%" rd /s /q "%PM2_HOME%"'
 
         // Stop existing processes
-        bat 'npx pm2 delete mern-backend || echo "backend not running"'
-        bat 'npx pm2 delete mern-frontend || echo "frontend not running"'
+        bat 'npx pm2 delete mern-backend || true'
+        bat 'npx pm2 delete mern-frontend || true'
 
         // Start backend service correctly
         dir(BACKEND_DIR) {
