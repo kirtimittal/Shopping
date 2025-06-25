@@ -72,7 +72,8 @@ pipeline {
           bat "npx pm2 start node --name mern-backend --cwd %CD% -- app.js"
         }
        //bat "npx pm2 start serve --name mern-frontend --cwd %CD%\\${FRONTEND_DIR}\\build -- -s . -l 3000"
-        bat "cmd.exe /c npx pm2 start npx --name mern-frontend --cwd %CD%\\${FRONTEND_DIR}\\build -- serve -s . -l 3000"
+        //bat "cmd.exe /c npx pm2 start npx --name mern-frontend --cwd %CD%\\${FRONTEND_DIR}\\build -- serve -s . -l 3000"
+         bat "cmd.exe /c npx pm2 start --name mern-frontend --cwd %CD%\\${FRONTEND_DIR}\\build serve -- -s . -l 3000"
         // Start frontend service using npx to invoke serve
         // dir(FRONTEND_DIR) {
         //   bat "npx pm2 start serve --name mern-frontend --cwd %CD%\\build -- -s . -l 3000"
