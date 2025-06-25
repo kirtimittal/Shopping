@@ -28,6 +28,9 @@ pipeline {
 
     stage('Deploy with PM2') {
       steps {
+        // Clean local PM2 folder
+        bat 'if exist "%PM2_HOME%" rd /s /q "%PM2_HOME%"'
+        
         // Delete old processes if they exist
         // bat 'npx pm2 delete mern-backend || echo "backend not running"'
         // bat 'npx pm2 delete mern-frontend || echo "frontend not running"'
