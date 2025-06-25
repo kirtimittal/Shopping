@@ -28,15 +28,15 @@ pipeline {
 
     stage('Deploy with PM2') {
       steps {
-        // Stop any old processes
-        bat 'pm2 delete mern-backend || echo "backend not running"'
-        bat 'pm2 delete mern-frontend || echo "frontend not running"'
+        // Delete old processes if they exist
+        bat 'npx pm2 delete mern-backend || echo "backend not running"'
+        bat 'npx pm2 delete mern-frontend || echo "frontend not running"'
 
-        // Start backend (assumes server/index.js listens on 5000)
-        bat """pm2 start node --name mern-backend -- cwd %CD%\\${BACKEND_DIR} -- script app.js"""
+        // Start backend process
+        bat "npx pm2 start node --name mern-backend -- cwd %CD%\\${BACKEND_DIR} -- script index.js"
 
-        // Start frontend build serving
-        bat """pm2 start npx --name mern-frontend -- cwd %CD%\\${FRONTEND_DIR}\\build -- serve -s . -l 3000"""
+        // Serve frontend build
+        bat "npx pm2 start npx --name mern-frontend -- cwd %CD%\\${FRONTEND_DIR}\\build -- serve -s . -l 3000"
       }
     }
   }
