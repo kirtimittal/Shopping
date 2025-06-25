@@ -29,7 +29,7 @@ pipeline {
       steps {
         dir(FRONTEND_DIR) {
           // Launch serve in background
-          bat 'start "Front" /B cmd /c "npx serve -s build -l 3000"
+          bat 'start "Front" /B cmd /c "npx serve -s build -l 3000"'
         }
       }
     }
@@ -37,7 +37,7 @@ pipeline {
       steps {
         dir(BACKEND_DIR) {
           // Launch backend in background
-          bat 'start "Back" /B cmd /c "npm start"
+          bat 'start "Back" /B cmd /c "npm start"'
         }
       }
     }
