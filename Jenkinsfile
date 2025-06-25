@@ -66,7 +66,7 @@ pipeline {
 
         // Start frontend service using npx to invoke serve
         dir(FRONTEND_DIR) {
-          bat 'pm2 start serve --name mern-frontend -- -s build -l 3000'
+          bat 'pm2 start serve --name mern-frontend --cwd %CD% -- -s build -l 3000'
         }
   }
   }
