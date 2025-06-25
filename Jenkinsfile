@@ -8,6 +8,7 @@ pipeline {
   environment {
     FRONTEND_DIR = "frontend"
     BACKEND_DIR = "backend"
+    CI = 'false'  // override React's strict mode
   }
 
   stages {
