@@ -66,7 +66,7 @@ pipeline {
         // Stop existing processes
         bat 'npx pm2 delete mern-backend --silent 2>nul || echo "backend not running" && exit 0'
         bat 'npx pm2 delete mern-frontend --silent 2>nul || echo "frontend not running" && exit 0'
-        bat 'icacls "%PM2_HOME%\\logs" /grant "Users":(F) /T /C /Q'
+        bat 'icacls "%PM2_HOME%\\logs" /grant "BUILTIN\\Users":(OI)(CI)(F) /T /C /Q'
         // Start backend service
         dir(BACKEND_DIR) {
           bat "npx pm2 start node --name mern-backend --cwd %CD% -- app.js"
