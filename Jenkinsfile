@@ -33,7 +33,7 @@ pipeline {
         // bat 'npx pm2 delete mern-frontend || echo "frontend not running"'
 
         // Start backend process
-        bat "npx pm2 start node --name mern-backend -- cwd %CD%\\${BACKEND_DIR} -- script index.js"
+        bat "npx pm2 start node --name mern-backend -- cwd %CD%\\${BACKEND_DIR} -- script app.js"
 
         // Serve frontend build
         bat "npx pm2 start npx --name mern-frontend -- cwd %CD%\\${FRONTEND_DIR}\\build -- serve -s . -l 3000"
