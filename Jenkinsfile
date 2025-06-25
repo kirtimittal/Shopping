@@ -49,7 +49,15 @@ pipeline {
     //     }
     //   }
     // }
-
+stage('Prepare PM2 Home') {
+      steps {
+        // Remove old PM2 state and recreate directories
+        bat 'if exist "%PM2_HOME%" rd /s /q "%PM2_HOME%"'
+        bat 'mkdir "%PM2_HOME%"'
+        bat 'mkdir "%PM2_HOME%\\logs"'
+      }
+    }
+    
     stage('Deploy with PM2') {
       steps {
         // Clean PM2 state directory
