@@ -6,9 +6,16 @@ pipeline {
     FRONTEND_DIR = "frontend"
     BACKEND_DIR  = "backend"
     CI = 'false'
+    PM2_HOME = "${WORKSPACE}\\.pm2"
   }
 
   stages {
+    stage('Install PM2') {
+      steps {
+        bat 'npm install -g pm2'
+      }
+    }
+    
     stage('Install & Build Frontend') {
       steps {
         dir(FRONTEND_DIR) {
@@ -44,34 +51,24 @@ pipeline {
 
     stage('Deploy with PM2') {
       steps {
-script {
-                    // It's generally safer to delete specific PM2 processes by name rather than
-                    // attempting to clean the entire PM2_HOME directory, which might affect other apps.
+        // Clean PM2 state directory
+        bat 'if exist "%PM2_HOME%" rd /s /q "%PM2_HOME%"'
 
-                    echo "Stopping and deleting old PM2 processes if they exist..."
-                    // Gracefully stop the processes first, then delete them from PM2's list.
-                    // '|| true' makes the command succeed even if the process is not found,
-                    // preventing the pipeline from failing.
-                    bat 'npx pm2 stop mern-backend || true'
-                    bat 'npx pm2 delete mern-backend || true'
-                    
-                    bat 'npx pm2 stop mern-frontend || true'
-                    bat 'npx pm2 delete mern-frontend || true'
+        // Stop existing processes
+        bat 'npx pm2 delete mern-backend || echo "backend not running"'
+        bat 'npx pm2 delete mern-frontend || echo "frontend not running"'
 
-                    echo "Starting backend process with PM2..."
-                    // Start the backend application.
-                    // Ensure 'app.js' is the correct entry point for your backend.
-                    bat "npx pm2 start node --name mern-backend --cwd %CD%\\${BACKEND_DIR} -- script app.js"
+        // Start backend service correctly
+        dir(BACKEND_DIR) {
+          bat "npx pm2 start app.js --name mern-backend --cwd %CD%"
+        }
 
-                    echo "Starting frontend serve process with PM2..."
-                    // Start serving the frontend build.
-                    // This assumes the 'serve' package is accessible via npx.
-                    // For production, consider Nginx/Apache for static file serving.
-                    bat "npx pm2 start npx --name mern-frontend --cwd %CD%\\${FRONTEND_DIR}\\build -- serve -s . -l 3000"
-
-                    echo "PM2 processes started. Check 'npx pm2 list' for status."
-                }
+        // Start frontend service correctly using serve
+        dir(FRONTEND_DIR) {
+          bat "npx pm2 start serve --name mern-frontend --cwd %CD% -- -s build -l 3000"
+        }
       }
+    }
     }
   }
 
