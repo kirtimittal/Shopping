@@ -10,9 +10,10 @@ pipeline {
   }
 
   stages {
-    stage('Install PM2') {
+    stage('Install PM2 & Serve') {
       steps {
-        bat 'npm install -g pm2'
+        // Install PM2 and serve globally for stable invocation
+        bat 'npm install -g pm2 serve'
       }
     }
     
@@ -65,7 +66,7 @@ pipeline {
 
         // Start frontend service using npx to invoke serve
         dir(FRONTEND_DIR) {
-          bat "npx pm2 start npx --name mern-frontend --cwd %CD% -- serve -s build -l 3000"
+          bat 'pm2 start serve --name mern-frontend -- -s build -l 3000'
         }
   }
   }
