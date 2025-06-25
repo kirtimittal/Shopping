@@ -51,11 +51,15 @@ pipeline {
 
     stage('Deploy with PM2') {
       steps {
-        // Clean PM2 state directory
+        script{
+ // Clean PM2 state directory
         bat 'if exist "%PM2_HOME%" rd /s /q "%PM2_HOME%"'
 
         // Stop existing processes
+        bat 'npx pm2 stop mern-backend || true'
         bat 'npx pm2 delete mern-backend || true'
+                    
+        bat 'npx pm2 stop mern-frontend || true'
         bat 'npx pm2 delete mern-frontend || true'
 
         // Start backend service correctly
@@ -67,6 +71,8 @@ pipeline {
         dir(FRONTEND_DIR) {
           bat "npx pm2 start npx --name mern-frontend --cwd %CD% -- serve -s build -l 3000"
         }
+        
+       
       }
     
     }
