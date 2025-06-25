@@ -15,17 +15,18 @@ pipeline {
       steps {
         dir("${FRONTEND_DIR}") {
           bat 'npm install'
-        }
-      }
-    }
-
-    stage('Build Frontend') {
-      steps {
-        dir("${FRONTEND_DIR}") {
           bat 'npm run build'
         }
       }
     }
+
+    // stage('Build Frontend') {
+    //   steps {
+    //     dir("${FRONTEND_DIR}") {
+    //       bat 'npm run build'
+    //     }
+    //   }
+    // }
 
     stage('deploy Frontend') {
       steps {
