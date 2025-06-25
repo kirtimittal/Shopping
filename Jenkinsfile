@@ -68,7 +68,7 @@ pipeline {
           bat "npx pm2 start serve --name mern-frontend --cwd %CD% -- -s build -l 3000"
         }
       }
-    }
+    
     }
   }
 
