@@ -37,7 +37,7 @@ pipeline {
       steps {
         dir(BACKEND_DIR) {
           // Launch backend in background
-          bat 'start "Back" /B cmd /c "npm start"'
+          bat 'start "Back" /B cmd /c "node app.js"'
         }
       }
     }
