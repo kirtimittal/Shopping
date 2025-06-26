@@ -1,0 +1,55 @@
+pipeline {
+  agent {
+    docker {
+      image 'docker:latest'
+      args '-v /var/run/docker.sock:/var/run/docker.sock'
+    }
+  }
+
+  environment {
+    FRONTEND_DIR = 'frontend'
+    BACKEND_DIR  = 'backend'
+    CI = 'false'
+  }
+
+  stages {
+    stage('Checkout Code') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Build Docker Images') {
+      steps {
+        script {
+          // Clean up old containers if they exist
+          //sh 'docker rm -f mern-backend || true'
+          sh 'docker rm -f mern-frontend || true'
+
+          // Dockerfiles handle npm install and frontend build — no separate Jenkins install steps needed
+          //sh "docker build -t mern-backend:latest ${BACKEND_DIR}"
+          sh "docker build -t mern-frontend:latest ${FRONTEND_DIR}"
+        }
+      }
+    }
+
+    stage('Run Containers') {
+      steps {
+        script {
+          // Start containers exposing required ports
+          //sh 'docker run -d --name mern-backend -p 5000:5000 mern-backend:latest'
+          sh 'docker run -d --name mern-frontend -p 3000:3000 mern-frontend:latest'
+        }
+      }
+    }
+  }
+
+  post {
+    success {
+      echo '✅ Docker images built and deployed successfully — Jenkins handles Docker build only.'
+    }
+    failure {
+      echo '❌ Pipeline failed. Check logs.'
+    }
+  }
+}
