@@ -6,7 +6,7 @@ WORKDIR /backend
 
 # 3. Copy package manifests and install dependencies
 #    Using only production deps—if you need devDependencies (for tests/build),
-//    you can remove the `--only=production` flag.
+#   you can remove the `--only=production` flag.
 COPY package*.json ./
 RUN npm install 
 
