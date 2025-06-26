@@ -1,0 +1,21 @@
+# 1. Use an official, minimal Node.js runtime as base
+FROM node:18-alpine
+
+# 2. Create and set the working directory inside the container
+WORKDIR /backend
+
+# 3. Copy package manifests and install dependencies
+#    Using only production deps—if you need devDependencies (for tests/build),
+//    you can remove the `--only=production` flag.
+COPY package*.json ./
+RUN npm install 
+
+# 4. Copy the rest of your backend source code
+COPY . .
+
+# 5. Expose the port your app listens on
+EXPOSE 4000
+
+# 6. Define your startup command
+#    Replace "app.js" with the actual entry point (e.g. server.js, index.js)
+CMD ["node", "app.js"]
