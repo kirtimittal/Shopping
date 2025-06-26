@@ -1,11 +1,9 @@
 pipeline {
   agent {
-    dockerContainer {
-     image 'docker:latest' // Use a Docker image with Docker CLI pre-installed
-    // Mount the Docker socket from the host into the agent container
-            // This allows the agent to execute Docker commands on the host machine's Docker daemon
-     //args '-v /var/run/docker.sock:/var/run/docker.sock'
-    }
+    dockerfile {
+            filename 'dockerfile' // Default is 'Dockerfile' at root
+            dir 'frontend' // If Dockerfile is in a subdirectory
+        }
   }
 
   environment {
