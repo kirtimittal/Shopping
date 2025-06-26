@@ -1,25 +1,47 @@
 pipeline {
-  agent {
-    dockerfile {
-            filename 'dockerfile' // Default is 'Dockerfile' at root
-            dir 'frontend' // If Dockerfile is in a subdirectory
+    // Agent definition: Run the entire pipeline inside a Docker container
+    // This 'docker:latest' container will serve as our Jenkins agent.
+    // It's assumed to have the Docker CLI installed and access to the host's Docker daemon.
+    agent {
+        dockerContainer {
+            image 'docker:latest' // Use a Docker image with Docker CLI pre-installed
+            
+            remoteFs '/home/jenkins/workspace'
         }
-  }
-
-  environment {
-    FRONTEND_DIR = 'frontend'
-    BACKEND_DIR  = 'backend'
-    CI = 'false'
-  }
-
-  stages {
-    stage('Checkout Code') {
-      steps {
-        checkout scm
-      }
     }
 
-    stage('Build Docker Images') {
+    // Tools definition: Ensure Node.js is available if needed by the Dockerfiles
+    // (though Dockerfiles generally manage their own Node.js installation within the image)
+    tools {
+        nodejs "Node 20" // Ensure 'Node 20' is configured in Jenkins Global Tool Configuration
+    }
+
+    environment {
+        // DOCKER_ORG_NAME: Your Docker Hub username or organization name.
+        // This will prefix the names of your Docker images.
+        // IMPORTANT: Replace 'your-dockerhub-username' with your actual Docker Hub username.
+        //DOCKER_ORG_NAME = "your-dockerhub-username"
+        
+        FRONTEND_DIR = 'frontend' // Path to your frontend application's directory
+        BACKEND_DIR  = 'backend'  // Path to your backend application's directory
+        CI = 'false' // Common environment variable for frontend builds to prevent warnings as errors
+
+        
+    }
+
+    stages {
+        stage('Checkout Source Code') {
+            steps {
+                script {
+                    echo "Checking out Git repository..."
+                    // 'checkout scm' fetches the source code from the Git repository
+                    // configured in your Jenkins job. This includes your Dockerfiles.
+                    checkout scm
+                }
+            }
+        }
+
+        stage('Build Docker Images') {
       steps {
         script {
           // Clean up old containers if they exist
@@ -32,8 +54,7 @@ pipeline {
         }
       }
     }
-
-    stage('Run Containers') {
+       stage('Run Containers') {
       steps {
         script {
           // Start containers exposing required ports
@@ -42,14 +63,18 @@ pipeline {
         }
       }
     }
-  }
+    }
 
-  post {
-    success {
-      echo '✅ Docker images built and deployed successfully — Jenkins handles Docker build only.'
+    post {
+        success {
+            echo '✅ Docker images built and deployed successfully!'
+        }
+        failure {
+            echo '❌ Pipeline failed. Check console output for details and error messages.'
+            // You can add more advanced notifications here (e.g., email, Slack integration).
+        }
+        always {
+            echo 'Pipeline finished.'
+        }
     }
-    failure {
-      echo '❌ Pipeline failed. Check logs.'
-    }
-  }
 }
