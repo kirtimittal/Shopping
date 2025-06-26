@@ -53,9 +53,9 @@ pipeline {
           bat "npx pm2 start node --name mern-backend --cwd %CD% -- app.js"
         }
          bat "npx pm2 start cmd.exe --name mern-frontend --cwd %CD%\\${FRONTEND_DIR}\\build -- /c serve -s . -l 3000"
-  }
-  }
-  }
+   }
+     }
+    }
 
   post {
     success { echo '✅ Build & Deploy successful!' }
