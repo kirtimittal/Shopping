@@ -1,18 +1,20 @@
-# Use a lightweight web server for static files
-FROM node:20 
+# Stage 1: Build the React/Frontend Application
+FROM node:20 AS builder
 
 WORKDIR /shopping
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build
+RUN npm run build # This creates the /shopping/build directory with static assets
 
-#FROM nginx:alpine
-# Copy built files from builder
-#COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+# Stage 2: Serve the built static files with Nginx
+FROM nginx:alpine
+# Copy built files from the 'builder' stage to Nginx's default web root
+# Ensure the source path /shopping/build matches where npm run build outputs
+COPY --from=builder /shopping/build /usr/share/nginx/html
 
-# Expose default Nginx port
-EXPOSE 3010
+# Expose the port Nginx will listen on for static content
+EXPOSE 3010 # This must match FRONTEND_APP_PORT in Jenkinsfile
 
 # Start Nginx in foreground
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]
