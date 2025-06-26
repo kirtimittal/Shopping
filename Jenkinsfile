@@ -33,31 +33,7 @@ pipeline {
         }
       }
     }
-    //  stage('Serve Frontend') {
-    //   steps {
-    //     dir(FRONTEND_DIR) {
-    //       // Launch serve in background
-    //       bat 'start "Front" /B cmd /c "npx serve -s build -l 3002"'
-    //     }
-    //   }
-    // }
-    // stage('Start Backend') {
-    //   steps {
-    //     dir(BACKEND_DIR) {
-    //       // Launch backend in background
-    //       bat 'start "Back" /B cmd /c "node app.js"'
-    //     }
-    //   }
-    // }
-// stage('Prepare PM2 Home') {
-//       steps {
-//         // Remove old PM2 state and recreate directories
-//         bat 'if exist "%PM2_HOME%" rd /s /q "%PM2_HOME%"'
-//         //bat 'mkdir "%PM2_HOME%"'
-//         bat 'mkdir "%PM2_HOME%\\logs1"'
-//       }
-//     }
-    
+  
     stage('Deploy with PM2') {
       steps {
         // Clean PM2 state directory
@@ -71,15 +47,7 @@ pipeline {
         dir(BACKEND_DIR) {
           bat "npx pm2 start node --name mern-backend --cwd %CD% -- app.js"
         }
-       //bat "npx pm2 start serve --name mern-frontend --cwd %CD%\\${FRONTEND_DIR}\\build -- -s . -l 3000"
-        //bat "cmd.exe /c npx pm2 start npx --name mern-frontend --cwd %CD%\\${FRONTEND_DIR}\\build -- serve -s . -l 3000"
          bat "npx pm2 start cmd.exe --name mern-frontend --cwd %CD%\\${FRONTEND_DIR}\\build -- /c serve -s . -l 3000"
-        // Start frontend service using npx to invoke serve
-        // dir(FRONTEND_DIR) {
-        //   bat "npx pm2 start serve --name mern-frontend --cwd %CD%\\build -- -s . -l 3000"
-        //     //bat 'npx pm2 start npm --name mern-frontend -- cwd %CD% -- start'
-          
-        // }
   }
   }
   }
