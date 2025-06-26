@@ -2,13 +2,7 @@ pipeline {
     // Agent definition: Run the entire pipeline inside a Docker container
     // This 'docker:latest' container will serve as our Jenkins agent.
     // It's assumed to have the Docker CLI installed and access to the host's Docker daemon.
-    agent {
-        dockerContainer {
-            image 'docker:latest' // Use a Docker image with Docker CLI pre-installed
-            
-            remoteFs '/home/jenkins/workspace'
-        }
-    }
+    agent any
 
     // Tools definition: Ensure Node.js is available if needed by the Dockerfiles
     // (though Dockerfiles generally manage their own Node.js installation within the image)
