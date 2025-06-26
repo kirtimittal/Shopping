@@ -14,7 +14,7 @@ FROM nginx:alpine
 COPY --from=builder /shopping/build /usr/share/nginx/html
 
 # Expose the port Nginx will listen on for static content
-EXPOSE 3010 # This must match FRONTEND_APP_PORT in Jenkinsfile
+EXPOSE 3010 
 
 # Start Nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]
