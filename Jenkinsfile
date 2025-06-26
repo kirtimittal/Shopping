@@ -9,10 +9,10 @@ pipeline {
     PM2_HOME = "${WORKSPACE}\\.pm2"
   }
 
-  triggers {
-    // Trigger build on every push to Git repository via webhook
-    githubPush()
-}
+//   triggers {
+//     // Trigger build on every push to Git repository via webhook
+//     githubPush()
+// }
 
   stages {
     stage('Install PM2 & Serve') {
