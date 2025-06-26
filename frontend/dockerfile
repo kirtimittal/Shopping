@@ -1,18 +1,18 @@
 # Use a lightweight web server for static files
-FROM node:20-alpine AS builder
+FROM node:20 
 
-WORKDIR /usr/src/app
+WORKDIR /shopping
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
 
-FROM nginx:alpine
+//FROM nginx:alpine
 # Copy built files from builder
-COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+//COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
 # Expose default Nginx port
 EXPOSE 3010
 
 # Start Nginx in foreground
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]
